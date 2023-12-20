@@ -1,0 +1,30 @@
+default_stages: [pre-commit]
+default_install_hook_types: [pre-commit]
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.4.0
+      hooks:
+          - id: check-merge-conflict
+          - id: check-case-conflict
+          - id: check-toml
+          - id: check-yaml
+          - id: trailing-whitespace
+          - id: end-of-file-fixer
+          - id: mixed-line-ending
+          - id: detect-private-key
+
+    - repo: https://github.com/pre-commit/mirrors-prettier
+      rev: v3.0.3
+      hooks:
+          - id: prettier
+            files: ^frontend/src/.*\.(js|js|ts|tsx|css|html|json)$
+            args: ['--config=.prettierrc.json', '--ignore-path=.prettierignore']
+
+    - repo: https://github.com/pre-commit/mirrors-eslint
+      rev: v8.49.0
+      hooks:
+          - id: eslint
+            name: run eslint
+            files: ^frontend/src/.*\.(js|js|ts|tsx|html|json)$
+            types: [file]
+            args: ['--config=.eslintrc.cjs', '--ignore-path=.eslintignore']
