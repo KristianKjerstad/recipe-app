@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+    backend:
+        build: ./backend
+        image: recipe-app-api
+        # restart: unless-stopped
+        volumes:
+            - ./backend/src:/app
+        env_file:
+            - .env
+        # depends_on:
+        #     - db
+        ports:
+            - '5000:5000'
+    # db:
+    #   image: postgres:14-alpine
+    #   ports:
+    #     - 5432:5432
+    #   volumes:
+    #     - postgres_data:/var/lib/postgresql/data
+    #   environment:
+    #     - POSTGRES_PASSWORD=development
+    #     - POSTGRES_USER=postgres
+    #     - POSTGRES_DB=vcc_db
+# volumes:
+#   postgres_data:
