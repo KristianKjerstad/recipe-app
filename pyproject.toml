@@ -1,0 +1,53 @@
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = true
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = false
+ignore-nested-functions = false
+ignore-nested-classes = true
+ignore-setters = false
+fail-under = 0
+exclude = ["setup.py", "docs", "build"]
+ignore-regex = ["^get$", "^mock_.*", ".*BaseClass.*"]
+# possible values: 0 (minimal output), 1 (-v), 2 (-vv)
+verbose = 0
+quiet = false
+whitelist-regex = []
+color = true
+omit-covered-files = false
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.codespell]
+skip = "*.lock,*.cjs"
+ignore-words-list = "ignored-word"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | gen
+)/
+'''
+
+[tool.isort]
+profile = "black"
+
+# Note: settings for flake8 is defined in the .flake8 file due to no native support in flake8 for a pyproject.toml file
+
+[tool.mypy]
+python_version=3.11
+ignore_missing_imports = true
+warn_return_any = false
+warn_unused_configs = true
+namespace_packages = true
+explicit_package_bases = true
+no_implicit_optional = false

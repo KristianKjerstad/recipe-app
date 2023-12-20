@@ -4,6 +4,8 @@ repos:
     - repo: https://github.com/pre-commit/pre-commit-hooks
       rev: v4.4.0
       hooks:
+          - id: check-ast
+            language_version: python3.11
           - id: check-merge-conflict
           - id: check-case-conflict
           - id: check-toml
@@ -12,6 +14,71 @@ repos:
           - id: end-of-file-fixer
           - id: mixed-line-ending
           - id: detect-private-key
+
+    - repo: https://github.com/hadialqattan/pycln
+      rev: v2.2.2
+      hooks:
+          - id: pycln
+            name: Find and remove unused import statements.
+            args: [./backend/src, --all]
+            pass_filenames: false
+
+    - repo: https://github.com/ambv/black
+      rev: 23.9.1
+      hooks:
+          - id: black
+            name: Code formatting
+            language_version: python3.11
+            args: [--config=pyproject.toml]
+
+    - repo: https://github.com/pycqa/isort
+      rev: 5.12.0
+      hooks:
+          - id: isort
+            name: Sort imports
+            files: /.*\.py$
+
+    - repo: https://github.com/PyCQA/bandit
+      rev: 1.7.5
+      hooks:
+          - id: bandit
+            name: Security checks for python packages
+            args: [-l, --recursive, -x, tests]
+            files: /.*\.py$
+
+    - repo: https://github.com/econchick/interrogate
+      rev: 1.5.0
+      hooks:
+          - id: interrogate
+            name: Check python docstring coverage
+            language_version: python3.11
+            types: [python]
+            args: [--config=pyproject.toml]
+
+    - repo: https://github.com/pre-commit/mirrors-mypy
+      rev: v1.5.1
+      hooks:
+          - id: mypy
+            name: Python type checking
+            args: [--config-file=pyproject.toml]
+            # exclude: (src/vcc_api/settings.py|migrations/)
+            additional_dependencies:
+                - types-cachetools
+                - pytest
+                - types-requests
+                - python-dotenv
+
+    - repo: https://github.com/codespell-project/codespell
+      rev: v2.2.5
+      hooks:
+          - id: codespell
+            name: codespell
+            description: Checks for common misspellings in text files.
+            entry: codespell --toml=pyproject.toml
+            language: python
+            types: [text]
+            additional_dependencies:
+                - tomli
 
     - repo: https://github.com/pre-commit/mirrors-prettier
       rev: v3.0.3
