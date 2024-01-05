@@ -6,7 +6,7 @@ services:
         image: recipe-app-api
         # restart: unless-stopped
         volumes:
-            - ./backend/src:/app
+            - ./backend/src:/app/src
         env_file:
             - .env
         # depends_on:
