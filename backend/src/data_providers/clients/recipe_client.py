@@ -30,8 +30,12 @@ class RecipeClient(ClientInterface[Recipe, str]):
         # Insert the ingredients and create associations
         for ingredient_id in recipe.ingredient_ids:
             # TODO check if ingredient exist
-
-            # self.session.execute(self.ingredient_table.insert().values(ingredient_data))
+            get_ingredient_statement = self.db_client.ingredient_table.select().where(
+                self.db_client.ingredient_table.c.id == ingredient_id
+            )
+            result = self.session.execute(get_ingredient_statement).fetchone()
+            if result == None:
+                raise Exception(f"Could not create recipe: Ingredient with id {ingredient_id} does not exist.")
             self.session.execute(
                 self.db_client.recipe_ingredient_association.insert().values(
                     recipe_id=recipe.id, ingredient_id=ingredient_id

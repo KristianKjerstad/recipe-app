@@ -71,3 +71,16 @@ def test_create_recipe_with_many_ingredients():
     assert (
         len(recipe_from_db.ingredient_ids) == 2 and recipe_from_db.ingredient_ids[0] != recipe_from_db.ingredient_ids[1]
     )
+
+
+def test_create_recipe_with_non_existing_ingredient():
+    new_recipe = Recipe(
+        id=uuid4(),
+        name="Vodka redbull",
+        type=RecipeTypes.COCKTAIL,
+        category="drink",
+        recipe_steps=["mix", "drink"],
+        ingredient_ids=[uuid4()],
+    )
+    with pytest.raises(Exception):
+        recipe_client.create(new_recipe)
