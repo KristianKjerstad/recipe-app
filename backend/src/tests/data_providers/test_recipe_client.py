@@ -1,19 +1,10 @@
 from uuid import uuid4
 
 import pytest
-from data_providers.clients.ingredient_client import IngredientClient
-from data_providers.clients.recipe_client import RecipeClient
+from data_providers.clients.ingredient_client import ingredient_client
 from models.ingredient import Ingredient
 from models.recipe import Recipe, RecipeTypes
-
-# def test_create():
-#     new_recipe = Recipe(id=uuid4(), name="Vodka redbull", type=RecipeTypes.COCKTAIL, category="drink", recipe_steps=["mix", "drink"], ingredients=[])
-#     recipe_client = RecipeClient()
-#     recipe_added = recipe_client.create(new_recipe)
-
-
-recipe_client = RecipeClient()
-ingredient_client = IngredientClient()
+from resources.recipe.repositories.recipe_client import recipe_client
 
 
 def create_example_recipe():

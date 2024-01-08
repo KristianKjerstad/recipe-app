@@ -1,21 +1,15 @@
-from config import config
 from data_providers.client_interface import ClientInterface
-from data_providers.clients.postgresql_client import postgresqlClient
 from models import (  # required to import these before calling create_all
     ingredient,
     recipe,
 )
 from models.ingredient import Ingredient
-from sqlalchemy import UUID, create_engine
+from sqlalchemy import UUID
 from sqlalchemy.orm import sessionmaker
-
-connection_string = f"postgresql://{config.POSTGRES_USER}:{config.POSTGRES_PASSWORD}@{config.POSTGRES_HOST}:{config.POSTGRES_PORT}/{config.POSTGRES_DATABASE}"
-
-postgresql_engine = create_engine(connection_string, echo=True)
 
 
 class IngredientClient(ClientInterface[Ingredient, str]):
-    def __init__(self, db_client=postgresqlClient()):
+    def __init__(self, db_client):
         self.db_client = db_client
         self.ingredient_table = db_client.ingredient_table
         Session = sessionmaker(bind=db_client.db_engine)

@@ -4,11 +4,11 @@ services:
     backend:
         build: ./backend
         image: recipe-app-api
-        # restart: unless-stopped
+        restart: unless-stopped
         volumes:
             - ./backend/src:/app/src
         env_file:
-            - ./backend/local.env
+            - ./backend/local.docker.env
         # depends_on:
         #     - db
         ports:

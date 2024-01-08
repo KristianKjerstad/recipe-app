@@ -1,18 +1,14 @@
-from config import config
+from typing import List
+
 from data_providers.client_interface import ClientInterface
-from data_providers.clients.postgresql_client import postgresqlClient
 from models import recipe  # required to import these before calling create_all
 from models.recipe import Recipe
-from sqlalchemy import UUID, create_engine
+from sqlalchemy import UUID
 from sqlalchemy.orm import sessionmaker
-
-connection_string = f"postgresql://{config.POSTGRES_USER}:{config.POSTGRES_PASSWORD}@{config.POSTGRES_HOST}:{config.POSTGRES_PORT}/{config.POSTGRES_DATABASE}"
-
-postgresql_engine = create_engine(connection_string, echo=True)
 
 
 class RecipeClient(ClientInterface[Recipe, str]):
-    def __init__(self, db_client=postgresqlClient()):
+    def __init__(self, db_client):
         self.db_client = db_client
         self.recipe_table = db_client.recipe_table
         Session = sessionmaker(bind=db_client.db_engine)
@@ -42,7 +38,6 @@ class RecipeClient(ClientInterface[Recipe, str]):
                 )
             )
 
-        # self.session.execute(insert_statement)
         self.session.commit()
         self.session.close()
         return recipe
@@ -51,6 +46,11 @@ class RecipeClient(ClientInterface[Recipe, str]):
         delete_statement = self.recipe_table.delete().where(self.recipe_table.c.id == str(id))
         self.session.execute(delete_statement)
         self.session.commit()
+
+    def get_all(self) -> List[Recipe]:
+        select_statement = self.recipe_table.select()
+        results = self.session.execute(select_statement).fetchall()
+        return [Recipe(**result._mapping) for result in results]
 
     def get(self, id: UUID) -> Recipe:
         select_statement = self.recipe_table.select().where(self.recipe_table.c.id == id)

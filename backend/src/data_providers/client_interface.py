@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Generic, TypeVar
+from typing import Generic, List, TypeVar
 
 # Type definition for Model
 Model = TypeVar("Model")
@@ -15,6 +15,10 @@ class ClientInterface(Generic[Model, Id]):
 
     @abstractmethod
     def get(self, id: Id) -> Model:
+        pass
+
+    @abstractmethod
+    def get_all(self) -> List[Model]:
         pass
 
     @abstractmethod

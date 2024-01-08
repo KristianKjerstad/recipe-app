@@ -1,20 +1,18 @@
-from typing import Union
-
 import uvicorn
 from config import config
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
+from resources.recipe import recipe_resource
 
 app = FastAPI()
+
+public_routes = APIRouter()
+public_routes.include_router(recipe_resource.router)
+app.include_router(public_routes)
 
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
 
 
 if __name__ == "__main__":

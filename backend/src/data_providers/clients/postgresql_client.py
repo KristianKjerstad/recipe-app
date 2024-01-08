@@ -18,7 +18,7 @@ connection_string = f"postgresql://{config.POSTGRES_USER}:{config.POSTGRES_PASSW
 postgresql_engine = create_engine(connection_string, echo=True)
 
 
-class postgresqlClient:
+class PostgresqlClient:
     def __init__(self, db_engine=postgresql_engine):
         self.db_engine = db_engine
         self.db_connection = db_engine.connect()

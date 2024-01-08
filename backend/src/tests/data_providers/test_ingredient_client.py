@@ -1,13 +1,10 @@
 from uuid import uuid4
 
 import pytest
-from data_providers.clients.ingredient_client import IngredientClient
-from data_providers.clients.recipe_client import RecipeClient
+from data_providers.clients.ingredient_client import ingredient_client
 from models.ingredient import Ingredient
+from resources.recipe.repositories.recipe_client import recipe_client
 from tests.data_providers.test_recipe_client import create_example_recipe
-
-recipe_client = RecipeClient()
-ingredient_client = IngredientClient()
 
 
 def create_example_ingredient():
