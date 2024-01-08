@@ -1,11 +1,21 @@
-from models.ingredient import Ingredient
+from enum import Enum
+from typing import List
+from uuid import UUID
+
 from pydantic import BaseModel
 
 
+class RecipeTypes(Enum):
+    COCKTAIL = "cocktail"
+    appetizer = "appteizer"
+    MAIN_COURSE = "main_course"
+    DESSERT = "dessert"
+
+
 class Recipe(BaseModel):
-    id: str
-    type: str
+    id: UUID
+    type: RecipeTypes
     name: str
     category: str
-    ingredients: list[Ingredient]
-    recipe_steps: list[str]
+    ingredient_ids: List[UUID] = []
+    recipe_steps: List[str]

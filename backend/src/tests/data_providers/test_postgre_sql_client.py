@@ -1,8 +1,12 @@
 # import pytest
-from data_providers.clients.postgresql_client import postgresql_engine
+from data_providers.clients.ingredient_client import postgresql_engine
+from data_providers.clients.postgresql_client import postgresqlClient
 
 
 def test_postgres_connection():
     with postgresql_engine.connect() as connection_str:
         print("Successfully connected to the PostgreSQL database")
-    pass
+
+
+def test_initialize_postgresql_client():
+    postgresqlClient()

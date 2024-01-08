@@ -1,7 +1,9 @@
+from uuid import UUID
+
 from pydantic import BaseModel
 
 
 class Ingredient(BaseModel):
-    id: str
+    id: UUID
     name: str
     category: str
