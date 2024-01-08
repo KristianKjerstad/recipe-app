@@ -8,7 +8,7 @@ services:
         volumes:
             - ./backend/src:/app/src
         env_file:
-            - .env
+            - ./backend/local.env
         # depends_on:
         #     - db
         ports:
@@ -21,15 +21,15 @@ services:
         ports:
             - '5173:5173'
 
-    # db:
-    #   image: postgres:14-alpine
-    #   ports:
-    #     - 5432:5432
-    #   volumes:
-    #     - postgres_data:/var/lib/postgresql/data
-    #   environment:
-    #     - POSTGRES_PASSWORD=development
-    #     - POSTGRES_USER=postgres
-    #     - POSTGRES_DB=vcc_db
-# volumes:
-#   postgres_data:
+    db:
+        image: postgres:14-alpine
+        ports:
+            - 5432:5432
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_PASSWORD=development
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=dev_db
+volumes:
+    postgres_data:

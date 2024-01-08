@@ -1,7 +1,7 @@
-from os import getenv
 from typing import Union
 
 import uvicorn
+from config import config
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -18,6 +18,4 @@ def read_item(item_id: int, q: Union[str, None] = None):
 
 
 if __name__ == "__main__":
-    port = int(getenv("PORT", 5000))
-    host = getenv("HOST", "0.0.0.0")  # nosec
-    uvicorn.run("main:app", host=host, port=port, reload=True)
+    uvicorn.run("main:app", host=config.HOST, port=config.PORT, reload=True)

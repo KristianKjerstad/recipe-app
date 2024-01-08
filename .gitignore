@@ -26,4 +26,5 @@ dist-ssr
 
 .venv
 .env
+local.env
 __pycache__
