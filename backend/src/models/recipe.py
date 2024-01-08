@@ -12,10 +12,15 @@ class RecipeTypes(Enum):
     DESSERT = "dessert"
 
 
+class RecipeCategories(Enum):
+    APPETIZER = "appetizer"
+    COCKTAIL = "cocktail"
+
+
 class Recipe(BaseModel):
     id: UUID
     type: RecipeTypes
     name: str
-    category: str
+    category: RecipeCategories
     ingredient_ids: List[UUID] = []
     recipe_steps: List[str]

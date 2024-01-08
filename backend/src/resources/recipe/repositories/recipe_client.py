@@ -19,7 +19,7 @@ class RecipeClient(ClientInterface[Recipe, str]):
             id=recipe.id,
             type=recipe.type.value,
             name=recipe.name,
-            category=recipe.category,
+            category=recipe.category.value,
             recipe_steps=recipe.recipe_steps,
         )
         self.session.execute(insert_statement)

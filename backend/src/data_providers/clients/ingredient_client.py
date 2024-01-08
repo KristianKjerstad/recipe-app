@@ -17,7 +17,7 @@ class IngredientClient(ClientInterface[Ingredient, str]):
 
     def create(self, ingredient: Ingredient):
         insert_statement = self.ingredient_table.insert().values(
-            id=ingredient.id, name=ingredient.name, category=ingredient.category
+            id=ingredient.id, name=ingredient.name, category=ingredient.category.value
         )
         self.session.execute(insert_statement)
         self.session.commit()

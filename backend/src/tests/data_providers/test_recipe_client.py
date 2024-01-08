@@ -1,10 +1,15 @@
 from uuid import uuid4
 
 import pytest
-from data_providers.clients.ingredient_client import ingredient_client
-from models.ingredient import Ingredient
-from models.recipe import Recipe, RecipeTypes
-from resources.recipe.repositories.recipe_client import recipe_client
+from data_providers.clients.ingredient_client import IngredientClient
+from data_providers.clients.postgresql_client import PostgresqlClient
+from models.ingredient import Ingredient, IngredientCategories
+from models.recipe import Recipe, RecipeCategories, RecipeTypes
+from resources.recipe.repositories.recipe_client import RecipeClient
+
+db_client = PostgresqlClient()
+ingredient_client = IngredientClient(db_client)
+recipe_client = RecipeClient(db_client)
 
 
 def create_example_recipe():
@@ -12,7 +17,7 @@ def create_example_recipe():
         id=uuid4(),
         name="Vodka redbull",
         type=RecipeTypes.COCKTAIL,
-        category="drink",
+        category=RecipeCategories.COCKTAIL,
         recipe_steps=["mix", "drink"],
         ingredient_ids=[],
     )
@@ -44,15 +49,15 @@ def test_get():
 
 
 def test_create_recipe_with_many_ingredients():
-    vodka = Ingredient(id=uuid4(), name="Vodka", category="??")
-    red_bull = Ingredient(id=uuid4(), name="Red bull", category="??")
+    vodka = Ingredient(id=uuid4(), name="Vodka", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
+    red_bull = Ingredient(id=uuid4(), name="Red bull", category=IngredientCategories.SOFT_DRINKS)
     ingredient_client.create(vodka)
     ingredient_client.create(red_bull)
     new_recipe = Recipe(
         id=uuid4(),
         name="Vodka redbull",
         type=RecipeTypes.COCKTAIL,
-        category="drink",
+        category=RecipeCategories.COCKTAIL,
         recipe_steps=["mix", "drink"],
         ingredient_ids=[vodka.id, red_bull.id],
     )
@@ -69,7 +74,7 @@ def test_create_recipe_with_non_existing_ingredient():
         id=uuid4(),
         name="Vodka redbull",
         type=RecipeTypes.COCKTAIL,
-        category="drink",
+        category=RecipeCategories.COCKTAIL,
         recipe_steps=["mix", "drink"],
         ingredient_ids=[uuid4()],
     )

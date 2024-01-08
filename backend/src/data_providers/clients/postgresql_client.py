@@ -29,7 +29,7 @@ class PostgresqlClient:
             metadata,
             Column("id", UUID(as_uuid=True), default=uuid.uuid4, primary_key=True, nullable=False),
             Column("type", String, nullable=False),
-            Column("name", String, nullable=False),
+            Column("name", String, nullable=False, unique=True),
             Column("category", String, nullable=False),
             Column("recipe_steps", JSON),
         )
@@ -38,7 +38,7 @@ class PostgresqlClient:
             "ingredient",
             metadata,
             Column("id", UUID(as_uuid=True), default=uuid.uuid4, primary_key=True, nullable=False),
-            Column("name", String, nullable=False),
+            Column("name", String, nullable=False, unique=True),
             Column("category", String, nullable=False),
         )
 

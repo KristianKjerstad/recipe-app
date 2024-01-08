@@ -1,6 +1,4 @@
-# import pytest
-from data_providers.clients.ingredient_client import postgresql_engine
-from data_providers.clients.postgresql_client import PostgresqlClient
+from data_providers.clients.postgresql_client import PostgresqlClient, postgresql_engine
 
 
 def test_postgres_connection():
