@@ -1,0 +1,28 @@
+{
+  "terminal.integrated.cwd": "${workspaceRoot}",
+  "python.terminal.executeInFileDir": true,
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "black-formatter.args": [
+    "--config",
+    "backend/pyproject.toml"
+  ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "typescript.validate.enable": true,
+  "python.autoComplete.extraPaths": [
+    "./backend/src"
+  ],
+  "python.formatting.provider": "none",
+  // "python.pythonPath": "venv/bin/python",
+  // "python.linting.pylintPath": "venv/bin/pylint",
+  "python.analysis.extraPaths": [
+    "./backend/src"
+  ]
+}

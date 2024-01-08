@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: FastAPI",
+      "type": "python",
+      "request": "launch",
+      "module": "uvicorn",
+      "cwd": "${workspaceRoot}/backend/src",
+      "envFile": "${workspaceRoot}/backend/local.env",
+      "args": [
+        "main:app",
+        "--reload",
+        "--port",
+        "5000"
+      ],
+      "jinja": true,
+      "justMyCode": false
+    },
+    {
+      "name": "Pytest",
+      "type": "python",
+      "request": "launch",
+      // "program": "${workspaceRoot}/backend/.venv/bin/python",
+      "cwd": "${workspaceRoot}/backend/src",
+      "module": "pytest",
+      "envFile": "${workspaceRoot}/backend/local.env",
+      "args": [
+        "-sv",
+      ],
+      "justMyCode": false
+    },
+  ]
+}
