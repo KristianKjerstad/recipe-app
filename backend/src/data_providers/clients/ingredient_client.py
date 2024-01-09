@@ -1,3 +1,5 @@
+from typing import List
+
 from data_providers.client_interface import ClientInterface
 from models import (  # required to import these before calling create_all
     ingredient,
@@ -33,6 +35,11 @@ class IngredientClient(ClientInterface[Ingredient, str]):
         select_statement = self.ingredient_table.select().where(self.ingredient_table.c.id == id)
         result = self.session.execute(select_statement).fetchone()
         return Ingredient(**result._mapping)
+
+    def get_all(self) -> List[Ingredient]:
+        select_statement = self.ingredient_table.select()
+        results = self.session.execute(select_statement).fetchall()
+        return [Ingredient(**result._mapping) for result in results]
 
     def wipe_db(self):
         delete_statement = self.ingredient_table.delete()
