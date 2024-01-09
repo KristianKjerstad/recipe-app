@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { DrinksRecipesPage } from './pages/DrinksRecipesPage'
 import { ErrorPage } from './pages/ErrorPage'
+import { FoodRecipesPage } from './pages/FoodRecipesPage'
 import { HomePage } from './pages/homePage'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/drinks" element={<DrinksRecipesPage />} />
+            <Route path="/food" element={<FoodRecipesPage />} />
             <Route path="*" element={<ErrorPage />} />
             {/* <Route path="/logout" element={<LogoutPage />} />
             <Route path="/" element={<AuthenticatedLayout />}>
