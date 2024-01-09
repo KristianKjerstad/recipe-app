@@ -1,13 +1,16 @@
 import uvicorn
+from authentication.authentication import auth_with_jwt
 from config import config
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter, FastAPI, Security
 from resources.recipe import recipe_resource
 
 app = FastAPI()
 
 public_routes = APIRouter()
-public_routes.include_router(recipe_resource.router)
+authenticated_routes = APIRouter()
+authenticated_routes.include_router(recipe_resource.router)
 app.include_router(public_routes)
+app.include_router(authenticated_routes, dependencies=[Security(auth_with_jwt)])
 
 
 @app.get("/")
