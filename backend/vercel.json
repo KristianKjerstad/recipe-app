@@ -2,5 +2,8 @@
     "version": 2,
     "public": true,
     "builds": [{ "src": "src/main.py", "use": "@vercel/python" }],
-    "routes": [{ "src": "/(.*)", "dest": "src/main.py" }]
+    "routes": [
+        { "src": "/src/(.*)", "dest": "src/$1" },
+        { "src": "/(.*)", "dest": "src/main.py" }
+    ]
 }
