@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button'
 import { createTheme, PaletteColorOptions } from '@mui/material/styles'
 
 declare module '@mui/material/styles' {
@@ -23,9 +22,12 @@ declare module '@mui/material/Button' {
 
 const { palette } = createTheme()
 const { augmentColor } = palette
-const createColor = (mainColor) => augmentColor({ color: { main: mainColor } })
+const createColor = (mainColor: any) =>
+    augmentColor({ color: { main: mainColor } })
 export const theme = createTheme({
     palette: {
+        // eslint-disable-next-line
+        //@ts-ignore
         orange: createColor('#D35100'),
         apple: createColor('#5DBA40'),
         steelBlue: createColor('#5C76B7'),

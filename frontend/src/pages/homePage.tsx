@@ -12,10 +12,11 @@ export const HomePage = () => {
 
     return (
         <div>
-            <h1>Recipe Finder</h1>
-            <h3>Find your next recipe based on your available ingredients</h3>
-            <div>
+            <h1 className="text-4xl pt-8 pb-8">Recipe Finder</h1>
+            <p>Find your next recipe based on your available ingredients</p>
+            <div className="flex flex-row justify-center space-x-16 pt-8 ">
                 <Button
+                    size="large"
                     variant="contained"
                     color="orange"
                     startIcon={<LocalDiningOutlined />}
@@ -26,6 +27,7 @@ export const HomePage = () => {
                     Food
                 </Button>
                 <Button
+                    size="large"
                     variant="contained"
                     color="orange"
                     onClick={() => {
