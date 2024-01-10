@@ -48,9 +48,13 @@ class RecipeClient(ClientInterface[Recipe, str]):
         self.session.commit()
 
     def get_all(self) -> List[Recipe]:
-        select_statement = self.recipe_table.select()
-        results = self.session.execute(select_statement).fetchall()
-        return [Recipe(**result._mapping) for result in results]
+        select_all = self.recipe_table.select()
+        raw_recipes = self.session.execute(select_all).fetchall()
+        recipes: List[Recipe] = []
+        for recipe in raw_recipes:
+            recipes.append(self.get(recipe[0]))
+
+        return recipes
 
     def get(self, id: UUID) -> Recipe:
         select_statement = self.recipe_table.select().where(self.recipe_table.c.id == id)

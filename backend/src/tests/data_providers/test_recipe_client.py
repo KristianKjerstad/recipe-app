@@ -48,6 +48,11 @@ def test_get():
     assert result.id == new_recipe_id
 
 
+def test_get_all():
+    new_recipe_id = create_example_recipe()
+    result = recipe_client.get_all()
+
+
 def test_create_recipe_with_many_ingredients():
     vodka = Ingredient(id=uuid4(), name="Vodka", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
     red_bull = Ingredient(id=uuid4(), name="Red bull", category=IngredientCategories.SOFT_DRINKS)
