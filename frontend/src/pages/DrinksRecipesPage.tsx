@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { FilterAltOutlined, SearchOutlined } from '@mui/icons-material'
 import { Button } from '@mui/material'
@@ -97,7 +97,7 @@ export const DrinksRecipesPage = () => {
     return (
         <div className="flex flex-col justify-center items-center">
             <h3>Drinks</h3>
-            <div className="text-left pt-6 max-w-full md:w-2/4 lg:w-2/4">
+            <div className="text-left pt-6 max-w-full sm: w-96 md:w-2/4 lg:w-2/4">
                 <p className="pb-2">Select your ingredients</p>
                 <Select
                     className="my-react-select-container"
@@ -112,6 +112,7 @@ export const DrinksRecipesPage = () => {
                     hideSelectedOptions={true}
                 />
             </div>
+
             <div className="flex flex-row justify-center space-x-16 pt-8 ">
                 <Button
                     size="large"
@@ -137,12 +138,12 @@ export const DrinksRecipesPage = () => {
                     Filter
                 </Button>
             </div>
+            {isNoRecipeResults && <p className="pt-12">No results...</p>}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 pt-24 pb-48">
                 {filteredRecipes.map((recipe) => {
                     return <RecipeCard recipe={recipe} />
                 })}
             </div>
-            {isNoRecipeResults && <p className="pt-12">No results...</p>}
         </div>
     )
 }

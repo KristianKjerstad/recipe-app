@@ -16,7 +16,7 @@ export const CocktailRecipePage = () => {
         getRecipe(recipeId ?? '').then((recipeResponse) => {
             setRecipe(recipeResponse.data)
         })
-    }, [])
+    }, [getRecipe])
     if (!recipe) {
         return <div>Loading...</div>
     }
