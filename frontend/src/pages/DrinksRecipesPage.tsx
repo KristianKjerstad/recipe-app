@@ -9,31 +9,32 @@ import { useRecipeAPI } from '../hooks/useRecipeAPI'
 
 type Options = {
     label: string
-    options: { label: string; value: string }[]
+    value: string
 }
 
-const sampleOptions: Options[] = [
-    {
-        label: 'Finland',
-        options: [
-            {
-                label: 'Great Hotel',
-                value: 'Great Hotel',
-            },
-        ],
-    },
-    {
-        label: 'Sweden',
-        options: [{ label: 'Stockholm', value: 'Stockholm' }],
-    },
-]
+// TODO it is possible to divide options into categories like country
+// const sampleOptions: Options[] = [
+//     {
+//         label: 'Finland',
+//         options: [
+//             {
+//                 label: 'Great Hotel',
+//                 value: 'Great Hotel',
+//             },
+//         ],
+//     },
+//     {
+//         label: 'Sweden',
+//         options: [{ label: 'Stockholm', value: 'Stockholm' }],
+//     },
+// ]
 
 const formatIngredients = (rawIngredients: Ingredient[]) => {
     const newIngredients: MultiValue<Options> = rawIngredients.map(
         (ingredient) => {
             return {
-                label: 'something',
-                options: [{ label: ingredient.name, value: ingredient.id }],
+                label: ingredient.name,
+                value: ingredient.id,
             }
         }
     )
