@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import makeAnimated from 'react-select/animated'
-const animatedComponents = makeAnimated()
 
+import { FilterAltOutlined, SearchOutlined } from '@mui/icons-material'
+import { Button } from '@mui/material'
 import Select, { MultiValue } from 'react-select'
 import { Ingredient, Recipe } from '../api/generated'
 import { useIngredientAPI } from '../hooks/useIngredientAPI'
 import { useRecipeAPI } from '../hooks/useRecipeAPI'
+import { filterRecipes } from '../utils/filtering'
 
 type Options = {
     label: string
@@ -48,10 +49,10 @@ export const DrinksRecipesPage = () => {
 
     const handleSelectedIngredientChange = (value: MultiValue<Options>) => {
         setSelectedIngredients(value)
-        console.log(value)
     }
 
     const [allRecipes, setAllRecipes] = useState<Recipe[]>([])
+    const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
     const [allIngredients, setAllIngredients] = useState<Ingredient[]>([])
     const { getAllRecipes } = useRecipeAPI()
     const { getAllIngredients } = useIngredientAPI()
@@ -67,6 +68,20 @@ export const DrinksRecipesPage = () => {
             setAllIngredients(ingredientsResponse.data)
         })
     }, [getAllIngredients])
+
+    const handleSearch = () => {
+        // get recipes with selected ingredients@
+        const selectedIngredientIds: string[] = selectedIngredients.map(
+            (ingredient) => {
+                return ingredient.value
+            }
+        )
+        const newFilteredRecipes = filterRecipes({
+            allRecipes: allRecipes,
+            selectedIngredientIds: selectedIngredientIds,
+        })
+        setFilteredRecipes(newFilteredRecipes)
+    }
 
     if (allIngredients.length === 0) {
         return <div>Loading....</div>
@@ -89,6 +104,35 @@ export const DrinksRecipesPage = () => {
                     hideSelectedOptions={true}
                 />
             </div>
+            <div className="flex flex-row justify-center space-x-16 pt-8 ">
+                <Button
+                    size="large"
+                    variant="contained"
+                    color="orange"
+                    startIcon={<SearchOutlined />}
+                    onClick={() => {
+                        handleSearch()
+                    }}
+                >
+                    Search
+                </Button>
+                <Button
+                    size="large"
+                    variant="contained"
+                    color="orange"
+                    // onClick={() => {
+                    //     handleNavigation('drinks')
+                    // }}
+                    disabled
+                    startIcon={<FilterAltOutlined />}
+                >
+                    Filter
+                </Button>
+            </div>
+
+            {filteredRecipes.map((recipe) => {
+                return <p>{recipe.name}</p>
+            })}
         </div>
     )
 }

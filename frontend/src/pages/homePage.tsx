@@ -17,6 +17,7 @@ export const HomePage = () => {
             <div className="flex flex-row justify-center space-x-16 pt-8 ">
                 <Button
                     size="large"
+                    disabled
                     variant="contained"
                     color="orange"
                     startIcon={<LocalDiningOutlined />}
