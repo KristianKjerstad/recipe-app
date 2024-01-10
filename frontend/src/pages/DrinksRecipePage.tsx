@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Recipe } from '../api/generated'
 import { useRecipeAPI } from '../hooks/useRecipeAPI'
@@ -6,7 +6,7 @@ import { useRecipeAPI } from '../hooks/useRecipeAPI'
 const stockImageUrl =
     'https://media.istockphoto.com/id/490361148/photo/still-life-pour-or-whiskey-in-to-glass.jpg?s=612x612&w=0&k=20&c=UytyI5Bn9m73gO5grR3jdJMHTO_-GWqLyqlVobxiIME='
 
-export const CocktailRecipePage = () => {
+export const DrinksRecipePage = () => {
     const { id: recipeId } = useParams()
 
     const [recipe, setRecipe] = useState<Recipe | undefined>(undefined)
