@@ -19,5 +19,11 @@ export const useRecipeAPI = () => {
         })
     }, [])
 
-    return { getAllRecipes }
+    const getRecipe = useCallback(async (recipeId: string) => {
+        return recipeAPI.getOneRecipesIdGet(recipeId).catch((error) => {
+            throw error
+        })
+    }, [])
+
+    return { getAllRecipes, getRecipe }
 }
