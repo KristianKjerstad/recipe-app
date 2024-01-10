@@ -13,7 +13,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
 
     return (
         <div
-            className="w-48 h-64 bg-white rounded-3xl drop-shadow-xl cursor-pointer font-semibold"
+            className="col-span-1 w-48 h-64 bg-white rounded-3xl drop-shadow-xl cursor-pointer font-semibold"
             onClick={() => {
                 navigate(`/recipe/${recipe.id}`)
             }}
