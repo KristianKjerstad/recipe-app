@@ -1,7 +1,7 @@
 from typing import List
 from uuid import UUID
 
-from data_providers.clients.postgresql_client import PostgresqlClient
+from data_providers.clients.postgresql_client import postgresql_client
 from fastapi import APIRouter
 from models.recipe import Recipe
 from resources.recipe.repositories.recipe_client import RecipeClient
@@ -15,7 +15,7 @@ router = APIRouter(tags=["recipe"], prefix="/recipes")
     "",
 )
 async def get_all() -> List[Recipe]:
-    recipe_client = RecipeClient(db_client=PostgresqlClient())
+    recipe_client = RecipeClient(db_client=postgresql_client)
     return get_all_recipes_use_case(recipe_client=recipe_client)
 
 
@@ -23,5 +23,5 @@ async def get_all() -> List[Recipe]:
     "/{id}",
 )
 async def get_one(id: UUID) -> Recipe:
-    recipe_client = RecipeClient(db_client=PostgresqlClient())
+    recipe_client = RecipeClient(db_client=postgresql_client)
     return get_one_recipe_use_case(recipe_client=recipe_client, id=id)

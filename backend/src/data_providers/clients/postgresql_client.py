@@ -60,3 +60,6 @@ class PostgresqlClient:
                 print(f"Error creating tables: {e}")
         else:
             print("Tables 'recipe' and 'ingredient' already exist. Doing nothing.")
+
+
+postgresql_client = PostgresqlClient()

@@ -2,10 +2,24 @@ import uvicorn
 from authentication.authentication import auth_with_jwt
 from config import config
 from fastapi import APIRouter, FastAPI, Security
+from fastapi.middleware.cors import CORSMiddleware
 from resources.ingredient import ingredient_resource
 from resources.recipe import recipe_resource
 
 app = FastAPI()
+
+origins = [
+    "https://recipe-app-frontend-ochre.vercel.app",
+    "http://localhost",
+    "http://localhost:5173",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 public_routes = APIRouter()
 authenticated_routes = APIRouter()

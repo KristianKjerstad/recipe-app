@@ -6,6 +6,7 @@ export const Header = () => {
     return (
         <div>
             <img
+                className="cursor-pointer"
                 src="../src/assets/logo.png"
                 width="150"
                 height="55"
