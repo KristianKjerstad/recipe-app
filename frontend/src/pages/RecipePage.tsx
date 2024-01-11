@@ -12,6 +12,9 @@ export const RecipePage = () => {
     const [recipe, setRecipe] = useState<Recipe | undefined>(undefined)
     const { getRecipe } = useRecipeAPI()
 
+    const h2Styling = 'text-xl font-medium pt-12 pb-2'
+    const listContainerStyling = 'inline-block text-left min-w-96 pl-8 pr-8'
+
     useEffect(() => {
         getRecipe(recipeId ?? '').then((recipeResponse) => {
             setRecipe(recipeResponse.data)
@@ -21,26 +24,33 @@ export const RecipePage = () => {
         return <div>Loading...</div>
     }
     return (
-        <div>
-            <h1>{recipe.name}</h1>
-            <img src={stockImageUrl} />
-            <h2>Ingredients:</h2>
-            <ul>
+        <div className="">
+            <div className="flex items-center justify-center pt-8 pb-8">
+                <img
+                    className="lg:w-96 lg:h-72 "
+                    alt={recipe.name}
+                    src={stockImageUrl}
+                />
+            </div>
+            <h1 className="text-3xl font-semibold">{recipe.name}</h1>
+
+            <h2 className={h2Styling}>Ingredients:</h2>
+            <div className={listContainerStyling}>
                 {recipe.ingredient_ids?.map((id, index) => {
-                    return <li key={index}>* {id}</li>
+                    return <li key={index}>{id}</li>
                 })}
-            </ul>
+            </div>
             <br />
-            <h2>Steps:</h2>
-            <ol>
+            <h2 className={h2Styling}>How to make it:</h2>
+            <div className={listContainerStyling}>
                 {recipe.recipe_steps?.map((instruction, index) => {
                     return (
-                        <li key={index}>
+                        <div key={index}>
                             {index + 1}. {instruction}
-                        </li>
+                        </div>
                     )
                 })}
-            </ol>
+            </div>
         </div>
     )
 }
