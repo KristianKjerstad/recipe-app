@@ -54,7 +54,31 @@ To run the API debugger, you have to
 4. Open up VS code, and open the "Run and debug" window.
 5. In drop down menu, select "Python: FastAPI"
 
-Now, you can set break points anywhere in the python code.s
+Now, you can set break points anywhere in the python code.
+
+## Running frontend unit tests
+
+From the terminal, navigate to the frontend folder and run
+
+```bash
+npm run test
+```
+
+## Running frontend end to end tests
+
+From the terminal, navigate to the frontend folder and run
+
+```bash
+npx playwright test
+```
+
+To do an interactive test, use the extra argument `-ui`
+
+To create new end to end tests automatically, use the command
+
+```bash
+ npx playwright codegen
+```
 
 ## Connecting to the local database
 
