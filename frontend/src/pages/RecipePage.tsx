@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Recipe } from '../api/generated'
+import { Ingredient, Recipe } from '../api/generated'
+import { useIngredientAPI } from '../hooks/useIngredientAPI'
 import { useRecipeAPI } from '../hooks/useRecipeAPI'
 
 const stockImageUrl =
@@ -10,7 +11,9 @@ export const RecipePage = () => {
     const { id: recipeId } = useParams()
 
     const [recipe, setRecipe] = useState<Recipe | undefined>(undefined)
+    const [ingredients, setIngredients] = useState<Ingredient[]>([])
     const { getRecipe } = useRecipeAPI()
+    const { getAllIngredients } = useIngredientAPI()
 
     const h2Styling = 'text-xl font-medium pt-12 pb-2'
     const listContainerStyling = 'inline-block text-left min-w-96 pl-8 pr-8'
@@ -20,6 +23,13 @@ export const RecipePage = () => {
             setRecipe(recipeResponse.data)
         })
     }, [getRecipe])
+
+    useEffect(() => {
+        getAllIngredients().then((ingredientsResponse) => {
+            setIngredients(ingredientsResponse.data)
+        })
+    }, [getAllIngredients])
+
     if (!recipe) {
         return <div>Loading...</div>
     }
@@ -37,7 +47,15 @@ export const RecipePage = () => {
             <h2 className={h2Styling}>Ingredients:</h2>
             <div className={listContainerStyling}>
                 {recipe.ingredient_ids?.map((id, index) => {
-                    return <li key={index}>{id}</li>
+                    return (
+                        <li key={index}>
+                            {
+                                ingredients.find((ingredient: Ingredient) => {
+                                    return ingredient.id === id
+                                })?.name
+                            }
+                        </li>
+                    )
                 })}
             </div>
             <br />

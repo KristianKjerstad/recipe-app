@@ -19,5 +19,11 @@ export const useIngredientAPI = () => {
         })
     }, [])
 
-    return { getAllIngredients }
+    const getIngredient = useCallback(async (id: string) => {
+        return ingredientAPI.getOneIngredientsIdGet(id).catch((error) => {
+            throw error
+        })
+    }, [])
+
+    return { getAllIngredients, getIngredient }
 }
