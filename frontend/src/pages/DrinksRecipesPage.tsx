@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react'
-
 import { FilterAltOutlined, SearchOutlined } from '@mui/icons-material'
 import { Button } from '@mui/material'
+import { useEffect, useState } from 'react'
 import Select, { MultiValue } from 'react-select'
 import { Ingredient, Recipe } from '../api/generated'
 import { RecipeCard } from '../components/RecipeCard'
 import { useIngredientAPI } from '../hooks/useIngredientAPI'
 import { useRecipeAPI } from '../hooks/useRecipeAPI'
 import { filterRecipes } from '../utils/filtering'
-
 type Options = {
     label: string
     value: string
@@ -46,7 +44,7 @@ const formatIngredients = (rawIngredients: Ingredient[]) => {
 export const DrinksRecipesPage = () => {
     const [selectedIngredients, setSelectedIngredients] = useState<
         MultiValue<Options>
-    >([])
+    >(JSON.parse(localStorage.getItem('selectedIngredients') ?? '[]'))
 
     const handleSelectedIngredientChange = (value: MultiValue<Options>) => {
         setSelectedIngredients(value)
@@ -72,7 +70,12 @@ export const DrinksRecipesPage = () => {
     }, [getAllIngredients])
 
     const handleSearch = () => {
-        // get recipes with selected ingredients@
+        localStorage.setItem(
+            'selectedIngredients',
+            JSON.stringify(selectedIngredients)
+        )
+
+        // Get recipes with selected ingredients
         const selectedIngredientIds: string[] = selectedIngredients.map(
             (ingredient) => {
                 return ingredient.value
@@ -93,10 +96,10 @@ export const DrinksRecipesPage = () => {
     if (allRecipes.length === 0) {
         return <div>Loading....</div>
     }
-    //
+
     return (
         <div className="flex flex-col justify-center items-center">
-            <h3>Drinks</h3>
+            <h2 className="text-xl font-medium pt-12 pb-2">Drink recipes</h2>
             <div className="text-left pt-6 max-w-full sm: w-96 md:w-2/4 lg:w-2/4">
                 <p className="pb-2">Select your ingredients</p>
                 <Select
