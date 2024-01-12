@@ -14,5 +14,12 @@ export default defineConfig({
     },
     test: {
         environment: 'jsdom',
+        coverage: {
+            provider: 'istanbul', // or 'v8',
+            reporter: ['html'],
+            reportsDirectory: './tests/coverage',
+            enabled: true,
+            all: true,
+        },
     },
 })

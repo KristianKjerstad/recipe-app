@@ -80,6 +80,12 @@ To create new end to end tests automatically, use the command
  npx playwright codegen
 ```
 
+## Checking code coverage
+
+Vitest has coverage enabled in the settings. When running `npm run dev`, the vitest UI will open in http://localhost:51204/**vitest**/#/?file=
+
+TODO its not working at the moment...
+
 ## Connecting to the local database
 
 To connect to the local database, started using docker-compose, you can for example use a tool like Azure data studio.
