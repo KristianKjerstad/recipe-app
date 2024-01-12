@@ -49,6 +49,11 @@ const ingredients = [
     },
 ]
 
+test.beforeEach(async ({ page }) => {
+    // Runs before each test and signs in each page.
+    await page.goto('http://localhost:5173/')
+})
+
 test('select ingredients and click on recipe', async ({ page }) => {
     // Mock the api call before navigating
     await page.route('**/recipes', async (route) => {
@@ -89,7 +94,6 @@ test('select ingredients and click on recipe', async ({ page }) => {
         await route.fulfill({ json: responseData })
     })
 
-    await page.goto('http://localhost:5173/')
     await page.getByRole('button', { name: 'Drinks' }).click()
     await page.locator('.my-react-select__input-container').click()
     await page.locator('#react-select-3-input').fill('vodka')
