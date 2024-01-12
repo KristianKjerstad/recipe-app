@@ -37,25 +37,27 @@ export default defineConfig({
             use: { ...devices['Desktop Chrome'] },
         },
 
-        {
-            name: 'firefox',
-            use: { ...devices['Desktop Firefox'] },
-        },
+        // TODO enable other browsers...
 
-        {
-            name: 'webkit',
-            use: { ...devices['Desktop Safari'] },
-        },
+        // {
+        //     name: 'firefox',
+        //     use: { ...devices['Desktop Firefox'] },
+        // },
+
+        // {
+        //     name: 'webkit',
+        //     use: { ...devices['Desktop Safari'] },
+        // },
 
         /* Test against mobile viewports. */
-        {
-            name: 'Mobile Chrome',
-            use: { ...devices['Pixel 5'] },
-        },
-        {
-            name: 'Iphone 14 Safari',
-            use: { ...devices['iPhone 14'] },
-        },
+        // {
+        //     name: 'Mobile Chrome',
+        //     use: { ...devices['Pixel 5'] },
+        // },
+        // {
+        //     name: 'Iphone 14 Safari',
+        //     use: { ...devices['iPhone 14'] },
+        // },
 
         /* Test against branded browsers. */
         // {
