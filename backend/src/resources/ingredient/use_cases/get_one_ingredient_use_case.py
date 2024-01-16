@@ -1,7 +1,7 @@
 from uuid import UUID
 
 from data_providers.clients.ingredient_client import IngredientClient
-from models.ingredient import Ingredient
+from resources.ingredient.entities.ingredient import Ingredient
 
 
 def get_one_ingredient_use_case(ingredient_client: IngredientClient, id: UUID) -> Ingredient:

@@ -3,7 +3,7 @@ from uuid import uuid4
 import pytest
 from data_providers.clients.ingredient_client import IngredientClient
 from data_providers.clients.postgresql_client import PostgresqlClient
-from models.ingredient import Ingredient, IngredientCategories
+from resources.ingredient.entities.ingredient import Ingredient, IngredientCategories
 from resources.recipe.repositories.recipe_client import RecipeClient
 from tests.data_providers.test_recipe_client import create_example_recipe
 

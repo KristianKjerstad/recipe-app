@@ -3,7 +3,7 @@ from uuid import UUID
 
 from data_providers.clients.postgresql_client import postgresql_client
 from fastapi import APIRouter
-from models.recipe import Recipe
+from resources.recipe.entities.recipe import Recipe
 from resources.recipe.repositories.recipe_client import RecipeClient
 from resources.recipe.use_cases.get_all_recipes_use_case import get_all_recipes_use_case
 from resources.recipe.use_cases.get_one_recipe_use_case import get_one_recipe_use_case

@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from models.recipe import Recipe
+from resources.recipe.entities.recipe import Recipe
 from resources.recipe.repositories.recipe_client import RecipeClient
 
 

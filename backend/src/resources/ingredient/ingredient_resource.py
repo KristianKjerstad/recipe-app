@@ -4,7 +4,7 @@ from uuid import UUID
 from data_providers.clients.ingredient_client import IngredientClient
 from data_providers.clients.postgresql_client import postgresql_client
 from fastapi import APIRouter
-from models.ingredient import Ingredient
+from resources.ingredient.entities.ingredient import Ingredient
 from resources.ingredient.use_cases.get_all_ingredient_use_case import (
     get_all_ingredients_use_case,
 )

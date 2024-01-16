@@ -1,11 +1,11 @@
 from typing import List
 
 from data_providers.client_interface import ClientInterface
-from models import (  # required to import these before calling create_all
-    ingredient,
+from resources.ingredient.entities import ingredient
+from resources.ingredient.entities.ingredient import Ingredient
+from resources.recipe.entities import (  # required to import these before calling create_all
     recipe,
 )
-from models.ingredient import Ingredient
 from sqlalchemy import UUID
 from sqlalchemy.orm import sessionmaker
 

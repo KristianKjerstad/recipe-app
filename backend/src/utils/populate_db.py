@@ -3,8 +3,8 @@ from uuid import uuid4
 
 from data_providers.clients.ingredient_client import IngredientClient
 from data_providers.clients.postgresql_client import PostgresqlClient
-from models.ingredient import Ingredient, IngredientCategories
-from models.recipe import Recipe, RecipeCategories, RecipeTypes
+from resources.ingredient.entities.ingredient import Ingredient, IngredientCategories
+from resources.recipe.entities.recipe import Recipe, RecipeCategories, RecipeTypes
 from resources.recipe.repositories.recipe_client import RecipeClient
 
 
