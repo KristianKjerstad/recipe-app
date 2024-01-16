@@ -1,6 +1,7 @@
 from typing import List
 
 from data_providers.client_interface import ClientInterface
+from data_providers.clients.postgresql_client import PostgresqlClient
 from resources.ingredient.entities.ingredient import Ingredient
 from sqlalchemy import UUID
 from sqlalchemy.orm import sessionmaker
@@ -41,3 +42,8 @@ class IngredientRepository(ClientInterface[Ingredient, str]):
         delete_statement = self.ingredient_table.delete()
         self.session.execute(delete_statement)
         self.session.commit()
+
+
+def get_ingredient_repository() -> IngredientRepository:
+    db_client = PostgresqlClient()
+    return IngredientRepository(db_client=db_client)

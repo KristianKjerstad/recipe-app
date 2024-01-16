@@ -1,6 +1,7 @@
 from typing import List
 
 from data_providers.client_interface import ClientInterface
+from data_providers.clients.postgresql_client import PostgresqlClient
 from resources.recipe.entities import (
     recipe,  # required to import these before calling create_all
 )
@@ -75,3 +76,8 @@ class RecipeRepository(ClientInterface[Recipe, str]):
         delete_statement = self.recipe_table.delete()
         self.session.execute(delete_statement)
         self.session.commit()
+
+
+def get_recipe_repository() -> RecipeRepository:
+    db_client = PostgresqlClient()
+    return RecipeRepository(db_client=db_client)
