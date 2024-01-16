@@ -27,21 +27,27 @@ class IngredientRepository(ClientInterface[Ingredient, str]):
         delete_statement = self.ingredient_table.delete().where(self.ingredient_table.c.id == str(id))
         self.session.execute(delete_statement)
         self.session.commit()
+        self.session.close()
 
     def get(self, id: UUID) -> Ingredient:
         select_statement = self.ingredient_table.select().where(self.ingredient_table.c.id == id)
         result = self.session.execute(select_statement).fetchone()
+        self.session.commit()
+        self.session.close()
         return Ingredient(**result._mapping)
 
     def get_all(self) -> List[Ingredient]:
         select_statement = self.ingredient_table.select()
         results = self.session.execute(select_statement).fetchall()
+        self.session.commit()
+        self.session.close()
         return [Ingredient(**result._mapping) for result in results]
 
     def wipe_db(self):
         delete_statement = self.ingredient_table.delete()
         self.session.execute(delete_statement)
         self.session.commit()
+        self.session.close()
 
 
 def get_ingredient_repository() -> IngredientRepository:

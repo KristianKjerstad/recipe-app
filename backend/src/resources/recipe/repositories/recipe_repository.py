@@ -2,9 +2,6 @@ from typing import List
 
 from data_providers.client_interface import ClientInterface
 from data_providers.clients.postgresql_client import PostgresqlClient
-from resources.recipe.entities import (
-    recipe,  # required to import these before calling create_all
-)
 from resources.recipe.entities.recipe import Recipe
 from sqlalchemy import UUID
 from sqlalchemy.orm import sessionmaker
@@ -49,6 +46,7 @@ class RecipeRepository(ClientInterface[Recipe, str]):
         delete_statement = self.recipe_table.delete().where(self.recipe_table.c.id == str(id))
         self.session.execute(delete_statement)
         self.session.commit()
+        self.session.close()
 
     def get_all(self) -> List[Recipe]:
         select_all = self.recipe_table.select()
@@ -56,7 +54,8 @@ class RecipeRepository(ClientInterface[Recipe, str]):
         recipes: List[Recipe] = []
         for recipe in raw_recipes:
             recipes.append(self.get(recipe[0]))
-
+        self.session.commit()
+        self.session.close()
         return recipes
 
     def get(self, id: UUID) -> Recipe:
@@ -70,12 +69,15 @@ class RecipeRepository(ClientInterface[Recipe, str]):
         )
         associations = self.session.execute(get_associations_statement).fetchall()
         recipe.ingredient_ids = [association[1] for association in associations]
+        self.session.commit()
+        self.session.close()
         return recipe
 
     def wipe_db(self):
         delete_statement = self.recipe_table.delete()
         self.session.execute(delete_statement)
         self.session.commit()
+        self.session.close()
 
 
 def get_recipe_repository() -> RecipeRepository:

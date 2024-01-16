@@ -15,7 +15,7 @@ from sqlalchemy import (
 
 connection_string = f"postgresql://{config.POSTGRES_USER}:{config.POSTGRES_PASSWORD}@{config.POSTGRES_HOST}:{config.POSTGRES_PORT}/{config.POSTGRES_DATABASE}"
 
-postgresql_engine = create_engine(connection_string, echo=True)
+postgresql_engine = create_engine(connection_string, echo=True, pool_timeout=15)
 
 
 class PostgresqlClient:
