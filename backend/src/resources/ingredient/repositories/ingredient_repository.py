@@ -1,30 +1,26 @@
 from typing import List
 
 from data_providers.client_interface import ClientInterface
-from resources.ingredient.entities import ingredient
 from resources.ingredient.entities.ingredient import Ingredient
-from resources.recipe.entities import (  # required to import these before calling create_all
-    recipe,
-)
 from sqlalchemy import UUID
 from sqlalchemy.orm import sessionmaker
 
 
-class IngredientClient(ClientInterface[Ingredient, str]):
+class IngredientRepository(ClientInterface[Ingredient, str]):
     def __init__(self, db_client):
         self.db_client = db_client
         self.ingredient_table = db_client.ingredient_table
         Session = sessionmaker(bind=db_client.db_engine)
         self.session = Session()
 
-    def create(self, ingredient: Ingredient):
+    def create(self, ingredient: Ingredient) -> Ingredient:
         insert_statement = self.ingredient_table.insert().values(
             id=ingredient.id, name=ingredient.name, category=ingredient.category.value
         )
         self.session.execute(insert_statement)
         self.session.commit()
         self.session.close()
-        return recipe
+        return ingredient
 
     def delete(self, id: UUID):
         delete_statement = self.ingredient_table.delete().where(self.ingredient_table.c.id == str(id))

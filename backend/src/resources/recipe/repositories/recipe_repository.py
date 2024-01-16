@@ -9,7 +9,7 @@ from sqlalchemy import UUID
 from sqlalchemy.orm import sessionmaker
 
 
-class RecipeClient(ClientInterface[Recipe, str]):
+class RecipeRepository(ClientInterface[Recipe, str]):
     def __init__(self, db_client):
         self.db_client = db_client
         self.recipe_table = db_client.recipe_table

@@ -1,20 +1,20 @@
 from typing import List
 from uuid import uuid4
 
-from data_providers.clients.ingredient_client import IngredientClient
 from data_providers.clients.postgresql_client import PostgresqlClient
 from resources.ingredient.entities.ingredient import Ingredient, IngredientCategories
+from resources.ingredient.repositories.ingredient_repository import IngredientRepository
 from resources.recipe.entities.recipe import Recipe, RecipeCategories, RecipeTypes
-from resources.recipe.repositories.recipe_client import RecipeClient
+from resources.recipe.repositories.recipe_repository import RecipeRepository
 
 
 def populate_db():
     db_client = PostgresqlClient()
-    ingredient_client = IngredientClient(db_client=db_client)
-    recipe_client = RecipeClient(db_client=db_client)
+    ingredient_repository = IngredientRepository(db_client=db_client)
+    recipe_repository = RecipeRepository(db_client=db_client)
 
-    ingredient_client.wipe_db()
-    recipe_client.wipe_db()
+    ingredient_repository.wipe_db()
+    recipe_repository.wipe_db()
 
     ingredients: List[Ingredient] = []
     vodka = Ingredient(id=uuid4(), name="Vodka", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
@@ -27,7 +27,7 @@ def populate_db():
     ingredients.append(tequila)
 
     for ingredient in ingredients:
-        ingredient_client.create(ingredient=ingredient)
+        ingredient_repository.create(ingredient=ingredient)
 
     recipes: List[Recipe] = []
 
@@ -51,7 +51,7 @@ def populate_db():
     recipes.append(vodka_redbull)
     recipes.append(margarita)
     for recipe in recipes:
-        recipe_client.create(recipe=recipe)
+        recipe_repository.create(recipe=recipe)
 
 
 populate_db()

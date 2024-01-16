@@ -1,9 +1,9 @@
 from uuid import UUID
 
-from data_providers.clients.ingredient_client import IngredientClient
 from resources.ingredient.entities.ingredient import Ingredient
+from resources.ingredient.repositories.ingredient_repository import IngredientRepository
 
 
-def get_one_ingredient_use_case(ingredient_client: IngredientClient, id: UUID) -> Ingredient:
-    ingredient: Ingredient = ingredient_client.get(id=id)
+def get_one_ingredient_use_case(ingredient_repository: IngredientRepository, id: UUID) -> Ingredient:
+    ingredient: Ingredient = ingredient_repository.get(id=id)
     return ingredient
