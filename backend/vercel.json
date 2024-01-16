@@ -8,6 +8,5 @@
             "config": { "root": "src" }
         }
     ],
-    "routes": [{ "src": "/(.*)", "dest": "src/main.py" }],
-    "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+    "routes": [{ "src": "/(.*)", "dest": "src/main.py" }]
 }
