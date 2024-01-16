@@ -6,19 +6,13 @@ import { FoodRecipesPage } from './pages/FoodRecipesPage'
 import { RecipePage } from './pages/RecipePage'
 import { HomePage } from './pages/homePage'
 
-function Fallback({
-    error,
-    resetErrorBoundary,
-}: {
-    error: Error
-    resetErrorBoundary: () => void
-}) {
-    // Call resetErrorBoundary() to reset the error boundary and retry the render.
-
+function Fallback({ error }: { error: Error }) {
     console.error(error)
 
     let errorMessage = error.message
     if ('response' in error) {
+        // eslint-disable-next-line
+        //@ts-ignore
         errorMessage = error?.response?.data.detail
     }
 
