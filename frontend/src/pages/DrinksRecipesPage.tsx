@@ -7,6 +7,7 @@ import { RecipeCard } from '../components/RecipeCard'
 import { useIngredientAPI } from '../hooks/useIngredientAPI'
 import { useRecipeAPI } from '../hooks/useRecipeAPI'
 import { filterRecipes } from '../utils/filtering'
+import { info } from '../utils/logging'
 type Options = {
     label: string
     value: string
@@ -56,6 +57,8 @@ export const DrinksRecipesPage = () => {
     const [isNoRecipeResults, setIsNoRecipeResults] = useState<boolean>(false)
     const { getAllRecipes } = useRecipeAPI()
     const { getAllIngredients } = useIngredientAPI()
+
+    info('loaded recipe page')
 
     useEffect(() => {
         getAllRecipes().then((recipesResponse) => {

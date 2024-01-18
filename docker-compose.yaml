@@ -16,6 +16,8 @@ services:
     frontend:
         build: ./frontend
         image: recipe-app-frontend
+        env_file:
+            - ./frontend/.env
         volumes:
             - ./frontend/src:/app/src
         ports:
