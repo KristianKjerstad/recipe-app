@@ -1,53 +1,46 @@
 from typing import List
 
-from data_providers.client_interface import ClientInterface
-from data_providers.clients.postgresql_client import PostgresqlClient
+from data_providers.clients.postgresql_client import (
+    ExecuteAlternatives,
+    PostgresqlClient,
+)
+from data_providers.repository_interface import RepositoryInterface
 from resources.ingredient.entities.ingredient import Ingredient
 from sqlalchemy import UUID
-from sqlalchemy.orm import sessionmaker
 
 
-class IngredientRepository(ClientInterface[Ingredient, str]):
+class IngredientRepository(RepositoryInterface[Ingredient, str]):
     def __init__(self, db_client):
         self.db_client = db_client
         self.ingredient_table = db_client.ingredient_table
-        Session = sessionmaker(bind=db_client.db_engine)
-        self.session = Session()
 
     def create(self, ingredient: Ingredient) -> Ingredient:
         insert_statement = self.ingredient_table.insert().values(
             id=ingredient.id, name=ingredient.name, category=ingredient.category.value
         )
-        self.session.execute(insert_statement)
-        self.session.commit()
-        self.session.close()
+        self.db_client.execute_statement(insert_statement)
         return ingredient
 
     def delete(self, id: UUID):
         delete_statement = self.ingredient_table.delete().where(self.ingredient_table.c.id == str(id))
-        self.session.execute(delete_statement)
-        self.session.commit()
-        self.session.close()
+        self.db_client.execute_statement(delete_statement)
 
     def get(self, id: UUID) -> Ingredient:
         select_statement = self.ingredient_table.select().where(self.ingredient_table.c.id == id)
-        result = self.session.execute(select_statement).fetchone()
-        self.session.commit()
-        self.session.close()
+        result = self.db_client.execute_statement(select_statement, ExecuteAlternatives.FETCH_ONE)
         return Ingredient(**result._mapping)
 
     def get_all(self) -> List[Ingredient]:
         select_statement = self.ingredient_table.select()
-        results = self.session.execute(select_statement).fetchall()
-        self.session.commit()
-        self.session.close()
+        results = self.db_client.execute_statement(select_statement, ExecuteAlternatives.FETCH_ALL)
         return [Ingredient(**result._mapping) for result in results]
+
+    def delete_all(self) -> None:
+        self.db_client.delete_all_ingredients()
 
     def wipe_db(self):
         delete_statement = self.ingredient_table.delete()
-        self.session.execute(delete_statement)
-        self.session.commit()
-        self.session.close()
+        self.db_client.execute_statement(delete_statement)
 
 
 def get_ingredient_repository() -> IngredientRepository:

@@ -1,4 +1,4 @@
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 import pytest
 from data_providers.clients.postgresql_client import PostgresqlClient
@@ -28,8 +28,8 @@ def create_example_recipe():
 
 @pytest.fixture(autouse=True)  # run after all functions
 def clean_up():
-    recipe_repository.wipe_db()
-    ingredient_repository.wipe_db()
+    recipe_repository.delete_all()
+    ingredient_repository.delete_all()
 
 
 def test_create():
@@ -37,8 +37,8 @@ def test_create():
 
 
 def test_create_and_delete():
-    new_recipe_id = create_example_recipe()
-    result = recipe_repository.delete(new_recipe_id)
+    new_recipe_id: UUID = create_example_recipe()
+    recipe_repository.delete(new_recipe_id)
 
 
 def test_get():
@@ -49,8 +49,9 @@ def test_get():
 
 
 def test_get_all():
-    new_recipe_id = create_example_recipe()
+    create_example_recipe()
     result = recipe_repository.get_all()
+    assert len(result) > 0
 
 
 def test_create_recipe_with_many_ingredients():

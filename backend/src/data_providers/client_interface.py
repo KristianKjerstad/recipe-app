@@ -1,26 +1,31 @@
 from abc import abstractmethod
-from typing import Generic, List, TypeVar
+from enum import Enum
+from typing import Any
 
-# Type definition for Model
-Model = TypeVar("Model")
-
-# Type definition for Unique Id
-Id = TypeVar("Id", bound=str)
+from sqlalchemy import Result, Row, Sequence, Table
 
 
-class ClientInterface(Generic[Model, Id]):
+class ExecuteAlternatives(Enum):
+    FETCH_ONE = "fetch_one"
+    FETCH_ALL = "fetch_all"
+
+
+class ClientInterface:
+    recipe_table: Table
+    ingredient_table: Table
+    recipe_ingredient_association: Table
+    session: Any
+
     @abstractmethod
-    def create(self, instance: Model) -> Model:
+    def execute_statement(
+        self, statement: Any, execute_alternative: ExecuteAlternatives | None = None
+    ) -> Row[Any] | Result[Any] | Sequence[Row[Any]] | None:
         pass
 
     @abstractmethod
-    def get(self, id: Id) -> Model:
+    def delete_all_recipes(self):
         pass
 
     @abstractmethod
-    def get_all(self) -> List[Model]:
-        pass
-
-    @abstractmethod
-    def delete(self, id: Id) -> None:
+    def delete_all_ingredients(self):
         pass

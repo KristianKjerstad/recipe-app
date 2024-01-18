@@ -1,6 +1,7 @@
 from typing import List
 from uuid import uuid4
 
+from data_providers.client_interface import ClientInterface
 from data_providers.clients.postgresql_client import PostgresqlClient
 from resources.ingredient.entities.ingredient import Ingredient, IngredientCategories
 from resources.ingredient.repositories.ingredient_repository import IngredientRepository
@@ -8,13 +9,35 @@ from resources.recipe.entities.recipe import Recipe, RecipeCategories, RecipeTyp
 from resources.recipe.repositories.recipe_repository import RecipeRepository
 
 
+def delete_recipe_table(db_client: ClientInterface):
+    delete_recipe_statement = db_client.recipe_table.delete()
+    db_client.session.execute(delete_recipe_statement)
+    db_client.session.commit()
+    db_client.session.close()
+
+
+def delete_ingredient_table(db_client: ClientInterface):
+    delete_ingredients_statement = db_client.ingredient_table.delete()
+    db_client.session.execute(delete_ingredients_statement)
+    db_client.session.commit()
+    db_client.session.close()
+
+
+def delete_association_table(db_client: ClientInterface):
+    delete_ingredients_statement = db_client.recipe_ingredient_association.delete()
+    db_client.session.execute(delete_ingredients_statement)
+    db_client.session.commit()
+    db_client.session.close()
+
+
 def populate_db():
     db_client = PostgresqlClient()
     ingredient_repository = IngredientRepository(db_client=db_client)
     recipe_repository = RecipeRepository(db_client=db_client)
 
-    ingredient_repository.wipe_db()
-    recipe_repository.wipe_db()
+    delete_ingredient_table(db_client)
+    delete_recipe_table(db_client)
+    delete_association_table(db_client)
 
     ingredients: List[Ingredient] = []
     vodka = Ingredient(id=uuid4(), name="Vodka", category=IngredientCategories.ALCOHOLIC_BEVERAGE)

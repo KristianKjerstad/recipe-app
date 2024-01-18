@@ -6,6 +6,11 @@ from resources.ingredient.entities.ingredient import Ingredient, IngredientCateg
 from resources.ingredient.repositories.ingredient_repository import IngredientRepository
 from resources.recipe.repositories.recipe_repository import RecipeRepository
 from tests.data_providers.test_recipe_repository import create_example_recipe
+from utils.populate_db import (
+    delete_association_table,
+    delete_ingredient_table,
+    delete_recipe_table,
+)
 
 db_client = PostgresqlClient()
 ingredient_repository = IngredientRepository(db_client)
@@ -21,8 +26,10 @@ def create_example_ingredient():
 
 @pytest.fixture(autouse=True)  # run after all functions
 def clean_up():
-    ingredient_repository.wipe_db()
-    recipe_repository.wipe_db()
+    db_client = PostgresqlClient()
+    delete_ingredient_table(db_client)
+    delete_recipe_table(db_client)
+    delete_association_table(db_client)
 
 
 def test_create():

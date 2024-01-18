@@ -1,6 +1,8 @@
 import uuid
+from typing import Any
 
 from config import config
+from data_providers.client_interface import ClientInterface, ExecuteAlternatives
 from psycopg2 import ProgrammingError
 from sqlalchemy import (
     JSON,
@@ -8,20 +10,26 @@ from sqlalchemy import (
     Column,
     ForeignKey,
     MetaData,
+    Result,
+    Row,
+    Sequence,
     String,
     Table,
     create_engine,
 )
+from sqlalchemy.orm import sessionmaker
 
 connection_string = f"postgresql://{config.POSTGRES_USER}:{config.POSTGRES_PASSWORD}@{config.POSTGRES_HOST}:{config.POSTGRES_PORT}/{config.POSTGRES_DATABASE}"
 
 postgresql_engine = create_engine(connection_string, echo=True, pool_timeout=15)
 
 
-class PostgresqlClient:
+class PostgresqlClient(ClientInterface):
     def __init__(self, db_engine=postgresql_engine):
         self.db_engine = db_engine
         self.db_connection = db_engine.connect()
+        Session = sessionmaker(bind=self.db_engine)
+        self.session = Session()
         metadata = MetaData()
 
         self.recipe_table = Table(
@@ -60,6 +68,31 @@ class PostgresqlClient:
                 print(f"Error creating tables: {e}")
         else:
             print("Tables 'recipe' and 'ingredient' already exist. Doing nothing.")
+
+    def execute_statement(
+        self, statement: Any, execute_alternative: ExecuteAlternatives | None = None
+    ) -> Row[Any] | Result[Any] | Sequence[Row[Any]] | None:
+        if execute_alternative == ExecuteAlternatives.FETCH_ONE:
+            result = self.session.execute(statement).fetchone()
+        elif execute_alternative == ExecuteAlternatives.FETCH_ALL:
+            result = self.session.execute(statement).fetchall()
+        else:
+            result = self.session.execute(statement)  # can generic type be used?
+        self.session.commit()
+        self.session.close()
+        return result
+
+    def delete_all_recipes(self):
+        delete_statement = self.recipe_table.delete()
+        self.session.execute(delete_statement)
+        self.session.commit()
+        self.session.close()
+
+    def delete_all_ingredients(self):
+        delete_statement = self.ingredient_table.delete()
+        self.session.execute(delete_statement)
+        self.session.commit()
+        self.session.close()
 
 
 postgresql_client = PostgresqlClient()
