@@ -1,5 +1,6 @@
 from typing import List
 
+from data_providers.client_interface import ClientInterface
 from data_providers.clients.postgresql_client import (
     ExecuteAlternatives,
     PostgresqlClient,
@@ -10,8 +11,8 @@ from sqlalchemy import UUID
 
 
 class IngredientRepository(RepositoryInterface[Ingredient, str]):
-    def __init__(self, db_client):
-        self.db_client = db_client
+    def __init__(self, db_client: ClientInterface):
+        self.db_client: ClientInterface = db_client
         self.ingredient_table = db_client.ingredient_table
 
     def create(self, ingredient: Ingredient) -> Ingredient:
@@ -37,10 +38,6 @@ class IngredientRepository(RepositoryInterface[Ingredient, str]):
 
     def delete_all(self) -> None:
         self.db_client.delete_all_ingredients()
-
-    def wipe_db(self):
-        delete_statement = self.ingredient_table.delete()
-        self.db_client.execute_statement(delete_statement)
 
 
 def get_ingredient_repository() -> IngredientRepository:

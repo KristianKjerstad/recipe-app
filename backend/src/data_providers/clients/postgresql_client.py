@@ -72,27 +72,26 @@ class PostgresqlClient(ClientInterface):
     def execute_statement(
         self, statement: Any, execute_alternative: ExecuteAlternatives | None = None
     ) -> Row[Any] | Result[Any] | Sequence[Row[Any]] | None:
-        if execute_alternative == ExecuteAlternatives.FETCH_ONE:
-            result = self.session.execute(statement).fetchone()
-        elif execute_alternative == ExecuteAlternatives.FETCH_ALL:
-            result = self.session.execute(statement).fetchall()
-        else:
-            result = self.session.execute(statement)  # can generic type be used?
-        self.session.commit()
-        self.session.close()
+        try:
+            if execute_alternative == ExecuteAlternatives.FETCH_ONE:
+                result = self.session.execute(statement).fetchone()
+            elif execute_alternative == ExecuteAlternatives.FETCH_ALL:
+                result = self.session.execute(statement).fetchall()
+            else:
+                result = self.session.execute(statement)  # can generic type be used?
+            self.session.commit()
+            self.session.close()
+        finally:
+            self.db_connection.close()
         return result
 
     def delete_all_recipes(self):
         delete_statement = self.recipe_table.delete()
-        self.session.execute(delete_statement)
-        self.session.commit()
-        self.session.close()
+        self.execute_statement(delete_statement)
 
     def delete_all_ingredients(self):
         delete_statement = self.ingredient_table.delete()
-        self.session.execute(delete_statement)
-        self.session.commit()
-        self.session.close()
+        self.execute_statement(delete_statement)
 
 
 postgresql_client = PostgresqlClient()
