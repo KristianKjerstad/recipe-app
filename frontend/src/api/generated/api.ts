@@ -12,22 +12,32 @@
  * Do not edit the class manually.
  */
 
-import type { AxiosInstance, AxiosPromise, RawAxiosRequestConfig } from 'axios'
-import globalAxios from 'axios'
 import type { Configuration } from './configuration'
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
+import globalAxios from 'axios'
 // Some imports not used depending on template conditions
 // @ts-ignore
-import type { RequestArgs } from './base'
 import {
     DUMMY_BASE_URL,
     assertParamExists,
-    createRequestFunction,
+    setApiKeyToObject,
+    setBasicAuthToObject,
+    setBearerAuthToObject,
     setOAuthToObject,
     setSearchParams,
+    serializeDataIfNeeded,
     toPathString,
+    createRequestFunction,
 } from './common'
+import type { RequestArgs } from './base'
 // @ts-ignore
-import { BASE_PATH, BaseAPI, RequiredError, operationServerMap } from './base'
+import {
+    BASE_PATH,
+    COLLECTION_FORMATS,
+    BaseAPI,
+    RequiredError,
+    operationServerMap,
+} from './base'
 
 /**
  *
@@ -115,10 +125,10 @@ export interface Recipe {
     category: RecipeCategories
     /**
      *
-     * @type {Array<string>}
+     * @type {Array<RecipeIngredient>}
      * @memberof Recipe
      */
-    ingredient_ids?: Array<string>
+    ingredients?: Array<RecipeIngredient>
     /**
      *
      * @type {Array<string>}
@@ -141,6 +151,25 @@ export const RecipeCategories = {
 export type RecipeCategories =
     (typeof RecipeCategories)[keyof typeof RecipeCategories]
 
+/**
+ *
+ * @export
+ * @interface RecipeIngredient
+ */
+export interface RecipeIngredient {
+    /**
+     *
+     * @type {string}
+     * @memberof RecipeIngredient
+     */
+    ingredient_uuid: string
+    /**
+     *
+     * @type {string}
+     * @memberof RecipeIngredient
+     */
+    ingredient_quantity: string
+}
 /**
  *
  * @export

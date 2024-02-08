@@ -4,7 +4,12 @@ import pytest
 from data_providers.clients.postgresql_client import PostgresqlClient
 from resources.ingredient.entities.ingredient import Ingredient, IngredientCategories
 from resources.ingredient.repositories.ingredient_repository import IngredientRepository
-from resources.recipe.entities.recipe import Recipe, RecipeCategories, RecipeTypes
+from resources.recipe.entities.recipe import (
+    Recipe,
+    RecipeCategories,
+    RecipeIngredient,
+    RecipeTypes,
+)
 from resources.recipe.repositories.recipe_repository import RecipeRepository
 
 db_client = PostgresqlClient()
@@ -19,7 +24,7 @@ def create_example_recipe():
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
         recipe_steps=["mix", "drink"],
-        ingredient_ids=[],
+        ingredients=[],
     )
     recipe_repository.create(new_recipe)
 
@@ -65,14 +70,16 @@ def test_create_recipe_with_many_ingredients():
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
         recipe_steps=["mix", "drink"],
-        ingredient_ids=[vodka.id, red_bull.id],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=vodka.id, ingredient_quantity="60 ml"),
+            RecipeIngredient(ingredient_uuid=red_bull.id, ingredient_quantity="2 dl"),
+        ],
     )
+
     recipe_repository.create(new_recipe)
 
     recipe_from_db = recipe_repository.get(new_recipe.id)
-    assert (
-        len(recipe_from_db.ingredient_ids) == 2 and recipe_from_db.ingredient_ids[0] != recipe_from_db.ingredient_ids[1]
-    )
+    assert len(recipe_from_db.ingredients) == 2 and recipe_from_db.ingredients[0] != recipe_from_db.ingredients[1]
 
 
 def test_create_recipe_with_non_existing_ingredient():
@@ -82,7 +89,7 @@ def test_create_recipe_with_non_existing_ingredient():
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
         recipe_steps=["mix", "drink"],
-        ingredient_ids=[uuid4()],
+        ingredients=[RecipeIngredient(ingredient_uuid=uuid4(), ingredient_quantity="60 ml")],
     )
     with pytest.raises(Exception):
         recipe_repository.create(new_recipe)

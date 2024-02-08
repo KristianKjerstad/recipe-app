@@ -5,7 +5,12 @@ from data_providers.client_interface import ClientInterface
 from data_providers.clients.postgresql_client import PostgresqlClient
 from resources.ingredient.entities.ingredient import Ingredient, IngredientCategories
 from resources.ingredient.repositories.ingredient_repository import IngredientRepository
-from resources.recipe.entities.recipe import Recipe, RecipeCategories, RecipeTypes
+from resources.recipe.entities.recipe import (
+    Recipe,
+    RecipeCategories,
+    RecipeIngredient,
+    RecipeTypes,
+)
 from resources.recipe.repositories.recipe_repository import RecipeRepository
 
 
@@ -60,7 +65,10 @@ def populate_db():
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
         recipe_steps=["Mix ingredients", "drink!"],
-        ingredient_ids=[vodka.id, red_bull.id],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=vodka.id, ingredient_quantity="60 ml"),
+            RecipeIngredient(ingredient_uuid=red_bull.id, ingredient_quantity="2 dl"),
+        ],
     )
     margarita = Recipe(
         id=uuid4(),
@@ -68,7 +76,11 @@ def populate_db():
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
         recipe_steps=["Mix ingredients", "drink!"],
-        ingredient_ids=[tequila.id, lime.id, vodka.id],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=tequila.id, ingredient_quantity="15 ml"),
+            RecipeIngredient(ingredient_uuid=lime.id, ingredient_quantity="25 ml"),
+            RecipeIngredient(ingredient_uuid=vodka.id, ingredient_quantity="15 ml"),
+        ],
     )
 
     recipes.append(vodka_redbull)

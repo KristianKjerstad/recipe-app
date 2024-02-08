@@ -3,7 +3,7 @@ from typing import List
 from data_providers.client_interface import ClientInterface, ExecuteAlternatives
 from data_providers.clients.postgresql_client import PostgresqlClient
 from data_providers.repository_interface import RepositoryInterface
-from resources.recipe.entities.recipe import Recipe
+from resources.recipe.entities.recipe import Recipe, RecipeIngredient
 from sqlalchemy import UUID
 
 
@@ -22,17 +22,21 @@ class RecipeRepository(RepositoryInterface[Recipe, str]):
         )
         self.db_client.execute_statement(insert_statement)
         # Insert the ingredients and create associations
-        for ingredient_id in recipe.ingredient_ids:
+        for recipe_ingredient in recipe.ingredients:
             # TODO check if ingredient exist
             get_ingredient_statement = self.db_client.ingredient_table.select().where(
-                self.db_client.ingredient_table.c.id == ingredient_id
+                self.db_client.ingredient_table.c.id == recipe_ingredient.ingredient_uuid
             )
             result = self.db_client.execute_statement(get_ingredient_statement, ExecuteAlternatives.FETCH_ONE)
             if result == None:
-                raise Exception(f"Could not create recipe: Ingredient with id {ingredient_id} does not exist.")
+                raise Exception(
+                    f"Could not create recipe: Ingredient with id {recipe_ingredient.ingredient_uuid} does not exist."
+                )
             self.db_client.execute_statement(
                 self.db_client.recipe_ingredient_association.insert().values(
-                    recipe_id=recipe.id, ingredient_id=ingredient_id
+                    recipe_id=recipe.id,
+                    ingredient_id=recipe_ingredient.ingredient_uuid,
+                    ingredient_quantity=recipe_ingredient.ingredient_quantity,
                 )
             )
         return recipe
@@ -60,7 +64,11 @@ class RecipeRepository(RepositoryInterface[Recipe, str]):
             self.db_client.recipe_ingredient_association.c.recipe_id == id
         )
         associations = self.db_client.execute_statement(get_associations_statement, ExecuteAlternatives.FETCH_ALL)
-        recipe.ingredient_ids = [association[1] for association in associations]
+
+        recipe.ingredients = [
+            RecipeIngredient(ingredient_uuid=association[1], ingredient_quantity=association[2])
+            for association in associations
+        ]
         return recipe
 
     def delete_all(self):

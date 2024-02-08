@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Ingredient, Recipe } from '../api/generated'
+import { Ingredient, Recipe, RecipeIngredient } from '../api/generated'
 import { useIngredientAPI } from '../hooks/useIngredientAPI'
 import { useRecipeAPI } from '../hooks/useRecipeAPI'
 
@@ -46,17 +46,25 @@ export const RecipePage = () => {
 
             <h2 className={h2Styling}>Ingredients:</h2>
             <div className={listContainerStyling}>
-                {recipe.ingredient_ids?.map((id, index) => {
-                    return (
-                        <li key={index}>
-                            {
-                                ingredients.find((ingredient: Ingredient) => {
-                                    return ingredient.id === id
-                                })?.name
-                            }
-                        </li>
-                    )
-                })}
+                {recipe.ingredients?.map(
+                    (recipeIngredient: RecipeIngredient, index) => {
+                        return (
+                            <li key={index}>
+                                {'x amount '}
+                                {
+                                    ingredients.find(
+                                        (ingredient: Ingredient) => {
+                                            return (
+                                                ingredient.id ===
+                                                recipeIngredient.ingredient_uuid
+                                            )
+                                        }
+                                    )?.name
+                                }
+                            </li>
+                        )
+                    }
+                )}
             </div>
             <br />
             <h2 className={h2Styling}>How to make it:</h2>

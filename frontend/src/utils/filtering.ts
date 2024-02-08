@@ -19,8 +19,12 @@ export const filterRecipes = ({
         return []
     }
     return allRecipes.filter((recipe) => {
+        const recipeIngredientIds =
+            recipe.ingredients?.map((ingredient) => {
+                return ingredient.ingredient_uuid
+            }) ?? []
         return allEntriesInListAExistInListB(
-            recipe.ingredient_ids ?? [],
+            recipeIngredientIds,
             selectedIngredientIds
         )
     })
