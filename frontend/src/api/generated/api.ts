@@ -12,29 +12,25 @@
  * Do not edit the class manually.
  */
 
-import type { Configuration } from './configuration'
-import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
+import type { AxiosInstance, AxiosPromise, RawAxiosRequestConfig } from 'axios'
 import globalAxios from 'axios'
+import type { Configuration } from './configuration'
 // Some imports not used depending on template conditions
 // @ts-ignore
+import type { RequestArgs } from './base'
 import {
     DUMMY_BASE_URL,
     assertParamExists,
-    setApiKeyToObject,
-    setBasicAuthToObject,
-    setBearerAuthToObject,
+    createRequestFunction,
     setOAuthToObject,
     setSearchParams,
-    serializeDataIfNeeded,
     toPathString,
-    createRequestFunction,
 } from './common'
-import type { RequestArgs } from './base'
 // @ts-ignore
 import {
     BASE_PATH,
-    COLLECTION_FORMATS,
     BaseAPI,
+    // @ts-ignore
     RequiredError,
     operationServerMap,
 } from './base'
