@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { Configuration, IngredientApi } from '../api/generated'
-const API_BASE_URL = 'http://localhost:5000'
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export const useIngredientAPI = () => {
     // const { showBoundary } = useErrorBoundary()
