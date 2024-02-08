@@ -20,6 +20,7 @@ services:
             - ./frontend/src:/app/src
         environment:
             - VITE_API_BASE_URL=http://localhost:5000
+            - VITE_ACCESS_TOKEN="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3MDQ3ODcyOTUsImV4cCI6MTg5NDA4OTY5NSwiYXVkIjoicmVjaXBlLWFwcCIsInN1YiI6ImdlbmVyYWwtdXNlciIsIlJvbGUiOiJ1c2VyIn0.wWi6UwcrLB-ppS_vf9SWMMrWWJJwZtUImvzeX6gbPvs"
         ports:
             - '5173:5173'
 

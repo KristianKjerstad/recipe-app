@@ -2,11 +2,12 @@ import { useCallback } from 'react'
 import { Configuration, IngredientApi } from '../api/generated'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN
 
 export const useIngredientAPI = () => {
     // const { showBoundary } = useErrorBoundary()
     const config: Configuration = {
-        accessToken: '',
+        accessToken: ACCESS_TOKEN,
         basePath: API_BASE_URL,
         isJsonMime: () => {
             return true
