@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from enum import Enum
-from typing import Any
+from typing import Any, Union
 
 from sqlalchemy import Result, Row, Sequence, Table
 
@@ -18,8 +18,8 @@ class ClientInterface:
 
     @abstractmethod
     def execute_statement(
-        self, statement: Any, execute_alternative: ExecuteAlternatives | None = None
-    ) -> Row[Any] | Result[Any] | Sequence[Row[Any]] | None:
+        self, statement: Any, execute_alternative: Union[ExecuteAlternatives, None] = None
+    ) -> Union[Row[Any], Result[Any], Sequence[Row[Any]], None]:
         pass
 
     @abstractmethod

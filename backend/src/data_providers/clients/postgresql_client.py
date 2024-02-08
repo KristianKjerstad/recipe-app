@@ -1,5 +1,5 @@
 import uuid
-from typing import Any
+from typing import Any, Union
 
 from config import config
 from data_providers.client_interface import ClientInterface, ExecuteAlternatives
@@ -71,8 +71,8 @@ class PostgresqlClient(ClientInterface):
             print("Tables 'recipe' and 'ingredient' already exist. Doing nothing.")
 
     def execute_statement(
-        self, statement: Any, execute_alternative: ExecuteAlternatives | None = None
-    ) -> Row[Any] | Result[Any] | Sequence[Row[Any]] | None:
+        self, statement: Any, execute_alternative: Union[ExecuteAlternatives, None] = None
+    ) -> Union[Row[Any], Result[Any], Sequence[Row[Any]], None]:
         try:
             if execute_alternative == ExecuteAlternatives.FETCH_ONE:
                 result = self.session.execute(statement).fetchone()
