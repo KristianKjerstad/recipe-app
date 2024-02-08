@@ -58,8 +58,10 @@ class PostgresqlClient(ClientInterface):
             Column("ingredient_quantity", String, nullable=False),
         )
 
-        tables_exist = db_engine.dialect.has_table(self.db_connection, "recipe") and db_engine.dialect.has_table(
-            self.db_connection, "ingredient"
+        tables_exist = (
+            db_engine.dialect.has_table(self.db_connection, "recipe")
+            and db_engine.dialect.has_table(self.db_connection, "ingredient")
+            and db_engine.dialect.has_table(self.db_connection, "recipe_ingredient_association")
         )
         if not tables_exist:
             try:
