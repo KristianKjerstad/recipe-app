@@ -50,10 +50,10 @@ def populate_db():
     gin = Ingredient(id=uuid4(), name="Gin", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
     vermouth = Ingredient(id=uuid4(), name="Vermouth", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
     campari = Ingredient(id=uuid4(), name="Campari", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
-    orange_liqour = Ingredient(id=uuid4(), name="Orange liquor", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
-    red_bull = Ingredient(id=uuid4(), name="Red bull", category=IngredientCategories.SOFT_DRINKS)
+    orange_liqour = Ingredient(id=uuid4(), name="Orange Liquor", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
+    red_bull = Ingredient(id=uuid4(), name="Red Bull", category=IngredientCategories.SOFT_DRINKS)
     lime = Ingredient(id=uuid4(), name="Lime", category=IngredientCategories.FRUIT)
-    orange_juice = Ingredient(id=uuid4(), name="Orange juice", category=IngredientCategories.JUICE)
+    orange_juice = Ingredient(id=uuid4(), name="Orange Juice", category=IngredientCategories.JUICE)
     ingredients.append(vodka)
     ingredients.append(gin)
     ingredients.append(vermouth)
@@ -71,7 +71,7 @@ def populate_db():
 
     vodka_redbull = Recipe(
         id=uuid4(),
-        name="Vodka redbull",
+        name="Vodka Red Bull",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
         recipe_steps=["Add 2 oz Vodka to a highball glass with ice.", "Fill with Red Bull and stir."],
