@@ -71,8 +71,8 @@ def test_create_recipe_with_many_ingredients():
         category=RecipeCategories.COCKTAIL,
         recipe_steps=["mix", "drink"],
         ingredients=[
-            RecipeIngredient(ingredient_uuid=vodka.id, ingredient_quantity="60 ml"),
-            RecipeIngredient(ingredient_uuid=red_bull.id, ingredient_quantity="2 dl"),
+            RecipeIngredient(ingredient_uuid=vodka.id),
+            RecipeIngredient(ingredient_uuid=red_bull.id),
         ],
     )
 
@@ -89,7 +89,7 @@ def test_create_recipe_with_non_existing_ingredient():
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
         recipe_steps=["mix", "drink"],
-        ingredients=[RecipeIngredient(ingredient_uuid=uuid4(), ingredient_quantity="60 ml")],
+        ingredients=[RecipeIngredient(ingredient_uuid=uuid4())],
     )
     with pytest.raises(Exception):
         recipe_repository.create(new_recipe)

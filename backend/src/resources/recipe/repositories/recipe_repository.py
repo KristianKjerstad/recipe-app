@@ -34,9 +34,7 @@ class RecipeRepository(RepositoryInterface[Recipe, str]):
                 )
             self.db_client.execute_statement(
                 self.db_client.recipe_ingredient_association.insert().values(
-                    recipe_id=recipe.id,
-                    ingredient_id=recipe_ingredient.ingredient_uuid,
-                    ingredient_quantity=recipe_ingredient.ingredient_quantity,
+                    recipe_id=recipe.id, ingredient_id=recipe_ingredient.ingredient_uuid
                 )
             )
         return recipe
@@ -65,10 +63,7 @@ class RecipeRepository(RepositoryInterface[Recipe, str]):
         )
         associations = self.db_client.execute_statement(get_associations_statement, ExecuteAlternatives.FETCH_ALL)
 
-        recipe.ingredients = [
-            RecipeIngredient(ingredient_uuid=association[1], ingredient_quantity=association[2])
-            for association in associations
-        ]
+        recipe.ingredients = [RecipeIngredient(ingredient_uuid=association[1]) for association in associations]
         return recipe
 
     def delete_all(self):

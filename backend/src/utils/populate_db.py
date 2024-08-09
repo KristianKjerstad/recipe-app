@@ -66,8 +66,10 @@ def populate_db():
         category=RecipeCategories.COCKTAIL,
         recipe_steps=["Mix ingredients", "drink!"],
         ingredients=[
-            RecipeIngredient(ingredient_uuid=vodka.id, ingredient_quantity="60 ml"),
-            RecipeIngredient(ingredient_uuid=red_bull.id, ingredient_quantity="2 dl"),
+            RecipeIngredient(ingredient_uuid=vodka.id),
+            RecipeIngredient(
+                ingredient_uuid=red_bull.id,
+            ),
         ],
     )
     margarita = Recipe(
@@ -77,9 +79,11 @@ def populate_db():
         category=RecipeCategories.COCKTAIL,
         recipe_steps=["Mix ingredients", "drink!"],
         ingredients=[
-            RecipeIngredient(ingredient_uuid=tequila.id, ingredient_quantity="15 ml"),
-            RecipeIngredient(ingredient_uuid=lime.id, ingredient_quantity="25 ml"),
-            RecipeIngredient(ingredient_uuid=vodka.id, ingredient_quantity="15 ml"),
+            RecipeIngredient(
+                ingredient_uuid=tequila.id,
+            ),
+            RecipeIngredient(ingredient_uuid=lime.id),
+            RecipeIngredient(ingredient_uuid=vodka.id),
         ],
     )
 

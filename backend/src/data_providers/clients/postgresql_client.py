@@ -55,7 +55,6 @@ class PostgresqlClient(ClientInterface):
             metadata,
             Column("recipe_id", UUID(as_uuid=True), ForeignKey("recipe.id", ondelete="CASCADE")),
             Column("ingredient_id", UUID(as_uuid=True), ForeignKey("ingredient.id", ondelete="CASCADE")),
-            Column("ingredient_quantity", String, nullable=False),
         )
 
         tables_exist = (

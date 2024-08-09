@@ -5,19 +5,15 @@ import { filterRecipes } from '../utils/filtering'
 test('filter recipes by ingredient', () => {
     const ingredient_1 = {
         ingredient_uuid: '4f556d17-97f4-47ad-828c-088c7041a6b1',
-        ingredient_quantity: '1 ml',
     }
     const ingredient_2 = {
         ingredient_uuid: '4f556d17-97f4-47ad-828c-088c7041a6b2',
-        ingredient_quantity: '2 ml',
     }
     const ingredient_3 = {
         ingredient_uuid: '4f556d17-97f4-47ad-828c-088c7041a6b3',
-        ingredient_quantity: '3 ml',
     }
     const ingredient_4 = {
         ingredient_uuid: '4f556d17-97f4-47ad-828c-088c7041a6b4',
-        ingredient_quantity: '4 ml',
     }
 
     const vodkaRedbullRecipe: Recipe = {

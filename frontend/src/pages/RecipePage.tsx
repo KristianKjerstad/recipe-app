@@ -44,13 +44,12 @@ export const RecipePage = () => {
             </div>
             <h1 className="text-3xl font-semibold">{recipe.name}</h1>
 
-            <h2 className={h2Styling}>Ingredients:</h2>
+            <h2 className={h2Styling}>Ingredients needed:</h2>
             <div className={listContainerStyling}>
                 {recipe.ingredients?.map(
                     (recipeIngredient: RecipeIngredient, index) => {
                         return (
                             <li key={index}>
-                                {'x amount '}
                                 {
                                     ingredients.find(
                                         (ingredient: Ingredient) => {

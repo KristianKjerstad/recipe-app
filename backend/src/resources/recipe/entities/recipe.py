@@ -19,7 +19,6 @@ class RecipeCategories(Enum):
 
 class RecipeIngredient(BaseModel):
     ingredient_uuid: UUID
-    ingredient_quantity: str
 
 
 class Recipe(BaseModel):
