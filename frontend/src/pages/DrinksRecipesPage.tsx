@@ -141,9 +141,18 @@ export const DrinksRecipesPage = () => {
                     Filter
                 </Button>
             </div>
+            <h2 className="pt-12">
+                Recipes that match your choice of ingredients
+            </h2>
             {isNoRecipeResults && <p className="pt-12">No results...</p>}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 pt-24 pb-48">
                 {filteredRecipes.map((recipe) => {
+                    return <RecipeCard recipe={recipe} />
+                })}
+            </div>
+            <h2>All Recipes</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 pt-24 pb-48">
+                {allRecipes.map((recipe) => {
                     return <RecipeCard recipe={recipe} />
                 })}
             </div>

@@ -8,6 +8,7 @@ class IngredientCategories(Enum):
     SOFT_DRINKS = "Soft drinks"
     ALCOHOLIC_BEVERAGE = "Alcoholic beverage"
     FRUIT = "Fruit"
+    JUICE = "Juice"
 
 
 class Ingredient(BaseModel):
