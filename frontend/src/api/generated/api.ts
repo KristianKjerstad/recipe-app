@@ -12,25 +12,29 @@
  * Do not edit the class manually.
  */
 
-import type { AxiosInstance, AxiosPromise, RawAxiosRequestConfig } from 'axios'
-import globalAxios from 'axios'
 import type { Configuration } from './configuration'
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
+import globalAxios from 'axios'
 // Some imports not used depending on template conditions
 // @ts-ignore
-import type { RequestArgs } from './base'
 import {
     DUMMY_BASE_URL,
     assertParamExists,
-    createRequestFunction,
+    setApiKeyToObject,
+    setBasicAuthToObject,
+    setBearerAuthToObject,
     setOAuthToObject,
     setSearchParams,
+    serializeDataIfNeeded,
     toPathString,
+    createRequestFunction,
 } from './common'
+import type { RequestArgs } from './base'
 // @ts-ignore
 import {
     BASE_PATH,
+    COLLECTION_FORMATS,
     BaseAPI,
-    // @ts-ignore
     RequiredError,
     operationServerMap,
 } from './base'
@@ -159,12 +163,6 @@ export interface RecipeIngredient {
      * @memberof RecipeIngredient
      */
     ingredient_uuid: string
-    /**
-     *
-     * @type {string}
-     * @memberof RecipeIngredient
-     */
-    ingredient_quantity: string
 }
 /**
  *
