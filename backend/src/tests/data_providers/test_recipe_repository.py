@@ -60,8 +60,8 @@ def test_get_all():
 
 
 def test_create_recipe_with_many_ingredients():
-    vodka = Ingredient(id=uuid4(), name="Vodka", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
-    red_bull = Ingredient(id=uuid4(), name="Red bull", category=IngredientCategories.SOFT_DRINKS)
+    vodka = Ingredient(id=uuid4(), name="Vodka", category=IngredientCategories.SPIRITS)
+    red_bull = Ingredient(id=uuid4(), name="Red bull", category=IngredientCategories.MIXERS)
     ingredient_repository.create(vodka)
     ingredient_repository.create(red_bull)
     new_recipe = Recipe(

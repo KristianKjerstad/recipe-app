@@ -1,35 +1,22 @@
-import { FilterAltOutlined, SearchOutlined } from '@mui/icons-material'
+import { SearchOutlined } from '@mui/icons-material'
 import { Button, Checkbox, FormControlLabel } from '@mui/material'
 import { useEffect, useState } from 'react'
-import Select, { MultiValue } from 'react-select'
+import { MultiValue } from 'react-select'
 import { Ingredient, Recipe } from '../api/generated'
+import { IngredientsFilter } from '../components/IngredientsFIlter'
 import { RecipeCard } from '../components/RecipeCard'
 import { useIngredientAPI } from '../hooks/useIngredientAPI'
 import { useRecipeAPI } from '../hooks/useRecipeAPI'
 import { filterRecipes } from '../utils/filtering'
-type Options = {
+
+export type Options = {
     label: string
     value: string
 }
 
-// TODO it is possible to divide options into categories like country
-// const sampleOptions: Options[] = [
-//     {
-//         label: 'Finland',
-//         options: [
-//             {
-//                 label: 'Great Hotel',
-//                 value: 'Great Hotel',
-//             },
-//         ],
-//     },
-//     {
-//         label: 'Sweden',
-//         options: [{ label: 'Stockholm', value: 'Stockholm' }],
-//     },
-// ]
-
-const formatIngredients = (rawIngredients: Ingredient[]) => {
+const formatIngredients = (
+    rawIngredients: Ingredient[]
+): MultiValue<Options> => {
     const newIngredients: MultiValue<Options> = rawIngredients.map(
         (ingredient) => {
             return {
@@ -42,13 +29,9 @@ const formatIngredients = (rawIngredients: Ingredient[]) => {
 }
 
 export const DrinksRecipesPage = () => {
-    const [selectedIngredients, setSelectedIngredients] = useState<
-        MultiValue<Options>
-    >(JSON.parse(localStorage.getItem('selectedIngredients') ?? '[]'))
-
-    const handleSelectedIngredientChange = (value: MultiValue<Options>) => {
-        setSelectedIngredients(value)
-    }
+    const [selectedIngredientIds, setSelectedIngredientIds] = useState<
+        string[]
+    >([])
 
     const [includeCloseMatches, setIncludeCloseMatches] =
         useState<boolean>(false)
@@ -73,17 +56,6 @@ export const DrinksRecipesPage = () => {
     }, [getAllIngredients])
 
     const handleSearch = () => {
-        localStorage.setItem(
-            'selectedIngredients',
-            JSON.stringify(selectedIngredients)
-        )
-
-        // Get recipes with selected ingredients
-        const selectedIngredientIds: string[] = selectedIngredients.map(
-            (ingredient) => {
-                return ingredient.value
-            }
-        )
         const newFilteredRecipes = filterRecipes({
             allRecipes: allRecipes,
             selectedIngredientIds: selectedIngredientIds,
@@ -103,23 +75,12 @@ export const DrinksRecipesPage = () => {
 
     return (
         <div className="flex flex-col justify-center items-center">
-            <h2 className="text-xl font-medium pt-12 pb-2">Drink recipes</h2>
-            <div className="text-left pt-6 max-w-full sm: w-96 md:w-2/4 lg:w-2/4">
-                <p className="pb-2">Select your ingredients</p>
-                <Select
-                    className="my-react-select-container"
-                    classNamePrefix="my-react-select"
-                    value={selectedIngredients}
-                    options={formatIngredients(allIngredients)}
-                    onChange={(value) => {
-                        handleSelectedIngredientChange(value)
-                    }}
-                    isMulti
-                    closeMenuOnSelect={false}
-                    hideSelectedOptions={true}
-                />
-            </div>
-
+            <h2 className="text-4xl font-medium pt-12 pb-2">Drink recipes</h2>
+            <IngredientsFilter
+                ingredients={allIngredients}
+                selectedIngredientIds={selectedIngredientIds}
+                setSelectedIngredientIds={setSelectedIngredientIds}
+            />
             <div className="flex flex-row justify-center space-x-16 pt-8 ">
                 <Button
                     size="large"
@@ -132,30 +93,30 @@ export const DrinksRecipesPage = () => {
                 >
                     Search
                 </Button>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={includeCloseMatches}
-                            onChange={(event) =>
-                                setIncludeCloseMatches(event.target.checked)
-                            }
-                        />
-                    }
-                    label="Include recipes where up to 2 ingredients are missing"
-                />
                 <Button
                     size="large"
-                    variant="contained"
+                    variant="outlined"
                     color="orange"
-                    // onClick={() => {
-                    //     handleNavigation('drinks')
-                    // }}
-                    disabled
-                    startIcon={<FilterAltOutlined />}
+                    disabled={selectedIngredientIds.length === 0}
+                    onClick={() => {
+                        setSelectedIngredientIds([])
+                    }}
                 >
-                    Filter
+                    Clear Selection
                 </Button>
             </div>
+            <FormControlLabel
+                className="pt-4"
+                control={
+                    <Checkbox
+                        checked={includeCloseMatches}
+                        onChange={(event) =>
+                            setIncludeCloseMatches(event.target.checked)
+                        }
+                    />
+                }
+                label="Include recipes where up to 2 ingredients are missing"
+            />
             {filteredRecipes.length > 0 && (
                 <h2 className="pt-12">
                     Recipes that match your choice of ingredients

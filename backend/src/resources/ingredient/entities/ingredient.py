@@ -5,12 +5,11 @@ from pydantic import BaseModel
 
 
 class IngredientCategories(Enum):
-    SOFT_DRINKS = "Soft drinks"
-    ALCOHOLIC_BEVERAGE = "Alcoholic beverage"
-    FRUIT = "Fruit"
-    JUICE = "Juice"
-    SWEETENER = "Sweetener"
-    HERBS = "Herbs"
+    MIXERS = "Mixers"
+    SPIRITS = "Spirits"
+    LIQUEURS = "Liqueurs"
+    WINE = "Wine"
+    OTHER = "Other"
 
 
 class Ingredient(BaseModel):

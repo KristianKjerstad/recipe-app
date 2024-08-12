@@ -85,9 +85,11 @@ export interface Ingredient {
  */
 
 export const IngredientCategories = {
-    SoftDrinks: 'Soft drinks',
-    AlcoholicBeverage: 'Alcoholic beverage',
-    Fruit: 'Fruit',
+    Mixers: 'Mixers',
+    Spirits: 'Spirits',
+    Liqueurs: 'Liqueurs',
+    Wine: 'Wine',
+    Other: 'Other',
 } as const
 
 export type IngredientCategories =

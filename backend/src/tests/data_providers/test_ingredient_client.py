@@ -19,7 +19,7 @@ recipe_repository = RecipeRepository(db_client)
 
 def create_example_ingredient():
     new_recipe_id = create_example_recipe()
-    new_ingredient = Ingredient(id=uuid4(), name="Vodka", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
+    new_ingredient = Ingredient(id=uuid4(), name="Vodka", category=IngredientCategories.SPIRITS)
     ingredient_repository.create(new_ingredient)
     return new_ingredient.id
 
