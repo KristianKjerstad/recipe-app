@@ -1,7 +1,6 @@
 import { SearchOutlined } from '@mui/icons-material'
 import { Button, Checkbox, FormControlLabel } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { MultiValue } from 'react-select'
 import { Ingredient, Recipe } from '../api/generated'
 import { IngredientsFilter } from '../components/IngredientsFIlter'
 import { RecipeCard } from '../components/RecipeCard'
@@ -12,20 +11,6 @@ import { filterRecipes } from '../utils/filtering'
 export type Options = {
     label: string
     value: string
-}
-
-const formatIngredients = (
-    rawIngredients: Ingredient[]
-): MultiValue<Options> => {
-    const newIngredients: MultiValue<Options> = rawIngredients.map(
-        (ingredient) => {
-            return {
-                label: ingredient.name,
-                value: ingredient.id,
-            }
-        }
-    )
-    return newIngredients
 }
 
 export const DrinksRecipesPage = () => {

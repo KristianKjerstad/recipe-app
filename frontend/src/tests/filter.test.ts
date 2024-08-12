@@ -35,10 +35,18 @@ test('filter recipes by ingredient', () => {
     const recipes: Recipe[] = [vodkaRedbullRecipe, margaritaRecipe]
 
     expect(
-        filterRecipes({ allRecipes: recipes, selectedIngredientIds: [] })
+        filterRecipes({
+            allRecipes: recipes,
+            selectedIngredientIds: [],
+            includeCloseMatches: false,
+        })
     ).toEqual([])
     expect(
-        filterRecipes({ allRecipes: recipes, selectedIngredientIds: ['1'] })
+        filterRecipes({
+            allRecipes: recipes,
+            selectedIngredientIds: ['1'],
+            includeCloseMatches: false,
+        })
     ).toEqual([])
     expect(
         filterRecipes({
@@ -47,6 +55,7 @@ test('filter recipes by ingredient', () => {
                 ingredient_1.ingredient_uuid,
                 ingredient_2.ingredient_uuid,
             ],
+            includeCloseMatches: false,
         })
     ).toEqual([vodkaRedbullRecipe])
     expect(
@@ -57,12 +66,14 @@ test('filter recipes by ingredient', () => {
                 ingredient_2.ingredient_uuid,
                 ingredient_3.ingredient_uuid,
             ],
+            includeCloseMatches: false,
         })
     ).toEqual([vodkaRedbullRecipe])
     expect(
         filterRecipes({
             allRecipes: recipes,
             selectedIngredientIds: [ingredient_2.ingredient_uuid],
+            includeCloseMatches: false,
         })
     ).toEqual([])
     expect(
@@ -73,6 +84,7 @@ test('filter recipes by ingredient', () => {
                 ingredient_4.ingredient_uuid,
                 ingredient_1.ingredient_uuid,
             ],
+            includeCloseMatches: false,
         })
     ).toEqual([margaritaRecipe])
     expect(
@@ -85,6 +97,7 @@ test('filter recipes by ingredient', () => {
                 '87',
                 '99',
             ],
+            includeCloseMatches: false,
         })
     ).toEqual([margaritaRecipe])
     expect(
@@ -96,6 +109,7 @@ test('filter recipes by ingredient', () => {
                 ingredient_3.ingredient_uuid,
                 ingredient_4.ingredient_uuid,
             ],
+            includeCloseMatches: false,
         })
     ).toEqual(recipes)
 })
