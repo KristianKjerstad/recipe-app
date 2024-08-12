@@ -9,6 +9,8 @@ class IngredientCategories(Enum):
     ALCOHOLIC_BEVERAGE = "Alcoholic beverage"
     FRUIT = "Fruit"
     JUICE = "Juice"
+    SWEETENER = "Sweetener"
+    HERBS = "Herbs"
 
 
 class Ingredient(BaseModel):

@@ -6,8 +6,6 @@ const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN
 
 export const useRecipeAPI = () => {
     // const { showBoundary } = useErrorBoundary()
-    console.log('ACCESS_TOKEN', ACCESS_TOKEN)
-    console.log('b url', API_BASE_URL)
     const config: Configuration = {
         accessToken: ACCESS_TOKEN,
         basePath: API_BASE_URL,

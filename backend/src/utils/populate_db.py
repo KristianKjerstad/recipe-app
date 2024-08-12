@@ -54,6 +54,14 @@ def populate_db():
     red_bull = Ingredient(id=uuid4(), name="Red Bull", category=IngredientCategories.SOFT_DRINKS)
     lime = Ingredient(id=uuid4(), name="Lime", category=IngredientCategories.FRUIT)
     orange_juice = Ingredient(id=uuid4(), name="Orange Juice", category=IngredientCategories.JUICE)
+    triple_sec = Ingredient(id=uuid4(), name="Triple Sec", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
+    whiskey = Ingredient(id=uuid4(), name="Whiskey", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
+    sugar = Ingredient(id=uuid4(), name="Sugar", category=IngredientCategories.SWEETENER)
+    mint = Ingredient(id=uuid4(), name="Mint", category=IngredientCategories.HERBS)
+    soda_water = Ingredient(id=uuid4(), name="Soda Water", category=IngredientCategories.SOFT_DRINKS)
+    rum = Ingredient(id=uuid4(), name="Rum", category=IngredientCategories.ALCOHOLIC_BEVERAGE)
+    cranberry_juice = Ingredient(id=uuid4(), name="Cranberry Juice", category=IngredientCategories.JUICE)
+
     ingredients.append(vodka)
     ingredients.append(gin)
     ingredients.append(vermouth)
@@ -63,6 +71,13 @@ def populate_db():
     ingredients.append(red_bull)
     ingredients.append(lime)
     ingredients.append(tequila)
+    ingredients.append(triple_sec)
+    ingredients.append(whiskey)
+    ingredients.append(sugar)
+    ingredients.append(mint)
+    ingredients.append(soda_water)
+    ingredients.append(rum)
+    ingredients.append(cranberry_juice)
 
     for ingredient in ingredients:
         ingredient_repository.create(ingredient=ingredient)
@@ -131,11 +146,63 @@ def populate_db():
             RecipeIngredient(ingredient_uuid=campari.id),
         ],
     )
+    mojito = Recipe(
+        id=uuid4(),
+        name="Mojito",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "Muddle mint leaves with sugar and lime juice in a glass.",
+            "Add ice and pour rum over it.",
+            "Top up with soda water and stir well.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=rum.id),
+            RecipeIngredient(ingredient_uuid=sugar.id),
+            RecipeIngredient(ingredient_uuid=lime.id),
+            RecipeIngredient(ingredient_uuid=mint.id),
+            RecipeIngredient(ingredient_uuid=soda_water.id),
+        ],
+    )
+    old_fashioned = Recipe(
+        id=uuid4(),
+        name="Old Fashioned",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "Muddle sugar with bitters in a glass.",
+            "Add ice and whiskey.",
+            "Stir well and garnish with an orange slice.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=sugar.id),
+            RecipeIngredient(ingredient_uuid=whiskey.id),
+        ],
+    )
+    cosmopolitan = Recipe(
+        id=uuid4(),
+        name="Cosmopolitan",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "Shake vodka, triple sec, cranberry juice, and lime juice with ice.",
+            "Strain into a cocktail glass and garnish with a lime wedge.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=vodka.id),
+            RecipeIngredient(ingredient_uuid=triple_sec.id),
+            RecipeIngredient(ingredient_uuid=cranberry_juice.id),
+            RecipeIngredient(ingredient_uuid=lime.id),
+        ],
+    )
 
     recipes.append(vodka_redbull)
     recipes.append(margarita)
     recipes.append(vodka_screwdriver)
     recipes.append(negroni)
+    recipes.append(mojito)
+    recipes.append(cosmopolitan)
+    recipes.append(old_fashioned)
     for recipe in recipes:
         recipe_repository.create(recipe=recipe)
 

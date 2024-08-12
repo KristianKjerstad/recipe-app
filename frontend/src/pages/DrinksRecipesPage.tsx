@@ -1,5 +1,5 @@
 import { FilterAltOutlined, SearchOutlined } from '@mui/icons-material'
-import { Button } from '@mui/material'
+import { Button, Checkbox, FormControlLabel } from '@mui/material'
 import { useEffect, useState } from 'react'
 import Select, { MultiValue } from 'react-select'
 import { Ingredient, Recipe } from '../api/generated'
@@ -50,6 +50,9 @@ export const DrinksRecipesPage = () => {
         setSelectedIngredients(value)
     }
 
+    const [includeCloseMatches, setIncludeCloseMatches] =
+        useState<boolean>(false)
+
     const [allRecipes, setAllRecipes] = useState<Recipe[]>([])
     const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
     const [allIngredients, setAllIngredients] = useState<Ingredient[]>([])
@@ -84,6 +87,7 @@ export const DrinksRecipesPage = () => {
         const newFilteredRecipes = filterRecipes({
             allRecipes: allRecipes,
             selectedIngredientIds: selectedIngredientIds,
+            includeCloseMatches: includeCloseMatches,
         })
         setFilteredRecipes(newFilteredRecipes)
         if (newFilteredRecipes.length === 0) {
@@ -128,6 +132,17 @@ export const DrinksRecipesPage = () => {
                 >
                     Search
                 </Button>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={includeCloseMatches}
+                            onChange={(event) =>
+                                setIncludeCloseMatches(event.target.checked)
+                            }
+                        />
+                    }
+                    label="Include recipes where up to 2 ingredients are missing"
+                />
                 <Button
                     size="large"
                     variant="contained"
@@ -141,9 +156,11 @@ export const DrinksRecipesPage = () => {
                     Filter
                 </Button>
             </div>
-            <h2 className="pt-12">
-                Recipes that match your choice of ingredients
-            </h2>
+            {filteredRecipes.length > 0 && (
+                <h2 className="pt-12">
+                    Recipes that match your choice of ingredients
+                </h2>
+            )}
             {isNoRecipeResults && <p className="pt-12">No results...</p>}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 pt-24 pb-48">
                 {filteredRecipes.map((recipe) => {

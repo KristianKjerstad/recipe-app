@@ -26,6 +26,7 @@ const createColor = (mainColor: any) =>
     augmentColor({ color: { main: mainColor } })
 export const theme = createTheme({
     palette: {
+        mode: 'dark',
         // eslint-disable-next-line
         //@ts-ignore
         orange: createColor('#D35100'),
