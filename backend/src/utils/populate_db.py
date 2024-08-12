@@ -50,7 +50,6 @@ def populate_db():
     gin = Ingredient(id=uuid4(), name="Gin", category=IngredientCategories.SPIRITS)
     vermouth = Ingredient(id=uuid4(), name="Vermouth", category=IngredientCategories.SPIRITS)
     campari = Ingredient(id=uuid4(), name="Campari", category=IngredientCategories.LIQUEURS)
-    orange_liqour = Ingredient(id=uuid4(), name="Orange Liquor", category=IngredientCategories.LIQUEURS)
     red_bull = Ingredient(id=uuid4(), name="Red Bull", category=IngredientCategories.MIXERS)
     lime = Ingredient(id=uuid4(), name="Lime", category=IngredientCategories.OTHER)
     orange_juice = Ingredient(id=uuid4(), name="Orange Juice", category=IngredientCategories.MIXERS)
@@ -61,23 +60,58 @@ def populate_db():
     soda_water = Ingredient(id=uuid4(), name="Soda Water", category=IngredientCategories.MIXERS)
     rum = Ingredient(id=uuid4(), name="Rum", category=IngredientCategories.SPIRITS)
     cranberry_juice = Ingredient(id=uuid4(), name="Cranberry Juice", category=IngredientCategories.MIXERS)
+    orange_liqueur = Ingredient(id=uuid4(), name="Orange Liqueur", category=IngredientCategories.LIQUEURS)
+    aperol = Ingredient(id=uuid4(), name="Aperol", category=IngredientCategories.LIQUEURS)
+    prosecco = Ingredient(id=uuid4(), name="Prosecco", category=IngredientCategories.WINE)
+    tomato_juice = Ingredient(id=uuid4(), name="Tomato Juice", category=IngredientCategories.MIXERS)
+    worcestershire_sauce = Ingredient(id=uuid4(), name="Worcestershire Sauce", category=IngredientCategories.OTHER)
+    tabasco = Ingredient(id=uuid4(), name="Tabasco", category=IngredientCategories.OTHER)
+    ginger_beer = Ingredient(id=uuid4(), name="Ginger Beer", category=IngredientCategories.MIXERS)
+    lemon = Ingredient(id=uuid4(), name="Lemon Juice", category=IngredientCategories.OTHER)
+    sugar_syrup = Ingredient(id=uuid4(), name="Sugar Syrup", category=IngredientCategories.OTHER)
+    amaretto = Ingredient(id=uuid4(), name="Amaretto", category=IngredientCategories.LIQUEURS)
+    coconut_cream = Ingredient(id=uuid4(), name="Coconut Cream", category=IngredientCategories.OTHER)
+    pineapple_juice = Ingredient(id=uuid4(), name="Pineapple Juice", category=IngredientCategories.MIXERS)
+    passion_fruit = Ingredient(id=uuid4(), name="Passion Fruit", category=IngredientCategories.OTHER)
+    vanilla_vodka = Ingredient(id=uuid4(), name="Vanilla Vodka", category=IngredientCategories.SPIRITS)
+    coffee = Ingredient(id=uuid4(), name="Hot Coffee", category=IngredientCategories.MIXERS)
+    cream = Ingredient(id=uuid4(), name="Cream", category=IngredientCategories.OTHER)
 
-    ingredients.append(vodka)
-    ingredients.append(gin)
-    ingredients.append(vermouth)
-    ingredients.append(campari)
-    ingredients.append(orange_liqour)
-    ingredients.append(orange_juice)
-    ingredients.append(red_bull)
-    ingredients.append(lime)
-    ingredients.append(tequila)
-    ingredients.append(triple_sec)
-    ingredients.append(whiskey)
-    ingredients.append(sugar)
-    ingredients.append(mint)
-    ingredients.append(soda_water)
-    ingredients.append(rum)
-    ingredients.append(cranberry_juice)
+    ingredients.extend(
+        [
+            vodka,
+            gin,
+            vermouth,
+            campari,
+            orange_liqueur,
+            orange_juice,
+            red_bull,
+            lime,
+            tequila,
+            triple_sec,
+            whiskey,
+            sugar,
+            mint,
+            soda_water,
+            rum,
+            cranberry_juice,
+            aperol,
+            prosecco,
+            tomato_juice,
+            worcestershire_sauce,
+            tabasco,
+            ginger_beer,
+            lemon,
+            sugar_syrup,
+            amaretto,
+            coconut_cream,
+            pineapple_juice,
+            passion_fruit,
+            vanilla_vodka,
+            coffee,
+            cream,
+        ]
+    )
 
     for ingredient in ingredients:
         ingredient_repository.create(ingredient=ingredient)
@@ -126,7 +160,7 @@ def populate_db():
             ),
             RecipeIngredient(ingredient_uuid=lime.id),
             RecipeIngredient(ingredient_uuid=vodka.id),
-            RecipeIngredient(ingredient_uuid=orange_liqour.id),
+            RecipeIngredient(ingredient_uuid=orange_liqueur.id),
         ],
     )
     negroni = Recipe(
@@ -196,13 +230,213 @@ def populate_db():
         ],
     )
 
-    recipes.append(vodka_redbull)
-    recipes.append(margarita)
-    recipes.append(vodka_screwdriver)
-    recipes.append(negroni)
-    recipes.append(mojito)
-    recipes.append(cosmopolitan)
-    recipes.append(old_fashioned)
+    dry_martini = Recipe(
+        id=uuid4(),
+        name="Dry Martini",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "Chill a martini glass.",
+            "In a mixing glass, combine 2 1/2 oz gin and 1/2 oz dry vermouth.",
+            "Add ice and stir well.",
+            "Strain into the chilled martini glass.",
+            "Garnish with an olive or a lemon twist.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=gin.id),
+            RecipeIngredient(ingredient_uuid=vermouth.id),
+        ],
+    )
+
+    whiskey_sour = Recipe(
+        id=uuid4(),
+        name="Whiskey Sour",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "In a shaker, combine 2 oz whiskey, 3/4 oz lemon juice, and 1/2 oz sugar syrup.",
+            "Fill with ice and shake well.",
+            "Strain into a rocks glass over ice.",
+            "Garnish with a cherry and a slice of orange.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=whiskey.id),
+            RecipeIngredient(ingredient_uuid=lemon.id),
+            RecipeIngredient(ingredient_uuid=sugar_syrup.id),
+        ],
+    )
+
+    aperol_spritz = Recipe(
+        id=uuid4(),
+        name="Aperol Spritz",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "Fill a wine glass with ice.",
+            "Combine 3 oz Aperol, 3 oz prosecco, and a splash of soda water.",
+            "Garnish with an orange slice.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=aperol.id),
+            RecipeIngredient(ingredient_uuid=prosecco.id),
+            RecipeIngredient(ingredient_uuid=soda_water.id),
+        ],
+    )
+
+    bloody_mary = Recipe(
+        id=uuid4(),
+        name="Bloody Mary",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "In a shaker, combine 2 oz vodka, 4 oz tomato juice, 1/2 oz lemon juice, 2 dashes of Worcestershire sauce, 2 dashes of Tabasco, a pinch of salt, and a pinch of pepper.",
+            "Roll the mixture back and forth between the shaker and a mixing glass (do not shake).",
+            "Strain into an ice-filled highball glass.",
+            "Garnish with a celery stick and a lemon wedge.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=vodka.id),
+            RecipeIngredient(ingredient_uuid=tomato_juice.id),
+            RecipeIngredient(ingredient_uuid=lemon.id),
+            RecipeIngredient(ingredient_uuid=worcestershire_sauce.id),
+            RecipeIngredient(ingredient_uuid=tabasco.id),
+        ],
+    )
+
+    moscow_mule = Recipe(
+        id=uuid4(),
+        name="Moscow Mule",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "Fill a copper mug with ice.",
+            "Add 2 oz vodka and 1/2 oz lime juice.",
+            "Top off with ginger beer.",
+            "Stir gently and garnish with a lime wheel.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=vodka.id),
+            RecipeIngredient(ingredient_uuid=lime.id),
+            RecipeIngredient(ingredient_uuid=ginger_beer.id),
+        ],
+    )
+    mai_tai = Recipe(
+        id=uuid4(),
+        name="Mai Tai",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "In a shaker, combine 1 oz light rum, 1 oz dark rum, 1/2 oz orange liqueur, 1/2 oz lime juice, 1/4 oz sugar syrup, and 1/4 oz orgeat syrup.",
+            "Fill with ice and shake well.",
+            "Strain into a rocks glass filled with crushed ice.",
+            "Garnish with a mint sprig and a lime wheel.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=rum.id),  # Light rum
+            RecipeIngredient(ingredient_uuid=rum.id),  # Dark rum (should ideally be different)
+            RecipeIngredient(ingredient_uuid=orange_liqueur.id),
+            RecipeIngredient(ingredient_uuid=lime.id),
+            RecipeIngredient(ingredient_uuid=sugar_syrup.id),
+        ],
+    )
+
+    amaretto_sour = Recipe(
+        id=uuid4(),
+        name="Amaretto Sour",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "In a shaker, combine 1 1/2 oz amaretto liqueur, 3/4 oz lemon juice, and 1/4 oz sugar syrup.",
+            "Fill with ice and shake well.",
+            "Strain into a rocks glass filled with ice.",
+            "Garnish with a cherry and a slice of lemon.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=amaretto.id),
+            RecipeIngredient(ingredient_uuid=lemon.id),
+            RecipeIngredient(ingredient_uuid=sugar_syrup.id),
+        ],
+    )
+
+    pina_colada = Recipe(
+        id=uuid4(),
+        name="Piña Colada",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "In a blender, combine 2 oz rum, 1 oz coconut cream, and 1 oz pineapple juice.",
+            "Fill with ice and blend until smooth.",
+            "Pour into a chilled glass.",
+            "Garnish with a pineapple slice and a cherry.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=rum.id),
+            RecipeIngredient(ingredient_uuid=coconut_cream.id),
+            RecipeIngredient(ingredient_uuid=pineapple_juice.id),
+        ],
+    )
+
+    porn_star_martini = Recipe(
+        id=uuid4(),
+        name="Porn Star Martini",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "In a shaker, combine 1 1/2 oz vanilla vodka, 1/2 oz passion fruit puree, 1/2 oz lime juice, and 1/4 oz sugar syrup.",
+            "Fill with ice and shake well.",
+            "Strain into a chilled martini glass.",
+            "Garnish with a half passion fruit and serve with a shot of prosecco on the side.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=vanilla_vodka.id),
+            RecipeIngredient(ingredient_uuid=passion_fruit.id),
+            RecipeIngredient(ingredient_uuid=lime.id),
+            RecipeIngredient(ingredient_uuid=sugar_syrup.id),
+            RecipeIngredient(ingredient_uuid=prosecco.id),
+        ],
+    )
+
+    irish_coffee = Recipe(
+        id=uuid4(),
+        name="Irish Coffee",
+        type=RecipeTypes.COCKTAIL,
+        category=RecipeCategories.COCKTAIL,
+        recipe_steps=[
+            "Preheat a glass by filling it with hot water, then empty it.",
+            "Add 1 1/2 oz whiskey and 1 tsp sugar to the glass.",
+            "Pour in hot coffee and stir until the sugar is dissolved.",
+            "Top with lightly whipped cream, pouring it over the back of a spoon so it floats on top.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=whiskey.id),
+            RecipeIngredient(ingredient_uuid=coffee.id),
+            RecipeIngredient(ingredient_uuid=sugar.id),
+            RecipeIngredient(ingredient_uuid=cream.id),
+        ],
+    )
+
+    recipes.extend(
+        [
+            vodka_redbull,
+            vodka_screwdriver,
+            margarita,
+            negroni,
+            mojito,
+            old_fashioned,
+            cosmopolitan,
+            dry_martini,
+            whiskey_sour,
+            aperol_spritz,
+            bloody_mary,
+            moscow_mule,
+            mai_tai,
+            amaretto_sour,
+            pina_colada,
+            porn_star_martini,
+            irish_coffee,
+        ]
+    )
+
     for recipe in recipes:
         recipe_repository.create(recipe=recipe)
 
