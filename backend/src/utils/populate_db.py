@@ -13,6 +13,8 @@ from resources.recipe.entities.recipe import (
 )
 from resources.recipe.repositories.recipe_repository import RecipeRepository
 
+# TO UPDATE DB ON VERCEL, UPDATE THE ENV FILE USED FROM LAUNCH.JSON TO .env instead of local.env
+
 
 def delete_recipe_table(db_client: ClientInterface):
     delete_recipe_statement = db_client.recipe_table.delete()
