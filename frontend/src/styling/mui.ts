@@ -6,6 +6,7 @@ declare module '@mui/material/styles' {
         apple: PaletteColorOptions
         steelBlue: PaletteColorOptions
         violet: PaletteColorOptions
+        lightGreen: PaletteColorOptions
     }
     type Palette = CustomPalette
     type PaletteOptions = CustomPalette
@@ -17,6 +18,7 @@ declare module '@mui/material/Button' {
         apple: true
         steelBlue: true
         violet: true
+        lightGreen: true
     }
 }
 
