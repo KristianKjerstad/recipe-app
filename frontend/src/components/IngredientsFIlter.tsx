@@ -23,7 +23,7 @@ export const IngredientsFilter = (props: IngredientsFilterProps) => {
     return (
         <div>
             <h2 className="pt-8 pb-8 font-semibold text-xl">
-                Select your available ingredients
+                Select the ingredients you have available
             </h2>
             <div className="lg:grid grid-cols-5 gap-4 pb-8">
                 {categories.map((category) => {

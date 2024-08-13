@@ -1,6 +1,15 @@
 import { SearchOutlined } from '@mui/icons-material'
-import { Button, Checkbox, FormControlLabel } from '@mui/material'
+import ClearIcon from '@mui/icons-material/Clear'
+import {
+    Button,
+    Checkbox,
+    CircularProgress,
+    FormControlLabel,
+    Tooltip,
+} from '@mui/material'
 import { useEffect, useState } from 'react'
+import { FcInfo } from 'react-icons/fc'
+import { Link } from 'react-router-dom'
 import { Ingredient, Recipe } from '../api/generated'
 import { IngredientsFilter } from '../components/IngredientsFIlter'
 import { RecipeCard } from '../components/RecipeCard'
@@ -13,10 +22,30 @@ export type Options = {
     value: string
 }
 
+// const formatIngredients = (rawIngredients: Ingredient[]) => {
+//     const newIngredients: MultiValue<Options> = rawIngredients.map(
+//         (ingredient) => {
+//             return {
+//                 label: ingredient.name,
+//                 value: ingredient.id,
+//             }
+//         }
+//     )
+//     return newIngredients
+// }
+
 export const DrinksRecipesPage = () => {
     const [selectedIngredientIds, setSelectedIngredientIds] = useState<
         string[]
     >([])
+    const [showIngredientSelection, _] = useState<boolean>(true)
+    // const [selectedIngredients, setSelectedIngredients] = useState<
+    //     MultiValue<Options>
+    // >(JSON.parse(localStorage.getItem('selectedIngredients') ?? '[]'))
+
+    // const handleSelectedIngredientChange = (value: MultiValue<Options>) => {
+    //     setSelectedIngredients(value)
+    // }
 
     const [includeCloseMatches, setIncludeCloseMatches] =
         useState<boolean>(false)
@@ -55,22 +84,88 @@ export const DrinksRecipesPage = () => {
     }
 
     if (allRecipes.length === 0) {
-        return <div>Loading....</div>
+        return (
+            <div className="pt-40">
+                <CircularProgress />
+            </div>
+        )
     }
 
     return (
         <div className="flex flex-col justify-center items-center">
-            <h2 className="text-4xl font-medium pt-12 pb-2">Drink recipes</h2>
-            <IngredientsFilter
-                ingredients={allIngredients}
-                selectedIngredientIds={selectedIngredientIds}
-                setSelectedIngredientIds={setSelectedIngredientIds}
-            />
+            <h2 className="text-4xl font-medium pt-12 pb-2">
+                Cocktail Recipes
+            </h2>
+            <Link
+                to="all-recipes"
+                className="text-blue-600 underline pt-6 pb-8"
+            >
+                View all recipes
+            </Link>
+            {/* <div className="text-left pt-6 max-w-full  w-3/4">
+                <p className="pb-2">Select your ingredients</p>
+                <Select
+                    className="my-react-select-container"
+                    classNamePrefix="my-react-select"
+                    value={selectedIngredients}
+                    options={formatIngredients(allIngredients)}
+                    onChange={(value) => {
+                        handleSelectedIngredientChange(value)
+                    }}
+                    isMulti
+                    // isDisabled
+                    closeMenuOnSelect={false}
+                    hideSelectedOptions={true}
+                />
+                <div className='flex flex-row justify-between items-center pt-4'>
+                    <div className='flex flex-row'>
+                        <FormControlLabel
+                            className="text-left"
+                            control={
+                                <Checkbox
+                                    checked={includeCloseMatches}
+                                    onChange={(event) =>
+                                        setIncludeCloseMatches(event.target.checked)
+                                    }
+                                />
+                            }
+                            label="Include close matches"
+                        />
+                        <Tooltip title={<p className='text-[16px]'>Include recipes where up to two ingredients are missing.</p>}>
+                            <div className='cursor-pointer'>
+                                <FcInfo />
+                            </div>
+                        </Tooltip>
+                    </div>
+                    <div>
+                        <Button
+                            // size="large"
+                            variant="contained"
+                            color="lightGreen"
+                            // startIcon={<SearchOutlined />}
+                            // onClick={() => {
+                            //     handleSearch()
+                            // }}
+                            onClick={() => setShowIngredientSelection(!showIngredientSelection)}
+                        >
+                            Open Ingredient Selection
+                        </Button>
+                    </div>
+                </div>
+            </div> */}
+            {showIngredientSelection && (
+                <IngredientsFilter
+                    ingredients={allIngredients}
+                    selectedIngredientIds={selectedIngredientIds}
+                    setSelectedIngredientIds={setSelectedIngredientIds}
+                />
+            )}
+
             <div className="flex flex-row justify-center space-x-16 pt-8 ">
                 <Button
                     size="large"
                     variant="contained"
-                    color="orange"
+                    color="lightGreen"
                     startIcon={<SearchOutlined />}
                     onClick={() => {
                         handleSearch()
@@ -80,8 +175,9 @@ export const DrinksRecipesPage = () => {
                 </Button>
                 <Button
                     size="large"
-                    variant="outlined"
-                    color="orange"
+                    variant="contained"
+                    color="lightGreen"
+                    startIcon={<ClearIcon />}
                     disabled={selectedIngredientIds.length === 0}
                     onClick={() => {
                         setSelectedIngredientIds([])
@@ -90,32 +186,48 @@ export const DrinksRecipesPage = () => {
                     Clear Selection
                 </Button>
             </div>
-            <FormControlLabel
-                className="pt-4"
-                control={
-                    <Checkbox
-                        checked={includeCloseMatches}
-                        onChange={(event) =>
-                            setIncludeCloseMatches(event.target.checked)
-                        }
-                    />
-                }
-                label="Include recipes where up to 2 ingredients are missing"
-            />
-            {filteredRecipes.length > 0 && (
+            <div className="flex flex-row pt-8 mr-36">
+                <FormControlLabel
+                    // className="text-left"
+                    control={
+                        <Checkbox
+                            checked={includeCloseMatches}
+                            onChange={(event) =>
+                                setIncludeCloseMatches(event.target.checked)
+                            }
+                        />
+                    }
+                    label="Include close matches"
+                />
+                <Tooltip
+                    title={
+                        <p className="text-[16px]">
+                            Include recipes where up to two ingredients are
+                            missing.
+                        </p>
+                    }
+                >
+                    <div className="cursor-pointer">
+                        <FcInfo />
+                    </div>
+                </Tooltip>
+            </div>
+            <div></div>
+            {filteredRecipes.length === 1 && (
                 <h2 className="pt-12">
-                    Recipes that match your choice of ingredients
+                    Found {filteredRecipes.length} recipe that match your choice
+                    of ingredients
+                </h2>
+            )}
+            {filteredRecipes.length > 1 && (
+                <h2 className="pt-12">
+                    Found {filteredRecipes.length} recipes that match your
+                    choice of ingredients
                 </h2>
             )}
             {isNoRecipeResults && <p className="pt-12">No results...</p>}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 pt-24 pb-48">
                 {filteredRecipes.map((recipe) => {
-                    return <RecipeCard recipe={recipe} />
-                })}
-            </div>
-            <h2>All Recipes</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 pt-24 pb-48">
-                {allRecipes.map((recipe) => {
                     return <RecipeCard recipe={recipe} />
                 })}
             </div>

@@ -4,13 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 export const Footer = () => {
     const navigate = useNavigate()
     const [width, setWidth] = useState(window.innerWidth)
-    const [open, setOpen] = useState<boolean>(false)
 
     const SCREEN_WIDTH_LIMIT = 1000
-
-    const toggleDrawer = () => () => {
-        setOpen(!open)
-    }
 
     useEffect(() => {
         const handleResize = () => {
