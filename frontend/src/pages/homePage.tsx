@@ -12,31 +12,33 @@ export const HomePage = () => {
 
     return (
         <div>
-            <h1 className="text-4xl pt-8 pb-8">Recipe Finder</h1>
-            <p>Find your next recipe based on your available ingredients</p>
-            <div className="flex flex-row justify-center space-x-16 pt-8 ">
+            <h1 className="text-4xl pt-16 pb-8">Recipe Finder</h1>
+            <p className="text-xl">
+                Find your next recipe based on your available ingredients!
+            </p>
+            <div className="flex flex-row justify-center space-x-16 pt-16 ">
                 <Button
                     size="large"
                     disabled
                     variant="contained"
-                    color="orange"
+                    color="lightGreen"
                     startIcon={<LocalDiningOutlined />}
                     onClick={() => {
                         handleNavigation('food')
                     }}
                 >
-                    Food
+                    Find Food Recipes
                 </Button>
                 <Button
                     size="large"
                     variant="contained"
-                    color="orange"
+                    color="lightGreen"
                     onClick={() => {
-                        handleNavigation('drinks')
+                        handleNavigation('cocktails')
                     }}
                     startIcon={<LocalBarOutlined />}
                 >
-                    Drinks
+                    Find Cocktail Recipes
                 </Button>
             </div>
         </div>

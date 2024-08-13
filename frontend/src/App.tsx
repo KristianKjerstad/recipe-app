@@ -29,7 +29,7 @@ function App() {
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route
-                path="/drinks"
+                path="/cocktails"
                 element={
                     <ErrorBoundary fallback={<div>Error in recipe page</div>}>
                         <DrinksRecipesPage />
