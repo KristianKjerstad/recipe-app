@@ -1,5 +1,6 @@
 import { ErrorBoundary } from 'react-error-boundary'
 import { Route, Routes } from 'react-router-dom'
+import { AllCocktailsPage } from './pages/AllCocktailsPage'
 import { DrinksRecipesPage } from './pages/DrinksRecipesPage'
 import { ErrorPage } from './pages/ErrorPage'
 import { FoodRecipesPage } from './pages/FoodRecipesPage'
@@ -49,6 +50,14 @@ function App() {
                 element={
                     <ErrorBoundary FallbackComponent={Fallback}>
                         <RecipePage />
+                    </ErrorBoundary>
+                }
+            />
+            <Route
+                path="/all-cocktails"
+                element={
+                    <ErrorBoundary FallbackComponent={Fallback}>
+                        <AllCocktailsPage />
                     </ErrorBoundary>
                 }
             />

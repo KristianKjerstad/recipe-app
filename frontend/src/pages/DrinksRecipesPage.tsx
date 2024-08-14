@@ -97,7 +97,7 @@ export const DrinksRecipesPage = () => {
                 Cocktail Recipes
             </h2>
             <Link
-                to="all-recipes"
+                to="/all-cocktails"
                 className="text-blue-600 underline pt-6 pb-8"
             >
                 View all recipes
@@ -226,7 +226,7 @@ export const DrinksRecipesPage = () => {
                 </h2>
             )}
             {isNoRecipeResults && <p className="pt-12">No results...</p>}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 pt-24 pb-48">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-12 pt-24 pb-48">
                 {filteredRecipes.map((recipe) => {
                     return <RecipeCard recipe={recipe} />
                 })}
