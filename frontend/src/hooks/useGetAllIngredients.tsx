@@ -6,7 +6,6 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN
 
 export const useGetAllIngredients = () => {
-    // const { showBoundary } = useErrorBoundary()
     const config: Configuration = {
         accessToken: ACCESS_TOKEN,
         basePath: API_BASE_URL,
@@ -24,7 +23,6 @@ export const useGetAllIngredients = () => {
             })
             .catch((error) => {
                 throw error
-                // showBoundary(error)
             })
     }, [])
 

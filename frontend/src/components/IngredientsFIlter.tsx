@@ -80,17 +80,18 @@ export const IngredientsFilter = (props: IngredientsFilterProps) => {
             </h2>
             {width < SCREEN_WIDTH_LIMIT && (
                 <div>
-                    <div className="text-left pt-6 max-w-full  w-3/4">
-                        <p className="pb-2">Select your ingredients</p>
-                        <MultiSelect
-                            // label="Your favorite libraries"
-                            placeholder="Pick value"
-                            data={formatIngredients(ingredients)}
-                            onChange={(values) => {
-                                setSelectedIngredientIds(values)
-                            }}
-                            searchable
-                        />
+                    <div className="">
+                        <div className="max-w-[450px]">
+                            <MultiSelect
+                                placeholder="Select Ingredients"
+                                data={formatIngredients(ingredients)}
+                                value={selectedIngredientIds}
+                                onChange={(values) => {
+                                    setSelectedIngredientIds(values)
+                                }}
+                                searchable
+                            />
+                        </div>
                     </div>
                 </div>
             )}

@@ -123,7 +123,7 @@ export const DrinksRecipesPage = () => {
                     match your choice of ingredients
                 </h2>
             )}
-            {filteredRecipes.length === 0 && (
+            {filteredRecipes.length === 0 && searchIsUsed && (
                 <p className="pt-12">No results found...</p>
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-12 pt-16 pb-16">
