@@ -73,6 +73,19 @@ export const IngredientsFilter = (props: IngredientsFilterProps) => {
 
     const SCREEN_WIDTH_LIMIT = 1200
 
+    const handleSelectedIngredientChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+        ingredient: Ingredient
+    ) => {
+        if (event.target.checked) {
+            setSelectedIngredientIds([...selectedIngredientIds, ingredient.id])
+        } else {
+            setSelectedIngredientIds(
+                selectedIngredientIds.filter((e) => e !== ingredient.id)
+            )
+        }
+    }
+
     return (
         <div>
             <h2 className="pt-8 pb-8 font-semibold text-xl">
@@ -120,28 +133,10 @@ export const IngredientsFilter = (props: IngredientsFilterProps) => {
                                                                 onChange={(
                                                                     event
                                                                 ) => {
-                                                                    if (
-                                                                        event
-                                                                            .target
-                                                                            .checked
-                                                                    ) {
-                                                                        setSelectedIngredientIds(
-                                                                            [
-                                                                                ...selectedIngredientIds,
-                                                                                ingredient.id,
-                                                                            ]
-                                                                        )
-                                                                    } else {
-                                                                        setSelectedIngredientIds(
-                                                                            selectedIngredientIds.filter(
-                                                                                (
-                                                                                    e
-                                                                                ) =>
-                                                                                    e !==
-                                                                                    ingredient.id
-                                                                            )
-                                                                        )
-                                                                    }
+                                                                    handleSelectedIngredientChange(
+                                                                        event,
+                                                                        ingredient
+                                                                    )
                                                                 }}
                                                             />
                                                         }
