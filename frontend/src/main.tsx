@@ -1,3 +1,5 @@
+import { MantineProvider } from '@mantine/core'
+import '@mantine/core/styles.css'
 import { ThemeProvider } from '@mui/material/styles'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
@@ -14,13 +16,15 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <BrowserRouter>
             <ThemeProvider theme={theme}>
                 <ErrorBoundary fallback={<div>Error...</div>}>
-                    <div className="flex flex-col min-h-screen">
-                        <div className="flex-grow">
-                            <Header />
-                            <App />
+                    <MantineProvider>
+                        <div className="flex flex-col min-h-screen">
+                            <div className="flex-grow">
+                                <Header />
+                                <App />
+                            </div>
+                            <Footer />
                         </div>
-                        <Footer />
-                    </div>
+                    </MantineProvider>
                 </ErrorBoundary>
             </ThemeProvider>
         </BrowserRouter>

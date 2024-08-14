@@ -10,7 +10,7 @@ function allEntriesInListAExistInListB(
     return allEntriesExist
 }
 
-function recipeHasAtMostTwoMissingIngredients(
+export function recipeHasOneOrTwoMissingIngredients(
     recipeIngredientIds: string[],
     ingredientIds: string[]
 ) {
@@ -21,47 +21,41 @@ function recipeHasAtMostTwoMissingIngredients(
             missingCount++
         }
     }
-    if (missingCount > 2) {
-        return false
+    if (missingCount === 1 || missingCount === 2) {
+        return true
     }
-    return true
+    return false
 }
-
+// return allRecipes.filter((recipe) => {
+//             const recipeIngredientIds =
+//                 recipe.ingredients?.map((ingredient) => {
+//                     return ingredient.ingredient_uuid
+//                 }) ?? []
+//             return recipeHasAtMostTwoMissingIngredients(
+//                 recipeIngredientIds,
+//                 selectedIngredientIds
+//             )
+//         })
 export const filterRecipes = ({
     allRecipes,
     selectedIngredientIds,
-    includeCloseMatches,
 }: {
     allRecipes: Recipe[]
     selectedIngredientIds: string[]
-    includeCloseMatches: boolean
 }) => {
     // Find recipes for which all ingredients are in the selected ingredients list.
     // If include close matches flag is true, include recipes where up to 2 ingredients are missing.
     if (selectedIngredientIds.length === 0) {
         return []
     }
-    if (!includeCloseMatches) {
-        return allRecipes.filter((recipe) => {
-            const recipeIngredientIds =
-                recipe.ingredients?.map((ingredient) => {
-                    return ingredient.ingredient_uuid
-                }) ?? []
-            return allEntriesInListAExistInListB(
-                recipeIngredientIds,
-                selectedIngredientIds
-            )
-        })
-    } else {
-        return allRecipes.filter((recipe) => {
-            const recipeIngredientIds =
-                recipe.ingredients?.map((ingredient) => {
-                    return ingredient.ingredient_uuid
-                }) ?? []
-            return recipeHasAtMostTwoMissingIngredients(
-                recipeIngredientIds,
-                selectedIngredientIds
-            )
-        })
-    }
+    return allRecipes.filter((recipe) => {
+        const recipeIngredientIds =
+            recipe.ingredients?.map((ingredient) => {
+                return ingredient.ingredient_uuid
+            }) ?? []
+        return allEntriesInListAExistInListB(
+            recipeIngredientIds,
+            selectedIngredientIds
+        )
+    })
 }
