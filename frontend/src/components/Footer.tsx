@@ -26,7 +26,7 @@ export const Footer = () => {
                     <div className="flex justify-between align-center items-center pl-80 pr-80 pb-4 ">
                         <img
                             className="cursor-pointer"
-                            src="../src/assets/logo-w.png"
+                            src="/logo-w.png"
                             width="150"
                             height="55"
                             alt="logo"

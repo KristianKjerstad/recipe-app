@@ -31,7 +31,7 @@ export const Header = () => {
             <div className="flex justify-between align-center items-center drop-shadow-lg  bg-[#DFDFDF] w-[100%] pt-8 pl-10 pr-10 pb-6">
                 <img
                     className="cursor-pointer"
-                    src="../src/assets/logo.png"
+                    src="/logo.png"
                     width="150"
                     height="55"
                     alt="logo"
