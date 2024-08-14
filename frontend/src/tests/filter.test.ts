@@ -23,6 +23,7 @@ test('filter recipes by ingredient', () => {
         category: 'cocktail',
         ingredients: [ingredient_1, ingredient_2],
         recipe_steps: ['Mix ingredients', 'drink!'],
+        image_link: '',
     }
     const margaritaRecipe: Recipe = {
         id: 'de09298c-5ad1-4ae9-aff0-d078c6f12925',
@@ -31,6 +32,7 @@ test('filter recipes by ingredient', () => {
         category: 'cocktail',
         ingredients: [ingredient_3, ingredient_4, ingredient_1],
         recipe_steps: ['Mix ingredients', 'drink!'],
+        image_link: '',
     }
     const recipes: Recipe[] = [vodkaRedbullRecipe, margaritaRecipe]
 
