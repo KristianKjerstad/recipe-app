@@ -92,7 +92,7 @@ export const DrinksRecipesPage = () => {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center pl-8 pr-8">
             <h2 className="text-4xl font-medium pt-12 pb-2">
                 Cocktail Recipes
             </h2>

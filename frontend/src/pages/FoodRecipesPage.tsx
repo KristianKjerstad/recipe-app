@@ -1,3 +1,3 @@
 export const FoodRecipesPage = () => {
-    return <div>Food</div>
+    return <div className="pl-8 pr-8">Food</div>
 }
