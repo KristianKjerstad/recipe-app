@@ -3,7 +3,7 @@ import { InputAdornment, TextField } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Recipe } from '../api/generated'
 import { RecipeCard } from '../components/RecipeCard'
-import { useRecipeAPI } from '../hooks/useRecipeAPI'
+import { useGetAllRecipes } from '../hooks/useGetAllRecipes'
 
 const filterRecipesByName = (
     selectedRecipeName: string,
@@ -20,26 +20,20 @@ const filterRecipesByName = (
 }
 
 export const AllCocktailsPage = () => {
-    const { getAllRecipes } = useRecipeAPI()
-    const [allRecipes, setAllRecipes] = useState<Recipe[]>([])
+    const { allRecipes } = useGetAllRecipes()
     const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
 
     const [selectedRecipeName, setSelectedRecipeName] = useState<string>('')
 
     useEffect(() => {
-        const filteredRecipes = filterRecipesByName(
-            selectedRecipeName,
-            allRecipes
-        )
-        setFilteredRecipes(filteredRecipes)
-    }, [selectedRecipeName])
-
-    useEffect(() => {
-        getAllRecipes().then((recipesResponse) => {
-            setAllRecipes(recipesResponse.data)
-            setFilteredRecipes(recipesResponse.data)
-        })
-    }, [getAllRecipes])
+        if (allRecipes) {
+            const filteredRecipes = filterRecipesByName(
+                selectedRecipeName,
+                allRecipes
+            )
+            setFilteredRecipes(filteredRecipes)
+        }
+    }, [selectedRecipeName, allRecipes])
 
     return (
         <div>

@@ -1,6 +1,7 @@
 import { MantineProvider } from '@mantine/core'
 import '@mantine/core/styles.css'
 import { ThemeProvider } from '@mui/material/styles'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -11,19 +12,23 @@ import { Header } from './components/Header.tsx'
 import './index.css'
 import { theme } from './styling/mui.ts'
 
+const queryClient = new QueryClient()
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <BrowserRouter>
             <ThemeProvider theme={theme}>
                 <ErrorBoundary fallback={<div>Error...</div>}>
                     <MantineProvider>
-                        <div className="flex flex-col min-h-screen">
-                            <div className="flex-grow">
-                                <Header />
-                                <App />
+                        <QueryClientProvider client={queryClient}>
+                            <div className="flex flex-col min-h-screen">
+                                <div className="flex-grow">
+                                    <Header />
+                                    <App />
+                                </div>
+                                <Footer />
                             </div>
-                            <Footer />
-                        </div>
+                        </QueryClientProvider>
                     </MantineProvider>
                 </ErrorBoundary>
             </ThemeProvider>

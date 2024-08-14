@@ -1,13 +1,13 @@
 import { SearchOutlined } from '@mui/icons-material'
 import ClearIcon from '@mui/icons-material/Clear'
 import { Button, CircularProgress } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Ingredient, Recipe } from '../api/generated'
+import { Recipe } from '../api/generated'
 import { IngredientsFilter } from '../components/IngredientsFIlter'
 import { RecipeCard } from '../components/RecipeCard'
-import { useIngredientAPI } from '../hooks/useIngredientAPI'
-import { useRecipeAPI } from '../hooks/useRecipeAPI'
+import { useGetAllIngredients } from '../hooks/useGetAllIngredients'
+import { useGetAllRecipes } from '../hooks/useGetAllRecipes'
 import {
     filterRecipes,
     recipeHasOneOrTwoMissingIngredients,
@@ -23,28 +23,14 @@ export const DrinksRecipesPage = () => {
         string[]
     >([])
 
-    const [allRecipes, setAllRecipes] = useState<Recipe[]>([])
     const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
-    const [allIngredients, setAllIngredients] = useState<Ingredient[]>([])
     const [
         recipesWithOneOrTwoMissingIngredients,
         setRecipesWithOneOrTwoMissingIngredients,
     ] = useState<Recipe[]>([])
     const [searchIsUsed, setSearchIsUsed] = useState<boolean>(false)
-    const { getAllRecipes } = useRecipeAPI()
-    const { getAllIngredients } = useIngredientAPI()
-
-    useEffect(() => {
-        getAllRecipes().then((recipesResponse) => {
-            setAllRecipes(recipesResponse.data)
-        })
-    }, [getAllRecipes])
-
-    useEffect(() => {
-        getAllIngredients().then((ingredientsResponse) => {
-            setAllIngredients(ingredientsResponse.data)
-        })
-    }, [getAllIngredients])
+    const { allRecipes, isLoadingAllRecipes } = useGetAllRecipes()
+    const { allIngredients, isLoadingAllIngredients } = useGetAllIngredients()
 
     const handleSearch = () => {
         setSearchIsUsed(true)
@@ -52,25 +38,33 @@ export const DrinksRecipesPage = () => {
             getRecipesWithOneOrTwoMissingIngredients()
         )
         const newFilteredRecipes = filterRecipes({
-            allRecipes: allRecipes,
+            allRecipes: allRecipes ?? [],
             selectedIngredientIds: selectedIngredientIds,
         })
         setFilteredRecipes(newFilteredRecipes)
     }
 
     const getRecipesWithOneOrTwoMissingIngredients = () => {
-        return allRecipes.filter((recipe) => {
-            const x =
-                recipe.ingredients?.map((i) => {
-                    return i.ingredient_uuid
-                }) ?? []
-            if (recipeHasOneOrTwoMissingIngredients(x, selectedIngredientIds)) {
-                return true
-            }
-        })
+        if (allRecipes) {
+            return allRecipes.filter((recipe) => {
+                const x =
+                    recipe.ingredients?.map((i) => {
+                        return i.ingredient_uuid
+                    }) ?? []
+                if (
+                    recipeHasOneOrTwoMissingIngredients(
+                        x,
+                        selectedIngredientIds
+                    )
+                ) {
+                    return true
+                }
+            })
+        }
+        return []
     }
 
-    if (allRecipes.length === 0) {
+    if (isLoadingAllRecipes || isLoadingAllIngredients || !allIngredients) {
         return (
             <div className="pt-40">
                 <CircularProgress />
