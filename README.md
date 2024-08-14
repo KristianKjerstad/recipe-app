@@ -1,6 +1,9 @@
-# recipe-app
+# Recipe Finder - Find your next recipe based on the ingredients you have available!
 
-application for finding recipes
+
+Application for finding recipes, based on your selection of ingredients.
+
+![Application screenshot](app-screenshot.jpeg)
 
 The application is deployed using Vercel.
 
