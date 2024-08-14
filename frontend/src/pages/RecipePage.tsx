@@ -37,7 +37,7 @@ export const RecipePage = () => {
         <div className="">
             <div className="flex items-center justify-center pt-8 pb-8">
                 <img
-                    className="lg:w-96 lg:h-72 "
+                    className="lg:w-72 lg:h-72 "
                     alt={recipe.name}
                     src={stockImageUrl}
                 />
@@ -67,11 +67,13 @@ export const RecipePage = () => {
             </div>
             <br />
             <h2 className={h2Styling}>How to make it:</h2>
-            <div className={listContainerStyling}>
+            <div className={listContainerStyling + ' pb-36'}>
                 {recipe.recipe_steps?.map((instruction, index) => {
                     return (
                         <div key={index}>
+                            <p className="font-semibold">Step {index + 1}</p>
                             {index + 1}. {instruction}
+                            <p>&nbsp;</p>
                         </div>
                     )
                 })}
