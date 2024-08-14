@@ -40,6 +40,7 @@ class PostgresqlClient(ClientInterface):
             Column("name", String, nullable=False, unique=True),
             Column("category", String, nullable=False),
             Column("recipe_steps", JSON),
+            Column("image_link", String, nullable=False),
         )
 
         self.ingredient_table = Table(

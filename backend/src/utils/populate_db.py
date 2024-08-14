@@ -125,6 +125,7 @@ def populate_db():
         name="Vodka Red Bull",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.liquor.com/thmb/eHua9S0mKZ6n3KZRKBwt9vh7mgM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__liquor__2016__12__22114511__vodka-red-bull-720x720-recipe-b16a667ca354445799610e39be61e40a.jpg",
         recipe_steps=["Add 2 oz Vodka to a highball glass with ice.", "Fill with Red Bull and stir."],
         ingredients=[
             RecipeIngredient(ingredient_uuid=vodka.id),
@@ -138,6 +139,7 @@ def populate_db():
         name="Vodka Screwdriver",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/8xnyke1504352207.jpg",
         recipe_steps=["Pour 2 oz vodka into a glass.", "Add 4 oz orange juice.", "Stir well and serve."],
         ingredients=[
             RecipeIngredient(ingredient_uuid=vodka.id),
@@ -151,6 +153,7 @@ def populate_db():
         name="Margarita",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg",
         recipe_steps=[
             "Prep your glasses: If you would like to salt the rims of your glasses, simply run a juicy lime wedge around the rims and then dip the rims in coarse Kosher salt. Set the glasses aside until ready to use.",
             "Stir the ingredients together in a large pitcher: Combine the  1 1/2 oz tequila, 3/4 oz lime juice,  1 oz orange liqueur and a handful of ice in a large pitcher and stir to combine.",
@@ -170,6 +173,7 @@ def populate_db():
         name="Negroni",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/qgdu971561574065.jpg",
         recipe_steps=[
             "Combine 1 oz gin, 1 oz vermouth, and 1 oz Campari in a glass",
             "Stir well and serve in a glass with ice.",
@@ -187,6 +191,7 @@ def populate_db():
         name="Mojito",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
         recipe_steps=[
             "Muddle mint leaves with sugar and lime juice in a glass.",
             "Add ice and pour rum over it.",
@@ -205,6 +210,7 @@ def populate_db():
         name="Old Fashioned",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/vrwquq1478252802.jpg",
         recipe_steps=[
             "Muddle sugar with bitters in a glass.",
             "Add ice and whiskey.",
@@ -220,6 +226,7 @@ def populate_db():
         name="Cosmopolitan",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/kpsajh1504368362.jpg",
         recipe_steps=[
             "Shake vodka, triple sec, cranberry juice, and lime juice with ice.",
             "Strain into a cocktail glass and garnish with a lime wedge.",
@@ -237,6 +244,7 @@ def populate_db():
         name="Dry Martini",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/6ck9yi1589574317.jpg",
         recipe_steps=[
             "Chill a martini glass.",
             "In a mixing glass, combine 2 1/2 oz gin and 1/2 oz dry vermouth.",
@@ -255,6 +263,7 @@ def populate_db():
         name="Whiskey Sour",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/hbkfsh1589574990.jpg",
         recipe_steps=[
             "In a shaker, combine 2 oz whiskey, 3/4 oz lemon juice, and 1/2 oz sugar syrup.",
             "Fill with ice and shake well.",
@@ -273,6 +282,7 @@ def populate_db():
         name="Aperol Spritz",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/iloasq1587661955.jpg",
         recipe_steps=[
             "Fill a wine glass with ice.",
             "Combine 3 oz Aperol, 3 oz prosecco, and a splash of soda water.",
@@ -290,6 +300,7 @@ def populate_db():
         name="Bloody Mary",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/t6caa21582485702.jpg",
         recipe_steps=[
             "In a shaker, combine 2 oz vodka, 4 oz tomato juice, 1/2 oz lemon juice, 2 dashes of Worcestershire sauce, 2 dashes of Tabasco, a pinch of salt, and a pinch of pepper.",
             "Roll the mixture back and forth between the shaker and a mixing glass (do not shake).",
@@ -310,6 +321,7 @@ def populate_db():
         name="Moscow Mule",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/3pylqc1504370988.jpg",
         recipe_steps=[
             "Fill a copper mug with ice.",
             "Add 2 oz vodka and 1/2 oz lime juice.",
@@ -327,6 +339,7 @@ def populate_db():
         name="Mai Tai",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/twyrrp1439907470.jpg",
         recipe_steps=[
             "In a shaker, combine 1 oz light rum, 1 oz dark rum, 1/2 oz orange liqueur, 1/2 oz lime juice, 1/4 oz sugar syrup, and 1/4 oz orgeat syrup.",
             "Fill with ice and shake well.",
@@ -347,6 +360,7 @@ def populate_db():
         name="Amaretto Sour",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/xnzc541493070211.jpg",
         recipe_steps=[
             "In a shaker, combine 1 1/2 oz amaretto liqueur, 3/4 oz lemon juice, and 1/4 oz sugar syrup.",
             "Fill with ice and shake well.",
@@ -365,6 +379,7 @@ def populate_db():
         name="Piña Colada",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/upgsue1668419912.jpg",
         recipe_steps=[
             "In a blender, combine 2 oz rum, 1 oz coconut cream, and 1 oz pineapple juice.",
             "Fill with ice and blend until smooth.",
@@ -383,6 +398,7 @@ def populate_db():
         name="Porn Star Martini",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/xjhjdf1630406071.jpg",
         recipe_steps=[
             "In a shaker, combine 1 1/2 oz vanilla vodka, 1/2 oz passion fruit puree, 1/2 oz lime juice, and 1/4 oz sugar syrup.",
             "Fill with ice and shake well.",
@@ -403,6 +419,7 @@ def populate_db():
         name="Irish Coffee",
         type=RecipeTypes.COCKTAIL,
         category=RecipeCategories.COCKTAIL,
+        image_link="https://www.thecocktaildb.com/images/media/drink/sywsqw1439906999.jpg",
         recipe_steps=[
             "Preheat a glass by filling it with hot water, then empty it.",
             "Add 1 1/2 oz whiskey and 1 tsp sugar to the glass.",

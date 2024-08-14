@@ -37,8 +37,8 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
                 >
                     <img
                         className="w-[100px] h-[100px] rounded-md ml-4"
-                        src={stockImageUrl}
-                        alt="Random image"
+                        src={recipe.image_link ?? stockImageUrl}
+                        alt="Recipe Image"
                     />
                     <div className="">
                         <h2 className="text-black w-[160px] text-l font-bold pl-6">
@@ -56,8 +56,8 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
                 >
                     <img
                         className="w-[192px] h-[192px] rounded-md"
-                        src={stockImageUrl}
-                        alt="Random image"
+                        src={recipe.image_link ?? stockImageUrl}
+                        alt="Recipe Image"
                     />
                     {/* <div className="absolute inset-0 opacity-60 rounded-md"></div> */}
                     <div className="absolute inset-0 flex items-center justify-center pt-32">

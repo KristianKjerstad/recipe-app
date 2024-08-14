@@ -28,3 +28,4 @@ class Recipe(BaseModel):
     category: RecipeCategories
     ingredients: List[RecipeIngredient] = []
     recipe_steps: List[str]
+    image_link: str

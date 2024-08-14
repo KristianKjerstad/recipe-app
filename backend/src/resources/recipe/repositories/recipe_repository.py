@@ -19,6 +19,7 @@ class RecipeRepository(RepositoryInterface[Recipe, str]):
             name=recipe.name,
             category=recipe.category.value,
             recipe_steps=recipe.recipe_steps,
+            image_link=recipe.image_link,
         )
         self.db_client.execute_statement(insert_statement)
         # Insert the ingredients and create associations

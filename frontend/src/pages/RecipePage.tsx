@@ -39,7 +39,7 @@ export const RecipePage = () => {
                 <img
                     className="lg:w-72 lg:h-72 "
                     alt={recipe.name}
-                    src={stockImageUrl}
+                    src={recipe.image_link ?? stockImageUrl}
                 />
             </div>
             <h1 className="text-3xl font-semibold">{recipe.name}</h1>
