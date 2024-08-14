@@ -26,7 +26,10 @@ export const DrinksRecipesPage = () => {
     const [allRecipes, setAllRecipes] = useState<Recipe[]>([])
     const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
     const [allIngredients, setAllIngredients] = useState<Ingredient[]>([])
-    const [isNoRecipeResults, setIsNoRecipeResults] = useState<boolean>(false)
+    const [
+        recipesWithOneOrTwoMissingIngredients,
+        setRecipesWithOneOrTwoMissingIngredients,
+    ] = useState<Recipe[]>([])
     const [searchIsUsed, setSearchIsUsed] = useState<boolean>(false)
     const { getAllRecipes } = useRecipeAPI()
     const { getAllIngredients } = useIngredientAPI()
@@ -45,16 +48,26 @@ export const DrinksRecipesPage = () => {
 
     const handleSearch = () => {
         setSearchIsUsed(true)
+        setRecipesWithOneOrTwoMissingIngredients(
+            getRecipesWithOneOrTwoMissingIngredients()
+        )
         const newFilteredRecipes = filterRecipes({
             allRecipes: allRecipes,
             selectedIngredientIds: selectedIngredientIds,
         })
         setFilteredRecipes(newFilteredRecipes)
-        if (newFilteredRecipes.length === 0) {
-            setIsNoRecipeResults(true)
-        } else {
-            setIsNoRecipeResults(false)
-        }
+    }
+
+    const getRecipesWithOneOrTwoMissingIngredients = () => {
+        return allRecipes.filter((recipe) => {
+            const x =
+                recipe.ingredients?.map((i) => {
+                    return i.ingredient_uuid
+                }) ?? []
+            if (recipeHasOneOrTwoMissingIngredients(x, selectedIngredientIds)) {
+                return true
+            }
+        })
     }
 
     if (allRecipes.length === 0) {
@@ -109,41 +122,31 @@ export const DrinksRecipesPage = () => {
                     Clear Selection
                 </Button>
             </div>
-            {filteredRecipes.length === 1 && (
-                <h2 className="pt-12">
-                    Found {filteredRecipes.length} recipe that match your choice
-                    of ingredients
+            {filteredRecipes.length > 0 && (
+                <h2 className="pt-12 text-xl">
+                    Found {filteredRecipes.length}{' '}
+                    {filteredRecipes.length === 1 ? 'recipe' : 'recipes'} that
+                    match your choice of ingredients
                 </h2>
             )}
-            {filteredRecipes.length > 1 && (
-                <h2 className="pt-12">
-                    Found {filteredRecipes.length} recipes that match your
-                    choice of ingredients
-                </h2>
+            {filteredRecipes.length === 0 && (
+                <p className="pt-12">No results found...</p>
             )}
-            {isNoRecipeResults && <p className="pt-12">No results...</p>}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-12 pt-24 pb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-12 pt-16 pb-16">
                 {filteredRecipes.map((recipe) => {
                     return <RecipeCard recipe={recipe} />
                 })}
             </div>
-            <div className="pb-16">
-                Here are some recipes you can make if you get one or two more
-                ingredients!
-            </div>
+            {recipesWithOneOrTwoMissingIngredients.length > 0 && (
+                <div className="pb-16  text-xl">
+                    Here are some recipes you can make if you get one or two
+                    more ingredients!
+                </div>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-12 pb-48">
                 {searchIsUsed &&
-                    allRecipes.map((recipe) => {
-                        if (
-                            recipeHasOneOrTwoMissingIngredients(
-                                recipe.ingredients?.map((i) => {
-                                    return i.ingredient_uuid
-                                }) ?? [],
-                                selectedIngredientIds
-                            )
-                        ) {
-                            return <RecipeCard recipe={recipe} />
-                        }
+                    recipesWithOneOrTwoMissingIngredients.map((recipe) => {
+                        return <RecipeCard recipe={recipe} />
                     })}
             </div>
         </div>
