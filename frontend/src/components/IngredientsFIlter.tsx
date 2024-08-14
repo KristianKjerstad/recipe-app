@@ -1,8 +1,8 @@
 import { Checkbox, FormControlLabel } from '@mui/material'
-import { useEffect, useState } from 'react'
 // import Select, { MultiValue } from "react-select"
 import { MultiSelect } from '@mantine/core'
 import { Ingredient, IngredientCategories } from '../api/generated'
+import { useScreenWidth } from '../hooks/useScreenWidth'
 type IngredientsFilterProps = {
     ingredients: Ingredient[]
     selectedIngredientIds: string[]
@@ -69,19 +69,9 @@ export const IngredientsFilter = (props: IngredientsFilterProps) => {
     const { ingredients, selectedIngredientIds, setSelectedIngredientIds } =
         props
 
-    const [width, setWidth] = useState(window.innerWidth)
+    const { width } = useScreenWidth()
 
     const SCREEN_WIDTH_LIMIT = 1200
-
-    useEffect(() => {
-        const handleResize = () => {
-            setWidth(window.innerWidth)
-        }
-        window.addEventListener('resize', handleResize)
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
 
     return (
         <div>

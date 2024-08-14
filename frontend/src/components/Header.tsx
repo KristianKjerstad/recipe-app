@@ -1,11 +1,12 @@
 import { Button, Drawer } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { Link, useNavigate } from 'react-router-dom'
+import { useScreenWidth } from '../hooks/useScreenWidth'
 
 export const Header = () => {
     const navigate = useNavigate()
-    const [width, setWidth] = useState(window.innerWidth)
+    const { width } = useScreenWidth()
     const [open, setOpen] = useState<boolean>(false)
 
     const SCREEN_WIDTH_LIMIT = 800
@@ -13,18 +14,6 @@ export const Header = () => {
     const toggleDrawer = () => () => {
         setOpen(!open)
     }
-
-    useEffect(() => {
-        const handleResize = () => {
-            setWidth(window.innerWidth)
-        }
-
-        window.addEventListener('resize', handleResize)
-
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
 
     return (
         <div>
@@ -37,7 +26,7 @@ export const Header = () => {
                     alt="logo"
                     onClick={() => navigate('/')}
                 />
-                {width >= SCREEN_WIDTH_LIMIT && (
+                {width >= SCREEN_WIDTH_LIMIT ? (
                     <>
                         <div className="flex gap-8">
                             <Link to="/">Home</Link>
@@ -55,8 +44,7 @@ export const Header = () => {
                             </Button>
                         </div>
                     </>
-                )}
-                {width < SCREEN_WIDTH_LIMIT && (
+                ) : (
                     <div>
                         <RxHamburgerMenu
                             size={24}

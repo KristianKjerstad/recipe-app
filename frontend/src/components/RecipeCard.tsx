@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Recipe } from '../api/generated'
+import { useScreenWidth } from '../hooks/useScreenWidth'
 
 type RecipeCardProps = {
     recipe: Recipe
@@ -11,20 +11,8 @@ const stockImageUrl =
 
 export const RecipeCard = ({ recipe }: RecipeCardProps) => {
     const navigate = useNavigate()
-    const [width, setWidth] = useState(window.innerWidth)
+    const { width } = useScreenWidth()
     const SCREEN_WIDTH_LIMIT = 640
-
-    useEffect(() => {
-        const handleResize = () => {
-            setWidth(window.innerWidth)
-        }
-
-        window.addEventListener('resize', handleResize)
-
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
 
     return (
         <>
