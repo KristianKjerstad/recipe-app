@@ -3,7 +3,11 @@ import ClearIcon from '@mui/icons-material/Clear'
 import { Button, CircularProgress } from '@mui/material'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Recipe, RecipeCategories } from '../api/generated'
+import {
+    IngredientCategories,
+    Recipe,
+    RecipeCategories,
+} from '../api/generated'
 import { IngredientsFilter } from '../components/IngredientsFIlter'
 import { RecipeCard } from '../components/RecipeCard'
 import { useGetAllIngredients } from '../hooks/useGetAllIngredients'
