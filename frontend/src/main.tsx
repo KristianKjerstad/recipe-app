@@ -3,6 +3,7 @@ import '@mantine/core/styles.css'
 import { ThemeProvider } from '@mui/material/styles'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -29,6 +30,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                                 </div>
                                 <Footer />
                                 <Analytics />
+                                <SpeedInsights />
                             </div>
                         </QueryClientProvider>
                     </MantineProvider>
