@@ -10,6 +10,7 @@ class RecipeTypes(Enum):
     appetizer = "appteizer"
     MAIN_COURSE = "main_course"
     DESSERT = "dessert"
+    BREAKFAST = "breakfast"
 
 
 class RecipeCategories(Enum):

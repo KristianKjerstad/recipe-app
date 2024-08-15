@@ -51,7 +51,7 @@ def add_drink_recipes(ingredient_repository, recipe_repository):
     orange_juice = Ingredient(id=uuid4(), name="Orange Juice", category=IngredientCategories.MIXERS)
     triple_sec = Ingredient(id=uuid4(), name="Triple Sec", category=IngredientCategories.SPIRITS)
     whiskey = Ingredient(id=uuid4(), name="Whiskey", category=IngredientCategories.SPIRITS)
-    sugar = Ingredient(id=uuid4(), name="Sugar", category=IngredientCategories.OTHER)
+    sugar = Ingredient(id=uuid4(), name="Sugar (Sweetener)", category=IngredientCategories.OTHER)
     mint = Ingredient(id=uuid4(), name="Mint", category=IngredientCategories.OTHER)
     soda_water = Ingredient(id=uuid4(), name="Soda Water", category=IngredientCategories.MIXERS)
     rum = Ingredient(id=uuid4(), name="Rum", category=IngredientCategories.SPIRITS)
@@ -455,7 +455,6 @@ def add_drink_recipes(ingredient_repository, recipe_repository):
 
 
 def add_food_recipes(ingredient_repository, recipe_repository):
-    # Define ingredients for Chicken Curry
     chicken = Ingredient(id=uuid4(), name="Chicken", category=IngredientCategories.MEAT)
     onion = Ingredient(id=uuid4(), name="Onion", category=IngredientCategories.VEGETABLES_AND_FRUIT)
     garlic = Ingredient(id=uuid4(), name="Garlic", category=IngredientCategories.VEGETABLES_AND_FRUIT)
@@ -466,13 +465,74 @@ def add_food_recipes(ingredient_repository, recipe_repository):
     salt = Ingredient(id=uuid4(), name="Salt", category=IngredientCategories.CONDIMENTS)
     pepper = Ingredient(id=uuid4(), name="Pepper", category=IngredientCategories.CONDIMENTS)
     oil = Ingredient(id=uuid4(), name="Oil", category=IngredientCategories.PANTRY_ESSENTIALS)
+    flour = Ingredient(id=uuid4(), name="Flour", category=IngredientCategories.PANTRY_ESSENTIALS)
+    milk = Ingredient(id=uuid4(), name="Milk", category=IngredientCategories.PANTRY_ESSENTIALS)
+    eggs = Ingredient(id=uuid4(), name="Eggs", category=IngredientCategories.PANTRY_ESSENTIALS)
+    butter = Ingredient(id=uuid4(), name="Butter", category=IngredientCategories.PANTRY_ESSENTIALS)
+    sugar = Ingredient(id=uuid4(), name="Sugar", category=IngredientCategories.PANTRY_ESSENTIALS)
+    chili_powder = Ingredient(id=uuid4(), name="Chili Powder", category=IngredientCategories.CONDIMENTS)
+    cumin = Ingredient(id=uuid4(), name="Cumin", category=IngredientCategories.CONDIMENTS)
+    tomato_paste = Ingredient(id=uuid4(), name="Tomato Paste", category=IngredientCategories.PANTRY_ESSENTIALS)
+    heavy_cream = Ingredient(id=uuid4(), name="Heavy Cream", category=IngredientCategories.PANTRY_ESSENTIALS)
+    cilantro = Ingredient(id=uuid4(), name="Cilantro", category=IngredientCategories.VEGETABLES_AND_FRUIT)
+    kidney_beans = Ingredient(id=uuid4(), name="Kidney Beans", category=IngredientCategories.PANTRY_ESSENTIALS)
+    paprika = Ingredient(id=uuid4(), name="Paprika", category=IngredientCategories.CONDIMENTS)
+    salmon = Ingredient(id=uuid4(), name="Salmon", category=IngredientCategories.MEAT)
+    pasta = Ingredient(id=uuid4(), name="Pasta", category=IngredientCategories.PANTRY_ESSENTIALS)
+    cream = Ingredient(id=uuid4(), name="Double cream", category=IngredientCategories.PANTRY_ESSENTIALS)
+    dill = Ingredient(id=uuid4(), name="Dill", category=IngredientCategories.CONDIMENTS)
+    lemon = Ingredient(id=uuid4(), name="Lemon", category=IngredientCategories.VEGETABLES_AND_FRUIT)
+    ground_beef = Ingredient(id=uuid4(), name="Ground Beef", category=IngredientCategories.MEAT)
+    lasagna_noodles = Ingredient(id=uuid4(), name="Lasagna Noodles", category=IngredientCategories.PANTRY_ESSENTIALS)
+    ricotta_cheese = Ingredient(id=uuid4(), name="Ricotta Cheese", category=IngredientCategories.PANTRY_ESSENTIALS)
+    mozzarella_cheese = Ingredient(
+        id=uuid4(), name="Mozzarella Cheese", category=IngredientCategories.PANTRY_ESSENTIALS
+    )
+    parmesan_cheese = Ingredient(id=uuid4(), name="Parmesan Cheese", category=IngredientCategories.PANTRY_ESSENTIALS)
+    marinara_sauce = Ingredient(id=uuid4(), name="Marinara Sauce", category=IngredientCategories.PANTRY_ESSENTIALS)
+    basil = Ingredient(id=uuid4(), name="Basil", category=IngredientCategories.CONDIMENTS)
+    oregano = Ingredient(id=uuid4(), name="Oregano", category=IngredientCategories.CONDIMENTS)
 
-    # Add Chicken Curry ingredients to the repository
-    chicken_curry_ingredients = [chicken, onion, garlic, ginger, tomato, curry_powder, coconut_milk, salt, pepper, oil]
-    for ingredient in chicken_curry_ingredients:
+    ingredients = [
+        chicken,
+        onion,
+        garlic,
+        ginger,
+        tomato,
+        curry_powder,
+        coconut_milk,
+        salt,
+        pepper,
+        oil,
+        salmon,
+        pasta,
+        cream,
+        dill,
+        lemon,
+        ground_beef,
+        lasagna_noodles,
+        ricotta_cheese,
+        mozzarella_cheese,
+        parmesan_cheese,
+        marinara_sauce,
+        basil,
+        oregano,
+        flour,
+        cilantro,
+        kidney_beans,
+        paprika,
+        milk,
+        eggs,
+        butter,
+        sugar,
+        chili_powder,
+        cumin,
+        tomato_paste,
+        heavy_cream,
+    ]
+    for ingredient in ingredients:
         ingredient_repository.create(ingredient=ingredient)
 
-    # Define the Chicken Curry recipe
     chicken_curry = Recipe(
         id=uuid4(),
         name="Chicken Curry",
@@ -500,19 +560,6 @@ def add_food_recipes(ingredient_repository, recipe_repository):
         ],
     )
 
-    # Define ingredients for Pasta with Salmon
-    salmon = Ingredient(id=uuid4(), name="Salmon", category=IngredientCategories.MEAT)
-    pasta = Ingredient(id=uuid4(), name="Pasta", category=IngredientCategories.PANTRY_ESSENTIALS)
-    cream = Ingredient(id=uuid4(), name="Double cream", category=IngredientCategories.PANTRY_ESSENTIALS)
-    dill = Ingredient(id=uuid4(), name="Dill", category=IngredientCategories.CONDIMENTS)
-    lemon = Ingredient(id=uuid4(), name="Lemon", category=IngredientCategories.VEGETABLES_AND_FRUIT)
-
-    # Add Pasta with Salmon ingredients to the repository
-    pasta_salmon_ingredients = [salmon, pasta, cream, dill, lemon]
-    for ingredient in pasta_salmon_ingredients:
-        ingredient_repository.create(ingredient=ingredient)
-
-    # Define the Pasta with Salmon recipe
     pasta_with_salmon = Recipe(
         id=uuid4(),
         name="Pasta with Salmon",
@@ -534,33 +581,6 @@ def add_food_recipes(ingredient_repository, recipe_repository):
         ],
     )
 
-    # Define ingredients for Lasagna
-    ground_beef = Ingredient(id=uuid4(), name="Ground Beef", category=IngredientCategories.MEAT)
-    lasagna_noodles = Ingredient(id=uuid4(), name="Lasagna Noodles", category=IngredientCategories.PANTRY_ESSENTIALS)
-    ricotta_cheese = Ingredient(id=uuid4(), name="Ricotta Cheese", category=IngredientCategories.PANTRY_ESSENTIALS)
-    mozzarella_cheese = Ingredient(
-        id=uuid4(), name="Mozzarella Cheese", category=IngredientCategories.PANTRY_ESSENTIALS
-    )
-    parmesan_cheese = Ingredient(id=uuid4(), name="Parmesan Cheese", category=IngredientCategories.PANTRY_ESSENTIALS)
-    marinara_sauce = Ingredient(id=uuid4(), name="Marinara Sauce", category=IngredientCategories.PANTRY_ESSENTIALS)
-    basil = Ingredient(id=uuid4(), name="Basil", category=IngredientCategories.CONDIMENTS)
-    oregano = Ingredient(id=uuid4(), name="Oregano", category=IngredientCategories.CONDIMENTS)
-
-    # Add Lasagna ingredients to the repository
-    lasagna_ingredients = [
-        ground_beef,
-        lasagna_noodles,
-        ricotta_cheese,
-        mozzarella_cheese,
-        parmesan_cheese,
-        marinara_sauce,
-        basil,
-        oregano,
-    ]
-    for ingredient in lasagna_ingredients:
-        ingredient_repository.create(ingredient=ingredient)
-
-    # Define the Lasagna recipe
     lasagna = Recipe(
         id=uuid4(),
         name="Lasagna",
@@ -587,8 +607,88 @@ def add_food_recipes(ingredient_repository, recipe_repository):
         ],
     )
 
+    pancake = Recipe(
+        id=uuid4(),
+        name="Pancakes",
+        type=RecipeTypes.BREAKFAST,
+        category=RecipeCategories.FOOD,
+        image_link="https://www.themealdb.com/images/media/meals/rwuyqx1511383174.jpg",
+        recipe_steps=[
+            "In a bowl, whisk together flour, sugar, and salt.",
+            "In another bowl, beat eggs and milk together.",
+            "Combine wet and dry ingredients, then mix in melted butter.",
+            "Heat a skillet and pour batter to form pancakes.",
+            "Cook until bubbles form, then flip and cook until golden.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=flour.id),
+            RecipeIngredient(ingredient_uuid=milk.id),
+            RecipeIngredient(ingredient_uuid=eggs.id),
+            RecipeIngredient(ingredient_uuid=sugar.id),
+            RecipeIngredient(ingredient_uuid=salt.id),
+            RecipeIngredient(ingredient_uuid=butter.id),
+        ],
+    )
+
+    chili_con_carne = Recipe(
+        id=uuid4(),
+        name="Chili Con Carne",
+        type=RecipeTypes.MAIN_COURSE,
+        category=RecipeCategories.FOOD,
+        image_link="https://www.themealdb.com/images/media/meals/uwxqwy1483389553.jpg",
+        recipe_steps=[
+            "In a large pot, heat oil and sauté onions, garlic, and ground beef until browned.",
+            "Add chili powder, cumin, paprika, salt, and pepper, and stir well.",
+            "Stir in tomato paste, tomatoes, and kidney beans.",
+            "Simmer for 30 minutes, stirring occasionally.",
+            "Serve with cilantro on top.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=ground_beef.id),
+            RecipeIngredient(ingredient_uuid=onion.id),
+            RecipeIngredient(ingredient_uuid=garlic.id),
+            RecipeIngredient(ingredient_uuid=chili_powder.id),
+            RecipeIngredient(ingredient_uuid=cumin.id),
+            RecipeIngredient(ingredient_uuid=paprika.id),
+            RecipeIngredient(ingredient_uuid=tomato_paste.id),
+            RecipeIngredient(ingredient_uuid=tomato.id),
+            RecipeIngredient(ingredient_uuid=kidney_beans.id),
+            RecipeIngredient(ingredient_uuid=cilantro.id),
+            RecipeIngredient(ingredient_uuid=oil.id),
+            RecipeIngredient(ingredient_uuid=salt.id),
+            RecipeIngredient(ingredient_uuid=pepper.id),
+        ],
+    )
+
+    butter_chicken = Recipe(
+        id=uuid4(),
+        name="Butter Chicken",
+        type=RecipeTypes.MAIN_COURSE,
+        category=RecipeCategories.FOOD,
+        image_link="https://images.pexels.com/photos/7625056/pexels-photo-7625056.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        recipe_steps=[
+            "Marinate 500g of chicken with 1 cup of yogurt,  2 cloves of garlic, 1 inch piece of ginger, chili powder, and salt.",
+            "In a pan, cook 1 onion in butter until golden.",
+            "Add marinated chicken and cook until done.",
+            "Add 3 tbsp tomato paste, 300ml heavy cream, and spices, and simmer until thickened.",
+            "Garnish with cilantro and serve with naan or rice.",
+        ],
+        ingredients=[
+            RecipeIngredient(ingredient_uuid=chicken.id),
+            RecipeIngredient(ingredient_uuid=onion.id),
+            RecipeIngredient(ingredient_uuid=garlic.id),
+            RecipeIngredient(ingredient_uuid=chili_powder.id),
+            RecipeIngredient(ingredient_uuid=tomato_paste.id),
+            RecipeIngredient(ingredient_uuid=heavy_cream.id),
+            RecipeIngredient(ingredient_uuid=cumin.id),
+            RecipeIngredient(ingredient_uuid=cilantro.id),
+            RecipeIngredient(ingredient_uuid=butter.id),
+            RecipeIngredient(ingredient_uuid=salt.id),
+        ],
+    )
+
     # Add all recipes to the repository
-    recipes = [chicken_curry, pasta_with_salmon, lasagna]
+    recipes = [chicken_curry, pasta_with_salmon, lasagna, pancake, chili_con_carne, butter_chicken]
     for recipe in recipes:
         recipe_repository.create(recipe=recipe)
 
