@@ -74,7 +74,7 @@ export const DrinksRecipesPage = () => {
 
     return (
         <div className="flex flex-col justify-center items-center pl-8 pr-8">
-            <h2 className="text-4xl font-medium pt-12 pb-2">
+            <h2 className="text-4xl font-medium pt-10 pb-2">
                 Cocktail Recipes
             </h2>
             <Link
@@ -89,7 +89,7 @@ export const DrinksRecipesPage = () => {
                 setSelectedIngredientIds={setSelectedIngredientIds}
             />
 
-            <div className="flex flex-row justify-center space-x-16 pt-8 ">
+            <div className="flex flex-row justify-center space-x-16 pt-8">
                 <Button
                     size="large"
                     variant="contained"
@@ -113,7 +113,7 @@ export const DrinksRecipesPage = () => {
                         setSearchIsUsed(false)
                     }}
                 >
-                    Clear Selection
+                    Clear
                 </Button>
             </div>
             {filteredRecipes.length > 0 && (

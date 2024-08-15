@@ -89,7 +89,7 @@ export const IngredientsFilter = (props: IngredientsFilterProps) => {
     return (
         <div>
             <h2 className="pt-8 pb-8 font-semibold text-xl">
-                Select the ingredients you have available
+                Select your available ingredients
             </h2>
             {width < SCREEN_WIDTH_LIMIT && (
                 <div>

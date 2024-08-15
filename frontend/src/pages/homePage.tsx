@@ -43,6 +43,7 @@ export const HomePage = () => {
                     Find Cocktail Recipes
                 </Button>
             </div>
+            <div className="pb-24"></div>
         </div>
     )
 }

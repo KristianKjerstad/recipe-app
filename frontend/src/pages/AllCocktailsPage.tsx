@@ -38,10 +38,10 @@ export const AllCocktailsPage = () => {
     return (
         <div>
             <div className="flex flex-col justify-center items-center pl-8 pr-8">
-                <h2 className="text-4xl font-medium pt-12 pb-8">
+                <h2 className="text-4xl font-medium pt-10 pb-8">
                     All Cocktail Recipes
                 </h2>
-                <div className="w-3/4 max-w-[500px] bg-white">
+                <div className="w-3/4 min-w-[310px] max-w-[500px] bg-white">
                     <TextField
                         InputProps={{
                             startAdornment: (
