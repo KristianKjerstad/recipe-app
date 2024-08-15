@@ -20,7 +20,6 @@ export const HomePage = () => {
                 <Button
                     className="w-[260px]"
                     size="large"
-                    disabled
                     variant="contained"
                     color="lightGreen"
                     startIcon={<LocalDiningOutlined />}

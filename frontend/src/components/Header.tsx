@@ -72,11 +72,25 @@ export const Header = () => {
                                     Food Recipes
                                 </Link>
                                 <Link
+                                    to="/all-foods"
+                                    className="text-xl pb-2"
+                                    onClick={toggleDrawer()}
+                                >
+                                    &ensp;&ensp;All Food Recipes
+                                </Link>
+                                <Link
                                     to="/cocktails"
                                     className="text-xl pb-2"
                                     onClick={toggleDrawer()}
                                 >
                                     Cocktail Recipes
+                                </Link>
+                                <Link
+                                    to="/all-cocktails"
+                                    className="text-xl pb-2"
+                                    onClick={toggleDrawer()}
+                                >
+                                    &ensp;&ensp;All Cocktail Recipes
                                 </Link>
                             </div>
                         </Drawer>
