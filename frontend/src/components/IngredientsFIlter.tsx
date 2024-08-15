@@ -7,45 +7,39 @@ type IngredientsFilterProps = {
     ingredients: Ingredient[]
     selectedIngredientIds: string[]
     setSelectedIngredientIds: (ingredients: string[]) => void
+    categories: IngredientCategories[]
 }
 
-const categories: IngredientCategories[] = [
-    'Spirits',
-    'Mixers',
-    'Liqueurs',
-    'Wine',
-    'Other',
-]
-
 const formatIngredients = (
-    rawIngredients: Ingredient[]
+    rawIngredients: Ingredient[],
+    categories: IngredientCategories[]
 ): { group: string; items: { label: string; value: string }[] }[] => {
-    const spirits: { label: string; value: string }[] = rawIngredients
-        .filter((ingredient) => ingredient.category === 'Spirits')
+    const category0: { label: string; value: string }[] = rawIngredients
+        .filter((ingredient) => ingredient.category === categories[0])
         .map((ingredient) => ({
             label: ingredient.name,
             value: ingredient.id,
         }))
-    const mixers = rawIngredients
-        .filter((ingredient) => ingredient.category === 'Mixers')
+    const category1 = rawIngredients
+        .filter((ingredient) => ingredient.category === categories[1])
         .map((ingredient) => ({
             label: ingredient.name,
             value: ingredient.id,
         }))
-    const liqueurs = rawIngredients
-        .filter((ingredient) => ingredient.category === 'Liqueurs')
+    const category2 = rawIngredients
+        .filter((ingredient) => ingredient.category === categories[2])
         .map((ingredient) => ({
             label: ingredient.name,
             value: ingredient.id,
         }))
-    const wine = rawIngredients
-        .filter((ingredient) => ingredient.category === 'Wine')
+    const category3 = rawIngredients
+        .filter((ingredient) => ingredient.category === categories[3])
         .map((ingredient) => ({
             label: ingredient.name,
             value: ingredient.id,
         }))
-    const other = rawIngredients
-        .filter((ingredient) => ingredient.category === 'Other')
+    const category4 = rawIngredients
+        .filter((ingredient) => ingredient.category === categories[4])
         .map((ingredient) => ({
             label: ingredient.name,
             value: ingredient.id,
@@ -53,21 +47,25 @@ const formatIngredients = (
 
     return [
         {
-            group: 'Spirits',
-            items: spirits,
+            group: categories[0],
+            items: category0,
         },
-        { group: 'Mixers', items: mixers },
-        { group: 'Liqueurs', items: liqueurs },
-        { group: 'Wine', items: wine },
-        { group: 'Other', items: other },
+        { group: categories[1], items: category1 },
+        { group: categories[2], items: category2 },
+        { group: categories[3], items: category3 },
+        { group: categories[4], items: category4 },
     ]
 }
 
 const h2_classname = 'text-xl font-medium'
 
 export const IngredientsFilter = (props: IngredientsFilterProps) => {
-    const { ingredients, selectedIngredientIds, setSelectedIngredientIds } =
-        props
+    const {
+        ingredients,
+        selectedIngredientIds,
+        setSelectedIngredientIds,
+        categories,
+    } = props
 
     const { width } = useScreenWidth()
 
@@ -97,7 +95,10 @@ export const IngredientsFilter = (props: IngredientsFilterProps) => {
                         <div className="max-w-[450px]">
                             <MultiSelect
                                 placeholder="Select Ingredients"
-                                data={formatIngredients(ingredients)}
+                                data={formatIngredients(
+                                    ingredients,
+                                    categories
+                                )}
                                 value={selectedIngredientIds}
                                 onChange={(values) => {
                                     setSelectedIngredientIds(values)

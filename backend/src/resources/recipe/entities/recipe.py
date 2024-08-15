@@ -13,8 +13,8 @@ class RecipeTypes(Enum):
 
 
 class RecipeCategories(Enum):
-    APPETIZER = "appetizer"
     COCKTAIL = "cocktail"
+    FOOD = "food"
 
 
 class RecipeIngredient(BaseModel):

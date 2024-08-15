@@ -12,22 +12,32 @@
  * Do not edit the class manually.
  */
 
-import type { AxiosInstance, AxiosPromise, RawAxiosRequestConfig } from 'axios'
-import globalAxios from 'axios'
 import type { Configuration } from './configuration'
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
+import globalAxios from 'axios'
 // Some imports not used depending on template conditions
 // @ts-ignore
-import type { RequestArgs } from './base'
 import {
     DUMMY_BASE_URL,
     assertParamExists,
-    createRequestFunction,
+    setApiKeyToObject,
+    setBasicAuthToObject,
+    setBearerAuthToObject,
     setOAuthToObject,
     setSearchParams,
+    serializeDataIfNeeded,
     toPathString,
+    createRequestFunction,
 } from './common'
+import type { RequestArgs } from './base'
 // @ts-ignore
-import { BASE_PATH, BaseAPI, operationServerMap } from './base'
+import {
+    BASE_PATH,
+    COLLECTION_FORMATS,
+    BaseAPI,
+    RequiredError,
+    operationServerMap,
+} from './base'
 
 /**
  *
@@ -80,6 +90,11 @@ export const IngredientCategories = {
     Liqueurs: 'Liqueurs',
     Wine: 'Wine',
     Other: 'Other',
+    Meat: 'Meat',
+    VegetablesAndFruits: 'Vegetables and Fruits',
+    Condiments: 'Condiments',
+    PantryEssentials: 'Pantry Essentials',
+    OtherFood: 'Other Food',
 } as const
 
 export type IngredientCategories =
@@ -142,8 +157,8 @@ export interface Recipe {
  */
 
 export const RecipeCategories = {
-    Appetizer: 'appetizer',
     Cocktail: 'cocktail',
+    Food: 'food',
 } as const
 
 export type RecipeCategories =
@@ -611,12 +626,14 @@ export const RecipeApiAxiosParamCreator = function (
 ) {
     return {
         /**
-         *
+         * Get all recipes
          * @summary Get All
+         * @param {RecipeCategories} [category]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getAllRecipesGet: async (
+            category?: RecipeCategories,
             options: RawAxiosRequestConfig = {}
         ): Promise<RequestArgs> => {
             const localVarPath = `/recipes`
@@ -643,6 +660,10 @@ export const RecipeApiAxiosParamCreator = function (
                 [],
                 configuration
             )
+
+            if (category !== undefined) {
+                localVarQueryParameter['category'] = category
+            }
 
             setSearchParams(localVarUrlObj, localVarQueryParameter)
             let headersFromBaseOptions =
@@ -724,12 +745,14 @@ export const RecipeApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = RecipeApiAxiosParamCreator(configuration)
     return {
         /**
-         *
+         * Get all recipes
          * @summary Get All
+         * @param {RecipeCategories} [category]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async getAllRecipesGet(
+            category?: RecipeCategories,
             options?: RawAxiosRequestConfig
         ): Promise<
             (
@@ -738,7 +761,10 @@ export const RecipeApiFp = function (configuration?: Configuration) {
             ) => AxiosPromise<Array<Recipe>>
         > {
             const localVarAxiosArgs =
-                await localVarAxiosParamCreator.getAllRecipesGet(options)
+                await localVarAxiosParamCreator.getAllRecipesGet(
+                    category,
+                    options
+                )
             const index = configuration?.serverIndex ?? 0
             const operationBasePath =
                 operationServerMap['RecipeApi.getAllRecipesGet']?.[index]?.url
@@ -791,14 +817,18 @@ export const RecipeApiFactory = function (
     const localVarFp = RecipeApiFp(configuration)
     return {
         /**
-         *
+         * Get all recipes
          * @summary Get All
+         * @param {RecipeCategories} [category]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllRecipesGet(options?: any): AxiosPromise<Array<Recipe>> {
+        getAllRecipesGet(
+            category?: RecipeCategories,
+            options?: any
+        ): AxiosPromise<Array<Recipe>> {
             return localVarFp
-                .getAllRecipesGet(options)
+                .getAllRecipesGet(category, options)
                 .then((request) => request(axios, basePath))
         },
         /**
@@ -824,15 +854,19 @@ export const RecipeApiFactory = function (
  */
 export class RecipeApi extends BaseAPI {
     /**
-     *
+     * Get all recipes
      * @summary Get All
+     * @param {RecipeCategories} [category]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RecipeApi
      */
-    public getAllRecipesGet(options?: RawAxiosRequestConfig) {
+    public getAllRecipesGet(
+        category?: RecipeCategories,
+        options?: RawAxiosRequestConfig
+    ) {
         return RecipeApiFp(this.configuration)
-            .getAllRecipesGet(options)
+            .getAllRecipesGet(category, options)
             .then((request) => request(this.axios, this.basePath))
     }
 

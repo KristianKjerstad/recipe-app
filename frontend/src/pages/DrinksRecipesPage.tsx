@@ -3,7 +3,11 @@ import ClearIcon from '@mui/icons-material/Clear'
 import { Button, CircularProgress } from '@mui/material'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Recipe } from '../api/generated'
+import {
+    IngredientCategories,
+    Recipe,
+    RecipeCategories,
+} from '../api/generated'
 import { IngredientsFilter } from '../components/IngredientsFIlter'
 import { RecipeCard } from '../components/RecipeCard'
 import { useGetAllIngredients } from '../hooks/useGetAllIngredients'
@@ -22,6 +26,13 @@ export const DrinksRecipesPage = () => {
     const [selectedIngredientIds, setSelectedIngredientIds] = useState<
         string[]
     >([])
+    const categories: IngredientCategories[] = [
+        'Spirits',
+        'Liqueurs',
+        'Mixers',
+        'Wine',
+        'Other',
+    ]
 
     const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
     const [
@@ -29,9 +40,11 @@ export const DrinksRecipesPage = () => {
         setRecipesWithOneOrTwoMissingIngredients,
     ] = useState<Recipe[]>([])
     const [searchIsUsed, setSearchIsUsed] = useState<boolean>(false)
-    const { allRecipes, isLoadingAllRecipes } = useGetAllRecipes()
+    const { allRecipes, isLoadingAllRecipes } = useGetAllRecipes(
+        RecipeCategories.Cocktail
+    )
     const { allIngredients, isLoadingAllIngredients } = useGetAllIngredients()
-
+    console.log('allRecipes', allRecipes)
     const handleSearch = () => {
         setSearchIsUsed(true)
         setRecipesWithOneOrTwoMissingIngredients(
@@ -87,6 +100,7 @@ export const DrinksRecipesPage = () => {
                 ingredients={allIngredients}
                 selectedIngredientIds={selectedIngredientIds}
                 setSelectedIngredientIds={setSelectedIngredientIds}
+                categories={categories}
             />
 
             <div className="flex flex-row justify-center space-x-16 pt-8">

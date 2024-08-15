@@ -19,8 +19,8 @@ const filterRecipesByName = (
     })
 }
 
-export const AllCocktailsPage = () => {
-    const { allRecipes } = useGetAllRecipes(RecipeCategories.Cocktail)
+export const AllFoodsPage = () => {
+    const { allRecipes } = useGetAllRecipes(RecipeCategories.Food)
     const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
 
     const [selectedRecipeName, setSelectedRecipeName] = useState<string>('')
@@ -39,7 +39,7 @@ export const AllCocktailsPage = () => {
         <div>
             <div className="flex flex-col justify-center items-center pl-8 pr-8">
                 <h2 className="text-4xl font-medium pt-10 pb-8">
-                    All Cocktail Recipes
+                    All Food Recipes
                 </h2>
                 <div className="w-3/4 min-w-[310px] max-w-[500px] bg-white">
                     <TextField
