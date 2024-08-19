@@ -8,6 +8,15 @@ export default defineConfig({
         watch: {
             usePolling: true,
         },
+        proxy: {
+            "/getAccessToken": {
+                target: "https://apitest.vipps.no/access-management-1.0/access/oauth2/token",
+                changeOrigin: true,
+                secure: false,
+                rewrite: (p) => p.replace(/^\/getAccessToken/, ""),
+            },
+        },
+        cors: false,
         host: true, // needed for the Docker Container port mapping to work
         strictPort: true,
         port: 5173, // you can replace this port with any port
