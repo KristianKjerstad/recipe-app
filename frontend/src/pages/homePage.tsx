@@ -1,17 +1,21 @@
 import LocalBarOutlined from '@mui/icons-material/LocalBarOutlined'
 import LocalDiningOutlined from '@mui/icons-material/LocalDiningOutlined'
 import Button from '@mui/material/Button'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 export const HomePage = () => {
     const navigate = useNavigate()
 
+    const { userInfo, isAuthenticated } = useContext(AuthContext)
     const handleNavigation = (newUrl: string) => {
         navigate(newUrl)
     }
 
     return (
         <div className="pl-8 pr-8">
+            {isAuthenticated && <p>Welcome, {userInfo.name}</p>}
             <h1 className="text-4xl pt-16 pb-8">Recipe Finder</h1>
             <p className="text-xl">
                 Find your next recipe based on your available ingredients!

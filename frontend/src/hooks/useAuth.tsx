@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
 import * as qs from 'qs'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 const merchantSerialNumber: string =
     import.meta.env.VITE_MERCHANT_SERIAL_NUMBER || 'None'
 const subscriptionKey: string = import.meta.env.VITE_SUBSCRIPTION_KEY || 'None'
@@ -50,9 +51,15 @@ const getUserInfo = async (token: string) => {
     const headers = {
         Authorization: `Bearer ${token}`,
     }
-    return axios.get(url, { headers: headers }).then((response) => {
-        return response.data
-    })
+    return axios
+        .get(url, { headers: headers })
+        .then((response) => {
+            return response.data
+        })
+        .catch((error) => {
+            console.error(error)
+            return ''
+        })
 }
 
 export interface UserData {
@@ -79,15 +86,17 @@ export interface Address {
 export const useAuth = () => {
     const [searchParams, _] = useSearchParams()
     const code = searchParams.get('code') || ''
-
-    const [token, setToken] = useState<string>('')
-    const [userData, setUserData] = useState<UserData | null>()
+    const { setIsAuthenticated, setUserInfo, token, setToken, userInfo } =
+        useContext(AuthContext)
 
     useEffect(() => {
         if (code) {
             async function getTokenWrapper() {
                 const token = await getToken(code)
-                setToken(token)
+                if (token) {
+                    setToken(token)
+                    setIsAuthenticated(true)
+                }
             }
             getTokenWrapper()
         }
@@ -95,14 +104,15 @@ export const useAuth = () => {
 
     useEffect(() => {
         if (token) {
-            console.log('getting user info with token ', token)
             async function getUserDataWrapper() {
                 const userInfo = await getUserInfo(token)
-                setUserData(userInfo)
+                if (userInfo) {
+                    setUserInfo(userInfo)
+                }
             }
             getUserDataWrapper()
         }
     }, [token])
 
-    return { userData }
+    return { userInfo }
 }

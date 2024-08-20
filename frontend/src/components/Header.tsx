@@ -1,54 +1,18 @@
 import { Button, Drawer } from '@mui/material'
-import { Client, LoginAuthQueryParams } from '@vippsmobilepay/sdk'
-import axios, { AxiosResponse } from 'axios'
-import { useState } from 'react'
+
+import { useContext, useState } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 import { useScreenWidth } from '../hooks/useScreenWidth'
+import { loginRedirectUrl } from '../utils/authUtils'
 
 // auth
-
-const merchantSerialNumber: string =
-    import.meta.env.VITE_MERCHANT_SERIAL_NUMBER || 'None'
-const subscriptionKey: string = import.meta.env.VITE_SUBSCRIPTION_KEY || 'None'
-const CLIENT_ID: string = import.meta.env.VITE_CLIENT_ID || 'None'
-const CLIENT_SECRET: string = import.meta.env.VITE_CLIENT_SECRET || 'None'
-
-// Create a client
-const client = Client({
-    merchantSerialNumber,
-    subscriptionKey,
-    useTestMode: true,
-    retryRequests: false,
-})
-
-const config = await axios
-    .get(
-        'https://apitest.vipps.no/access-management-1.0/access/.well-known/openid-configuration'
-    )
-    .then((response: AxiosResponse) => {
-        return response.data
-    })
-    .catch((error) => {
-        console.error('😟 Error discovering configuration 😟')
-        console.error(error)
-    })
-
-const queryParameters: LoginAuthQueryParams = {
-    client_id: CLIENT_ID,
-    redirect_uri: 'http://localhost:5173/auth',
-    scope: 'openid name phoneNumber address birthDate',
-    response_type: 'code',
-    state: crypto.randomUUID(),
-}
-const searchParams = Object.entries(queryParameters)
-    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-    .join('&')
-const redirectUrl = `${config.authorization_endpoint}?${searchParams}`
 
 export const Header = () => {
     const navigate = useNavigate()
     const { width } = useScreenWidth()
+    const { isAuthenticated, signOut } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     const SCREEN_WIDTH_LIMIT = 800
@@ -81,10 +45,14 @@ export const Header = () => {
                                 variant="contained"
                                 color="lightGreen"
                                 onClick={async () => {
-                                    await open(redirectUrl)
+                                    if (!isAuthenticated) {
+                                        await open(loginRedirectUrl)
+                                    } else {
+                                        signOut()
+                                    }
                                 }}
                             >
-                                Sign In
+                                {isAuthenticated ? 'Sign out' : 'Sign in'}
                             </Button>
                         </div>
                     </>

@@ -1,15 +1,14 @@
 import { useAuth } from '../hooks/useAuth'
 
 export const Auth = () => {
-    const { userData } = useAuth()
-    console.log('userdata', userData)
+    const { userInfo } = useAuth()
+    console.log('userdata', userInfo)
 
     return (
         <div>
             {/* <p>{token}</p> */}
-            <p>name: {userData?.name ?? 'None'}</p>
-            <p>Phone number: {userData?.phone_number ?? 'None'}</p>
-            <p>birthdate: {userData?.birthdate ?? 'None'}</p>
+            <p>name: {userInfo?.name ?? 'None'}</p>
+            <p>Phone number: {userInfo?.phone_number ?? 'None'}</p>
         </div>
     )
 }
